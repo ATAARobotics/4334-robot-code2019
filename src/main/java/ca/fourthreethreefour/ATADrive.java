@@ -1,4 +1,4 @@
-package frc.robot;
+package ca.fourthreethreefour;
 
 
 // import libraries
@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 
 
-public class SWATDrive {
+public class ATADrive {
 
     //create static variables that we can change
     public static final double kDefaultDeadband = 0.02;
@@ -36,7 +36,7 @@ public class SWATDrive {
     DoubleSolenoid gearShifter;
 
     // constructor that creates the object
-    public SWATDrive(BaseMotorController frontLeftMotor, BaseMotorController rearLeftMotor, BaseMotorController frontRightMotor, BaseMotorController rearRightMotor, DoubleSolenoid gearShiftSolenoid) {
+    public ATADrive(BaseMotorController frontLeftMotor, BaseMotorController rearLeftMotor, BaseMotorController frontRightMotor, BaseMotorController rearRightMotor, DoubleSolenoid gearShiftSolenoid) {
         m_frontLeftMotor = frontLeftMotor;
         m_frontRightMotor = frontRightMotor;
         m_rearLeftMotor = rearLeftMotor;
