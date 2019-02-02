@@ -16,7 +16,7 @@ public class Teleop {
     private TalonSRX frontLeftMotor = new TalonSRX(0);
     private VictorSPX rearRightMotor = new VictorSPX(3);
     private TalonSRX frontRightMotor = new TalonSRX(2);
-    private SWATDrive driveTrain = new SWATDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor, gearShiftSolenoid);
+    private ATADrive driveTrain = new SWATDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor, gearShiftSolenoid);
     private boolean lowGear = true;
 
 
