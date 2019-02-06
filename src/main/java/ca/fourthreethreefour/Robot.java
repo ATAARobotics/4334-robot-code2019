@@ -7,6 +7,7 @@
 
 package ca.fourthreethreefour;
 
+import ca.fourthreethreefour.autonomous.Auto;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 /**
@@ -17,7 +18,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
  * directory.
  */
 public class Robot extends TimedRobot {
-
+  Auto auto = new Auto();
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -31,6 +32,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    auto.AutoInit(); // Runs everything set in the .AutoInit() function.
   }
 
   /**
@@ -38,6 +40,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
+    auto.AutoPeriodic(); // Runs everything set in the .AutoPeriodic() function.
   }
 
   /**
@@ -45,6 +48,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopInit() {
+    auto.AutoDisabled(); // Runs everything set in the .AutoDisabled() function.
   }
 
   /**
