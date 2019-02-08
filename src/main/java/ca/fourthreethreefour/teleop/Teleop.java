@@ -12,6 +12,10 @@ public class Teleop {
   private Joystick driveStick = new Joystick(0);
   private Drive drive = new Drive();
 
+  public void TeleopInit() {
+    
+  }
+
   public void TeleopPeriodic() {
     drive.drive(driveStick);
     
