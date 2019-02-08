@@ -7,18 +7,25 @@
 
 package ca.fourthreethreefour.teleop.intake;
 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- * Add your docs here.
+ * Subsystem that is designed to control the Cargo mecahnisms
  */
 public class Cargo extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
+
+  private TalonSRX cargoOuttakeLeftMotor = new TalonSRX(0);
+  private TalonSRX cargoOuttakeRightMotor = new TalonSRX(1);
+  private TalonSRX intakeRotateMotor1 = new TalonSRX(2);
+  private TalonSRX intakeRotateMotor2 = new TalonSRX(3);
 
   @Override
   public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
+  }
+
+  public void cargoTransfer() {
+    
   }
 }
