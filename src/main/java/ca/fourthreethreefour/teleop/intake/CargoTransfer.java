@@ -14,15 +14,15 @@ import ca.fourthreethreefour.teleop.intake.Cargo;
 /**
  * Add your docs here.
  */
-public class CargoOuttake extends Command {
+public class CargoTransfer extends Command {
   /**
    * Add your docs here.
    */
 
    Cargo cargo = new Cargo();
-   double motorSpeed;
+   Double motorSpeed;
    boolean isDone;
-  public CargoOuttake(double speed, boolean finished) {
+  public CargoTransfer(double speed, boolean finished) {
     motorSpeed = speed;
     isDone = finished;
     requires(cargo);
@@ -33,7 +33,7 @@ public class CargoOuttake extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    cargo.cargoOuttake(motorSpeed);
+    cargo.cargoTransfer(motorSpeed);
   }
 
   // Called repeatedly when this Command is scheduled to run
