@@ -7,6 +7,7 @@
 
 package ca.fourthreethreefour;
 
+import ca.fourthreethreefour.teleop.Teleop;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 /**
