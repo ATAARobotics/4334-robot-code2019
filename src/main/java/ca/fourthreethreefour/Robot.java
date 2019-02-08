@@ -8,6 +8,7 @@
 package ca.fourthreethreefour;
 
 import ca.fourthreethreefour.autonomous.Auto;
+import ca.fourthreethreefour.shuffleboard.Settings;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 /**
@@ -19,12 +20,24 @@ import edu.wpi.first.wpilibj.TimedRobot;
  */
 public class Robot extends TimedRobot {
   Auto auto = new Auto();
+
+  Settings shuffleboard = new Settings();
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
    */
   @Override
   public void robotInit() {
+    shuffleboard.ShuffleInit();
+  }
+
+  /**
+   * This function is called periodically while disabled.
+   */
+  @Override
+  public void disabledPeriodic() {
+    shuffleboard.ShufflePeriodic();
+    System.out.println(shuffleboard.EXAMPLE_PORT);
   }
 
   /**
