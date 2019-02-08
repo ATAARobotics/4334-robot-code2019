@@ -25,15 +25,20 @@ public class Settings {
     NetworkTableEntry LOGGING_ENABLED_ENTRY;
     static public boolean LOGGING_ENABLED;
 
+    /**
+     * Creates the specified objects for shuffleboard, and updates the variables that only
+     * needs to be updated at initialization.
+     */
     public void ShuffleInit() {
-        // Creates the object on shuffleboard, and updates the port value
         EXAMPLE_PORT_ENTRY = exampleTab.addPersistent("Example Port", 0).getEntry();
         EXAMPLE_PORT = (int) EXAMPLE_PORT_ENTRY.getDouble(0);
         LOGGING_ENABLED_ENTRY = settingsTab.addPersistent("Logging", true).withWidget(BuiltInWidgets.kToggleSwitch).getEntry();
     }
 
+    /**
+     * Updates the variables designed to be updated while the robot is powered.
+     */
     public void ShufflePeriodic() {
-        // Updates the dynamic values
         LOGGING_ENABLED = LOGGING_ENABLED_ENTRY.getBoolean(false);
     }
 
