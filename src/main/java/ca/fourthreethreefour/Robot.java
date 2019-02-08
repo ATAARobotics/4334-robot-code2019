@@ -36,7 +36,6 @@ public class Robot extends TimedRobot {
   public void disabledPeriodic() {
     shuffleboard.ShufflePeriodic();
     System.out.println(shuffleboard.EXAMPLE_PORT);
-    System.out.println(shuffleboard.EXAMPLE);
   }
 
   /**
