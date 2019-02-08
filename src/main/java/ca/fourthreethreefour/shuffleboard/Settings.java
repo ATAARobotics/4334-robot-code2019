@@ -4,24 +4,35 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
+/**
+ * Settings class that contains all shuffleboard required code so it's all in a 
+ * centralized locaton.
+ * 
+ * @author Cool Kornak
+ */
 public class Settings {
 
-    private ShuffleboardTab testTab = Shuffleboard.getTab("Test");
+    // Example of ShuffleboardTab setup.
+    private ShuffleboardTab exampleTab = Shuffleboard.getTab("Example");
 
-    private NetworkTableEntry TEST_ENTRY;
-    public double TEST;
+    // Example of port (non-dynamic) entries setup
+    private NetworkTableEntry EXAMPLE_PORT_ENTRY;
+    public int EXAMPLE_PORT;
 
-    private NetworkTableEntry TEST_ENTRY_2;
-    public double TEST_2;
+    // Example of dynamic entry setup
+    private NetworkTableEntry EXAMPLE_ENTRY;
+    public double EXAMPLE;
 
     public void ShuffleInit() {
-        TEST_ENTRY = testTab.addPersistent("Test", 0).getEntry();
-        TEST = TEST_ENTRY.getDouble(0);
-        TEST_ENTRY_2 = testTab.addPersistent("Test 2", 1).getEntry();
+        // Creates the object on shuffleboard, and updates the port value
+        EXAMPLE_PORT_ENTRY = exampleTab.addPersistent("Example Port", 0).getEntry();
+        EXAMPLE_PORT = (int) EXAMPLE_PORT_ENTRY.getDouble(0);
+        EXAMPLE_ENTRY = exampleTab.addPersistent("Example", 1).getEntry();
     }
 
     public void ShufflePeriodic() {
-        TEST_2 = TEST_ENTRY_2.getDouble(1);
+        // Updates the dynamic values
+        EXAMPLE = EXAMPLE_ENTRY.getDouble(1);
     }
 
 
