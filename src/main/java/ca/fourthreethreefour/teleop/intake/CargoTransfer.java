@@ -10,6 +10,7 @@ package ca.fourthreethreefour.teleop.intake;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.TimedCommand;
 import ca.fourthreethreefour.teleop.intake.Cargo;
+import ca.fourthreethreefour.teleop.systems.Encoders;
 
 /**
  * Add your docs here.
@@ -20,6 +21,7 @@ public class CargoTransfer extends Command {
    */
 
    Cargo cargo = new Cargo();
+   Encoders encoders = new Encoders();
    Double motorSpeed;
    boolean isDone;
   public CargoTransfer(double speed, boolean finished) {
@@ -44,7 +46,11 @@ public class CargoTransfer extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return isDone;
+    if (isDone || Encoders.cargoButton.get()) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   // Called once after isFinished returns true
