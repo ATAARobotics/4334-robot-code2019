@@ -7,6 +7,7 @@
 
 package ca.fourthreethreefour;
 
+import ca.fourthreethreefour.teleop.Teleop;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 /**
@@ -17,6 +18,8 @@ import edu.wpi.first.wpilibj.TimedRobot;
  * directory.
  */
 public class Robot extends TimedRobot {
+
+  Teleop teleop = new Teleop();
 
   /**
    * This function is run when the robot is first started up and should be
@@ -52,6 +55,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    teleop.TeleopPeriodic();
   }
 
   /**

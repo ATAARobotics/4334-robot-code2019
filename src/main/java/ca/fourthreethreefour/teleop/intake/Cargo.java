@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
+import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -18,24 +19,23 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Cargo extends Subsystem {
 
-  private VictorSPX cargoOuttakeLeftMotor = new VictorSPX(0);
-  private VictorSPX cargoOuttakeRightMotor = new VictorSPX(1);
+  private VictorSP cargoOuttakeLeftMotor = new VictorSP(0);
+  private VictorSP cargoOuttakeRightMotor = new VictorSP(1);
   private VictorSPX intakeRotateMotor1 = new VictorSPX(2);
   private VictorSPX intakeRotateMotor2 = new VictorSPX(3);
-
 
   @Override
   public void initDefaultCommand() {
   }
 
   public void cargoTransfer(double speed) {
-    cargoOuttakeLeftMotor.set(ControlMode.PercentOutput, speed);
-    cargoOuttakeRightMotor.set(ControlMode.PercentOutput, -speed);
+    cargoOuttakeLeftMotor.set(speed);
+    cargoOuttakeRightMotor.set(-speed);
   }
 
   public void cargoOuttake(double speed) {
-    cargoOuttakeLeftMotor.set(ControlMode.PercentOutput, -speed);
-    cargoOuttakeRightMotor.set(ControlMode.PercentOutput, speed);
+    cargoOuttakeLeftMotor.set(-speed);
+    cargoOuttakeRightMotor.set(speed);
   }
 
   public void intakeRotate(double speed) {
@@ -44,7 +44,7 @@ public class Cargo extends Subsystem {
   }
 
   public void stop() {
-    cargoOuttakeLeftMotor.set(ControlMode.PercentOutput, 0);
-    cargoOuttakeRightMotor.set(ControlMode.PercentOutput, -0);
+    cargoOuttakeLeftMotor.set(0);
+    cargoOuttakeRightMotor.set(-0);
   }
 }

@@ -9,6 +9,7 @@ package ca.fourthreethreefour.teleop.intake;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.TimedCommand;
+import ca.fourthreethreefour.teleop.Teleop;
 import ca.fourthreethreefour.teleop.intake.Cargo;
 
 /**
@@ -19,13 +20,13 @@ public class CargoOuttake extends Command {
    * Add your docs here.
    */
 
-   Cargo cargo = new Cargo();
+  //  Cargo cargo = new Cargo();
    double motorSpeed;
    boolean isDone;
   public CargoOuttake(double speed, boolean finished) {
     motorSpeed = speed;
     isDone = finished;
-    requires(cargo);
+    requires(Teleop.cargo);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -33,7 +34,8 @@ public class CargoOuttake extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    cargo.cargoOuttake(motorSpeed);
+    Teleop.cargo.cargoOuttake(motorSpeed);
+    System.out.println(motorSpeed);
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -50,7 +52,7 @@ public class CargoOuttake extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    cargo.stop();
+    Teleop.cargo.stop();
   }
 
   // Called when another command which requires one or more of the same

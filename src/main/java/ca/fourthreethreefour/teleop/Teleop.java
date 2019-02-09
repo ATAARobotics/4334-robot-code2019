@@ -15,14 +15,14 @@ public class Teleop {
   //to their respective ports on the Driver Station
   private XboxController driveStick = new XboxController(0);
   
-  Cargo cargo = new Cargo();
+  public static Cargo cargo = new Cargo();
 
   public void TeleopPeriodic() {
-    if (driveStick.getYButton()) {
-      new CargoOuttake(0.5, !driveStick.getYButton());
+    if (driveStick.getYButtonPressed()) {
+      new CargoOuttake(0.5, driveStick.getYButtonReleased());
     }
-    if (driveStick.getXButton()) {
-      new CargoTransfer(0.5, !driveStick.getXButton());
+    if (driveStick.getXButtonPressed()) {
+      new CargoTransfer(0.5, driveStick.getXButtonReleased());
     }
 
     double intakeSpeed = driveStick.getTriggerAxis(Hand.kRight) - driveStick.getTriggerAxis(Hand.kLeft);
