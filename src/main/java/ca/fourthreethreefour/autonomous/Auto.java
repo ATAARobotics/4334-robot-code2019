@@ -15,7 +15,8 @@ public class Auto {
 
   public Auto(Teleop tele) {
     this.teleop = tele;
-    this.pathFinder = new PathFinder();
+
+    this.pathFinder = new PathFinder(teleop);
   }
   /**
    * Function that contains 'tasks' designed to be ran at initalization
@@ -35,7 +36,7 @@ public class Auto {
    * Function that contains 'tasks' designed to be ran at disablization (Is that a word? Idk gonna use it though).
    */
   public void AutoDisabled() {
-
+    pathFinder.stop();
   }
 
 }

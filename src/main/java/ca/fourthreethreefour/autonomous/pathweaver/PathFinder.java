@@ -8,6 +8,9 @@
 package ca.fourthreethreefour.autonomous.pathweaver;
 
 import ca.fourthreethreefour.teleop.Teleop;
+import ca.fourthreethreefour.teleop.systems.Encoders;
+import edu.wpi.first.wpilibj.AnalogGyro;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Notifier;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.PathfinderFRC;
@@ -31,9 +34,18 @@ public class PathFinder {
     private Notifier m_follower_notifier;
 
     private Teleop teleop;
+    private Encoder m_left_encoder;
+    private Encoder m_right_encoder;
+    private AnalogGyro m_gyro;
 
+    /**
+     * 
+     */
     public PathFinder(Teleop teleop) {
         this.teleop = teleop;
+        this.m_left_encoder = Encoders.leftEncoder;
+        this.m_right_encoder = Encoders.rightEncoder;
+        this.m_gyro = Encoders.gyro;
     }
 
     public void pathRun() {
@@ -66,15 +78,12 @@ public class PathFinder {
             double heading_difference = Pathfinder.boundHalfDegrees(desired_heading - heading);
             double turn =  0.8 * (-1.0/80.0) * heading_difference;
             
-            // leftMotors.set(left_speed + turn);
-            // rightMotors.set(right_speed - turn);
-            teleop.ExtDrive(driveValue, turnValue);
+            teleop.ExtDrive(left_speed + turn, right_speed - turn);
         }
     }
     
     public void stop() {
         m_follower_notifier.stop();
-        leftMotors.set(0);
-        rightMotors.set(0);
+        teleop.ExtDrive(0, 0);
     }
 }
