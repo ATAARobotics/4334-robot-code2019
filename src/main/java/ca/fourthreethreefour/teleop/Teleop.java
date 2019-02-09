@@ -24,7 +24,7 @@ public class Teleop {
     }
   }
 
-  public void ExtDrive(double driveValue, double turnValue) {
-    drive.ExtDrive(driveValue, turnValue);
+  public void ExtDrive(double leftValue, double rightValue) {
+    drive.ExtDrive(leftValue, rightValue);
   }
 }
