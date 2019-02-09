@@ -8,7 +8,7 @@ public class Teleop {
 
   //Creates and initializes joystick objects and assigns them
   //to their respective ports on the Driver Station
-  private Joystick gunnerStick = new Joystick(1);
+  private Joystick operatorStick = new Joystick(1);
   private Joystick driveStick = new Joystick(0);
   private Drive drive = new Drive();
 
@@ -22,10 +22,9 @@ public class Teleop {
     if(driveStick.getRawButton(3)) {
       drive.gearShift();
     }
-    
-    if (driveStick.getRawButton(1)) {
-      drive.speedShift();
-    }
+  }
 
+  public void ExtDrive(double driveValue, double turnValue) {
+    drive.ExtDrive(driveValue, turnValue);
   }
 }
