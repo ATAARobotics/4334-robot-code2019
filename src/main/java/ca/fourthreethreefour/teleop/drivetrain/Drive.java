@@ -49,10 +49,8 @@ public class Drive extends Subsystem {
     driveTrain.tankDrive(leftSpeed, rightSpeed);
   }
 
-  public void ExtDrive(double driveValue, double turnValue) {
-    double leftSpeed = driveValue - turnValue;
-    double rightSpeed = driveValue + turnValue;
-    driveTrain.tankDrive(leftSpeed, rightSpeed);
+  public void ExtDrive(double leftDrive, double rightDrive) {
+    driveTrain.tankDrive(leftDrive, rightDrive);
   }
 
   public void gearShift() {
