@@ -9,6 +9,7 @@ package ca.fourthreethreefour;
 
 import ca.fourthreethreefour.autonomous.Auto;
 import ca.fourthreethreefour.shuffleboard.Settings;
+import ca.fourthreethreefour.teleop.Teleop;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 /**
@@ -19,7 +20,8 @@ import edu.wpi.first.wpilibj.TimedRobot;
  * directory.
  */
 public class Robot extends TimedRobot {
-  Auto auto = new Auto();
+  Teleop teleop = new Teleop();
+  Auto auto = new Auto(teleop);
 
   Settings shuffleboard = new Settings();
   /**

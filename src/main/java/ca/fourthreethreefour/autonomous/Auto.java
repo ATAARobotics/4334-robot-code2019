@@ -1,5 +1,8 @@
 package ca.fourthreethreefour.autonomous;
 
+import ca.fourthreethreefour.autonomous.pathweaver.PathFinder;
+import ca.fourthreethreefour.teleop.Teleop;
+
 /**
  * Auto class which contains everything autonomous period related
  * 
@@ -7,11 +10,18 @@ package ca.fourthreethreefour.autonomous;
  */
 public class Auto {
 
+  private Teleop teleop;
+  private PathFinder pathFinder;
+
+  public Auto(Teleop tele) {
+    this.teleop = tele;
+    this.pathFinder = new PathFinder();
+  }
   /**
    * Function that contains 'tasks' designed to be ran at initalization
    */
   public void AutoInit() {
-
+    pathFinder.pathRun();
   }
 
   /**
