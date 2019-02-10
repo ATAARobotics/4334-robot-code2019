@@ -21,12 +21,12 @@ public class Teleop {
     if (driveStick.getYButton()) {
       cargo.cargoOuttake(1);
     } else {
-      cargo.cargoOuttake(0);
+      cargo.stop();
     }
     if (driveStick.getXButton()) {
       cargo.cargoTransfer(1);
     } else {
-      cargo.cargoTransfer(0);
+      cargo.stop();
     }
 
     double intakeSpeed = driveStick.getTriggerAxis(Hand.kRight) - driveStick.getTriggerAxis(Hand.kLeft);
