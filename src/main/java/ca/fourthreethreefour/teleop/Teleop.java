@@ -1,12 +1,8 @@
 package ca.fourthreethreefour.teleop;
 
 import ca.fourthreethreefour.teleop.intake.Cargo;
-import ca.fourthreethreefour.teleop.intake.CargoOuttake;
-import ca.fourthreethreefour.teleop.intake.CargoTransfer;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.Joystick.ButtonType;
 
 public class Teleop {
 
