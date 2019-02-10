@@ -21,9 +21,9 @@ import jaci.pathfinder.followers.EncoderFollower;
  */
 public class PathFinder {
 
-    private static final int k_ticks_per_rev = 1024;
-    private static final double k_wheel_diameter = 4.0 / 12.0;
-    private static final double k_max_velocity = 10;
+    private static final int k_ticks_per_rev = 30000;
+    private static final double k_wheel_diameter = 0.1524;
+    private static final double k_max_velocity = 4.5;
 
     private static final String k_path_name = "Straight1";
 
