@@ -19,10 +19,14 @@ public class Teleop {
 
   public void TeleopPeriodic() {
     if (driveStick.getYButton()) {
-      new CargoOuttake(1, !driveStick.getYButton());
+      cargo.cargoOuttake(1);
+    } else {
+      cargo.cargoOuttake(0);
     }
     if (driveStick.getXButton()) {
-      new CargoTransfer(1, !driveStick.getXButton());
+      cargo.cargoTransfer(1);
+    } else {
+      cargo.cargoTransfer(0);
     }
 
     double intakeSpeed = driveStick.getTriggerAxis(Hand.kRight) - driveStick.getTriggerAxis(Hand.kLeft);
