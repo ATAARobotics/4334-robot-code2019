@@ -1,6 +1,7 @@
 package ca.fourthreethreefour.teleop;
 
 import ca.fourthreethreefour.teleop.intake.Cargo;
+import ca.fourthreethreefour.teleop.systems.Encoders;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 
@@ -12,6 +13,7 @@ public class Teleop {
   private XboxController driveStick = new XboxController(0);
   
   public static Cargo cargo = new Cargo();
+  public Encoders encoders = new Encoders();
 
   public void TeleopPeriodic() {
     if (driveStick.getYButton()) {
@@ -19,7 +21,7 @@ public class Teleop {
     } else {
       cargo.stop();
     }
-    if (driveStick.getXButton()) {
+    if (driveStick.getXButton() && !encoders.cargoButton.get()) {
       cargo.cargoTransfer(1);
     } else {
       cargo.stop();
