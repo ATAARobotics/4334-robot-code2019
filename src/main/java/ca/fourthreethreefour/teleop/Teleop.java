@@ -6,9 +6,7 @@ import edu.wpi.first.wpilibj.XboxController;
 public class Teleop {
 
 
-  //Creates and initializes joystick objects and assigns them
-  //to their respective ports on the Driver Station
-  private XboxController operatorStick = new XboxController(1);
+  //Creates and initializes joystick objects and assigns them to their respective ports on the Driver Station
   private XboxController driveStick = new XboxController(0);
   private Drive drive = new Drive();
 
