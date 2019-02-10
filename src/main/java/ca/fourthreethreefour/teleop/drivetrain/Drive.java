@@ -11,9 +11,9 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -42,17 +42,32 @@ public class Drive extends Subsystem {
     // setDefaultCommand(new MySpecialCommand());
   }
 
-  public void drive(Joystick controller) {
+  /**
+   * Drive function with controller
+   * @param controller controller to drive with
+   * @return void
+   */
+  public void drive(XboxController controller) {
     //Calls the arcadeDrive class in teleop
     double leftSpeed = controller.getRawAxis(1) - controller.getRawAxis(4);
     double rightSpeed = controller.getRawAxis(1) + controller.getRawAxis(4);
     driveTrain.tankDrive(leftSpeed, rightSpeed);
   }
 
+  /**
+   * Drive function for external use
+   * @param leftValue value for left motors
+   * @param rightValue value right motors
+   * @return void
+   */
   public void ExtDrive(double leftDrive, double rightDrive) {
     driveTrain.tankDrive(leftDrive, rightDrive);
   }
 
+  /**
+   * Gearshift function
+   * @return void
+   */
   public void gearShift() {
       lowGear = !lowGear;
       //need to add solenoids
