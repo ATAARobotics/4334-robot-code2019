@@ -10,7 +10,6 @@ package ca.fourthreethreefour;
 import ca.fourthreethreefour.autonomous.Auto;
 import ca.fourthreethreefour.shuffleboard.Settings;
 import ca.fourthreethreefour.teleop.Teleop;
-import ca.fourthreethreefour.teleop.systems.Encoders;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 /**
@@ -23,7 +22,6 @@ import edu.wpi.first.wpilibj.TimedRobot;
 public class Robot extends TimedRobot {
   Teleop teleop = new Teleop();
   Auto auto = new Auto(teleop);
-  Encoders encoder = new Encoders();
 
   Settings shuffleboard = new Settings();
   /**
@@ -33,6 +31,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     shuffleboard.ShuffleInit();
+    teleop.RobotInit();
   }
 
   /**

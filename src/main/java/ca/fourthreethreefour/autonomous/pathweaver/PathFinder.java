@@ -7,10 +7,9 @@
 
 package ca.fourthreethreefour.autonomous.pathweaver;
 
+import com.kauailabs.navx.frc.AHRS;
+
 import ca.fourthreethreefour.teleop.Teleop;
-import ca.fourthreethreefour.teleop.systems.Encoders;
-import edu.wpi.first.wpilibj.AnalogGyro;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Notifier;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.PathfinderFRC;
@@ -26,59 +25,69 @@ public class PathFinder {
     private static final double k_wheel_diameter = 4.0 / 12.0;
     private static final double k_max_velocity = 10;
 
-    private static final String k_path_name = "Test";
+    private static final String k_path_name = "Straight1";
 
-    private EncoderFollower m_left_follower;
-    private EncoderFollower m_right_follower;
+    private EncoderFollower drivetrainControllerLeft;
+    private EncoderFollower drivetrainControllerRight;
   
     private Notifier m_follower_notifier;
 
     private Teleop teleop;
-    private Encoder m_left_encoder;
-    private Encoder m_right_encoder;
-    private AnalogGyro m_gyro;
+    private AHRS m_navX;
 
     /**
      * 
      */
     public PathFinder(Teleop teleop) {
         this.teleop = teleop;
-        this.m_left_encoder = Encoders.leftEncoder;
-        this.m_right_encoder = Encoders.rightEncoder;
-        this.m_gyro = Encoders.gyro;
+        this.m_navX = teleop.encoder.navX;
     }
 
     public void pathRun() {
-        Trajectory left_trajectory = PathfinderFRC.getTrajectory(k_path_name + ".right");
-        Trajectory right_trajectory = PathfinderFRC.getTrajectory(k_path_name + ".left");
 
-        m_left_follower = new EncoderFollower(left_trajectory);
-        m_right_follower = new EncoderFollower(right_trajectory);
+        m_navX.reset();
 
-        m_left_follower.configureEncoder(m_left_encoder.get(), k_ticks_per_rev, k_wheel_diameter);
+        teleop.drive.frontLeftMotor.setSelectedSensorPosition(0);
+        teleop.drive.frontRightMotor.setSelectedSensorPosition(0);
+        
+        teleop.drive.driveTrain.setSafetyEnabled(false);
+        
+        Trajectory left_trajectory = PathfinderFRC.getTrajectory(k_path_name + ".left");
+        Trajectory right_trajectory = PathfinderFRC.getTrajectory(k_path_name + ".right");
+
+        drivetrainControllerLeft = new EncoderFollower(left_trajectory);
+        drivetrainControllerRight = new EncoderFollower(right_trajectory);
+
+        drivetrainControllerLeft.configureEncoder(teleop.drive.frontLeftMotor.getSelectedSensorPosition(), k_ticks_per_rev, k_wheel_diameter);
         // You must tune the PID values on the following line!
-        m_left_follower.configurePIDVA(1.0, 0.0, 0.0, 1 / k_max_velocity, 0);
+        drivetrainControllerLeft.configurePIDVA(1.0, 0.15, 0.1, 1 / k_max_velocity, 0);
 
-        m_right_follower.configureEncoder(m_right_encoder.get(), k_ticks_per_rev, k_wheel_diameter);
+        drivetrainControllerRight.configureEncoder(teleop.drive.frontRightMotor.getSelectedSensorPosition(), k_ticks_per_rev, k_wheel_diameter);
         // You must tune the PID values on the following line!
-        m_right_follower.configurePIDVA(1.0, 0.0, 0.0, 1 / k_max_velocity, 0);
+        drivetrainControllerRight.configurePIDVA(1.0, 0.15, 0.1, 1 / k_max_velocity, 0);
         
         m_follower_notifier = new Notifier(this::followPath);
         m_follower_notifier.startPeriodic(left_trajectory.get(0).dt);
     }
 
     private void followPath() {
-        if (m_left_follower.isFinished() || m_right_follower.isFinished()) {
+        if (drivetrainControllerLeft.isFinished() || drivetrainControllerRight.isFinished()) {
           m_follower_notifier.stop();
         } else {
-            double left_speed = m_left_follower.calculate(m_left_encoder.get());
-            double right_speed = m_right_follower.calculate(m_right_encoder.get());
-            double heading = m_gyro.getAngle();
-            double desired_heading = Pathfinder.r2d(m_left_follower.getHeading());
+            double left_speed = drivetrainControllerLeft.calculate(teleop.drive.frontLeftMotor.getSelectedSensorPosition());
+            double right_speed = drivetrainControllerRight.calculate(teleop.drive.frontRightMotor.getSelectedSensorPosition());
+            double heading = m_navX.getAngle();
+            double desired_heading = Pathfinder.r2d(drivetrainControllerLeft.getHeading());
             double heading_difference = Pathfinder.boundHalfDegrees(desired_heading - heading);
             double turn =  0.8 * (-1.0/80.0) * heading_difference;
             
-            teleop.ExtDrive(left_speed + turn, right_speed - turn);
+            teleop.ExtDrive(-left_speed - turn, right_speed + turn);
+            System.out.println("--------------------------------------------------------------------------");
+            System.out.println("Drivetrain Left Code: " + left_speed);
+            System.out.println("Drivetrain Right Code: " + right_speed);
+            System.out.println("Drivetrain Left Actual: " + teleop.drive.leftSpeedControllerGroup.get());
+            System.out.println("Drivetrain Right Actual: " + teleop.drive.rightSpeedControllerGroup.get());
+            System.out.println("--------------------------------------------------------------------------");
         }
     }
     

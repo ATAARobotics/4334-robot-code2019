@@ -8,13 +8,12 @@
 package ca.fourthreethreefour.teleop.drivetrain;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 /**
  * Add your docs here.
@@ -26,12 +25,12 @@ public class Drive extends Subsystem {
     //assigns them to their respective ports on the robot
     private DoubleSolenoid gearShiftSolenoid = new DoubleSolenoid(2, 3); //may need to add another solenoid, there is two gearboxes after all.
     private WPI_TalonSRX rearLeftMotor = new WPI_TalonSRX(1);
-    private WPI_TalonSRX frontLeftMotor = new WPI_TalonSRX(0);
+    public WPI_TalonSRX frontLeftMotor = new WPI_TalonSRX(0);
     private WPI_TalonSRX rearRightMotor = new WPI_TalonSRX(3);
-    private WPI_TalonSRX frontRightMotor = new WPI_TalonSRX(2);
-    private SpeedControllerGroup leftSpeedControllerGroup = new SpeedControllerGroup(rearLeftMotor, frontLeftMotor);
-    private SpeedControllerGroup rightSpeedControllerGroup = new SpeedControllerGroup(rearRightMotor, frontRightMotor);
-    private DifferentialDrive driveTrain = new DifferentialDrive(leftSpeedControllerGroup, rightSpeedControllerGroup);
+    public WPI_TalonSRX frontRightMotor = new WPI_TalonSRX(2);
+    public SpeedControllerGroup leftSpeedControllerGroup = new SpeedControllerGroup(rearLeftMotor, frontLeftMotor);
+    public SpeedControllerGroup rightSpeedControllerGroup = new SpeedControllerGroup(rearRightMotor, frontRightMotor);
+    public DifferentialDrive driveTrain = new DifferentialDrive(leftSpeedControllerGroup, rightSpeedControllerGroup);
     //Sets the boolean lowGear equal to true
     private boolean lowGear = true;
     private boolean slow = false;
