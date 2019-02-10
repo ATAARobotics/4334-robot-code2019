@@ -27,6 +27,11 @@ public class CargoOuttake extends Command {
     motorSpeed = speed;
     isDone = finished;
     requires(Teleop.cargo);
+    if (isDone) {
+      end();
+    } else {
+      initialize();
+    }
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -35,7 +40,6 @@ public class CargoOuttake extends Command {
   @Override
   protected void initialize() {
     Teleop.cargo.cargoOuttake(motorSpeed);
-    System.out.println(motorSpeed);
   }
 
   // Called repeatedly when this Command is scheduled to run

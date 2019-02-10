@@ -29,6 +29,11 @@ public class CargoTransfer extends Command {
     motorSpeed = speed;
     isDone = finished;
     requires(Teleop.cargo);
+    if (isDone) {
+      end();
+    } else {
+      initialize();
+    }
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -37,7 +42,6 @@ public class CargoTransfer extends Command {
   @Override
   protected void initialize() {
     Teleop.cargo.cargoTransfer(motorSpeed);
-    System.out.println(motorSpeed);
   }
 
   // Called repeatedly when this Command is scheduled to run
