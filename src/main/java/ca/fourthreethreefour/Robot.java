@@ -58,6 +58,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopInit() {
+    teleop.cargo.intakeRotateMotor1.setSafetyEnabled(true);
+    teleop.cargo.intakeRotateMotor2.setSafetyEnabled(true);
     teleop.TeleopInit();
   }
 
