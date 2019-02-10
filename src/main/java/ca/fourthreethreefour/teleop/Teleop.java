@@ -4,6 +4,7 @@ import ca.fourthreethreefour.teleop.intake.Cargo;
 import ca.fourthreethreefour.teleop.systems.Encoders;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import ca.fourthreethreefour.teleop.drivetrain.Drive;
 
 public class Teleop {
 
@@ -14,7 +15,21 @@ public class Teleop {
   
   public Cargo cargo = new Cargo();
   public Encoders encoders = new Encoders();
+  private Drive drive = new Drive();
 
+  /**
+   * Runs as the start of teleop
+   * @return void
+   */
+  public void TeleopInit() {
+    
+  }
+  
+
+  /**
+   * Runs periodically during teleop
+   * @return void
+   */
   public void TeleopPeriodic() {
     // if (driveStick.getYButton()) {
       // cargo.cargoOuttake(1);
@@ -34,6 +49,21 @@ public class Teleop {
       cargo.intakeRotate(intakeSpeed*0.25);
 
     };
-    System.out.println(intakeSpeed);
+    
+    drive.drive(driveStick);
+    
+    if(driveStick.getBButton()) {
+      drive.gearShift();
+    }
+  }
+
+  /**
+   * Drive function for external use
+   * @param leftValue value for left motors, ranges from 1 to -1
+   * @param rightValue value for right motors, ranges from 1 to -1
+   * @return void
+   */
+  public void ExtDrive(double leftValue, double rightValue) {
+    drive.ExtDrive(leftValue, rightValue);
   }
 }
