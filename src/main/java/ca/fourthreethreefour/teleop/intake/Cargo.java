@@ -15,23 +15,23 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Cargo extends Subsystem {
 
-  private VictorSP cargoOuttakeLeftMotor = new VictorSP(0);
-  private VictorSP cargoOuttakeRightMotor = new VictorSP(1);
-  private VictorSP intakeRotateMotor1 = new VictorSP(2);
-  private VictorSP intakeRotateMotor2 = new VictorSP(3);
+  public VictorSP cargoOuttakeLeftMotor = new VictorSP(2);
+  public VictorSP cargoOuttakeRightMotor = new VictorSP(3);
+  public VictorSP intakeRotateMotor1 = new VictorSP(0);
+  public VictorSP intakeRotateMotor2 = new VictorSP(1);
 
   @Override
   public void initDefaultCommand() {
   }
 
   public void cargoTransfer(double speed) {
-    cargoOuttakeLeftMotor.set(-speed);
-    cargoOuttakeRightMotor.set(speed);
+    cargoOuttakeLeftMotor.set(speed);
+    cargoOuttakeRightMotor.set(-speed);
   }
 
   public void cargoOuttake(double speed) {
-    cargoOuttakeLeftMotor.set(speed);
-    cargoOuttakeRightMotor.set(-speed);
+    cargoOuttakeLeftMotor.set(-speed);
+    cargoOuttakeRightMotor.set(speed);
   }
 
   public void intakeRotate(double speed) {
