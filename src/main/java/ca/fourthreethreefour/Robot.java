@@ -8,6 +8,7 @@
 package ca.fourthreethreefour;
 
 import ca.fourthreethreefour.shuffleboard.Settings;
+import ca.fourthreethreefour.teleop.Teleop;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 /**
@@ -20,6 +21,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 public class Robot extends TimedRobot {
 
   Settings shuffleboard = new Settings();
+  Teleop teleop = new Teleop();
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -27,6 +29,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     shuffleboard.ShuffleInit();
+    teleop.TeleopInit();
   }
 
   /**
