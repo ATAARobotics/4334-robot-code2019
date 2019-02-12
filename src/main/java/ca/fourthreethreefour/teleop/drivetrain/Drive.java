@@ -2,6 +2,8 @@ package ca.fourthreethreefour.teleop.drivetrain;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
+import ca.fourthreethreefour.commands.ReverseSolenoid;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SpeedController;
@@ -57,7 +59,6 @@ public class Drive extends Subsystem {
    * @return void
    */
   public void gearShift() {
-      lowGear = !lowGear;
-      //need to add solenoids
+      new ReverseSolenoid(gearShiftSolenoid).reverse();
   }
 }
