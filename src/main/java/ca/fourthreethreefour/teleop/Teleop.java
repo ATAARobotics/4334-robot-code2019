@@ -52,7 +52,7 @@ public class Teleop {
     
     drive.drive(driveStick);
     
-    if(driveStick.getBButton()) {
+    if(driveStick.getStickButtonPressed(Hand.kRight)) {
       drive.gearShift();
     }
   }
