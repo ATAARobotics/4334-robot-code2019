@@ -27,7 +27,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    shuffleboard.ShuffleInit();
+    shuffleboard.ShuffleInit(teleop);
+    
   }
 
   /**

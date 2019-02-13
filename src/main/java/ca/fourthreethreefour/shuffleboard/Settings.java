@@ -1,5 +1,6 @@
 package ca.fourthreethreefour.shuffleboard;
 
+import ca.fourthreethreefour.teleop.Teleop;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -15,7 +16,7 @@ public class Settings {
 
     // Example of ShuffleboardTab setup.
     private ShuffleboardTab exampleTab = Shuffleboard.getTab("Example");
-    ShuffleboardTab settingsTab = Shuffleboard.getTab("Settings");
+    public ShuffleboardTab settingsTab = Shuffleboard.getTab("Settings");
 
     // Example of port (non-dynamic) entries setup
     private NetworkTableEntry EXAMPLE_PORT_ENTRY;
@@ -29,10 +30,11 @@ public class Settings {
      * Creates the specified objects for shuffleboard, and updates the variables that only
      * needs to be updated at initialization.
      */
-    public void ShuffleInit() {
+    public void ShuffleInit(Teleop teleop) {
         EXAMPLE_PORT_ENTRY = exampleTab.addPersistent("Example Port", 0).getEntry();
         EXAMPLE_PORT = (int) EXAMPLE_PORT_ENTRY.getDouble(0);
         LOGGING_ENABLED_ENTRY = settingsTab.addPersistent("Logging", true).withWidget(BuiltInWidgets.kToggleSwitch).getEntry();
+        settingsTab.add(teleop.drive.driveTrain);
     }
 
     /**
