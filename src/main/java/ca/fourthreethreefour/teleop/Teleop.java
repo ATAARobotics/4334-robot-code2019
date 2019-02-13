@@ -3,6 +3,7 @@ package ca.fourthreethreefour.teleop;
 import ca.fourthreethreefour.teleop.intake.Cargo;
 import ca.fourthreethreefour.teleop.intake.Hatch;
 import ca.fourthreethreefour.teleop.intake.HatchRelease;
+import ca.fourthreethreefour.teleop.intake.Mechanum;
 import ca.fourthreethreefour.teleop.systems.Encoders;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
@@ -19,6 +20,7 @@ public class Teleop {
   public Encoders encoders = new Encoders();
   public Hatch hatch = new Hatch();
   private Drive drive = new Drive();
+  private Mechanum mechanum = new Mechanum();
 
   /**
    * Runs as the start of teleop
@@ -43,6 +45,7 @@ public class Teleop {
       cargo.cargoOuttake(1);
     } else if (driveStick.getXButton() && encoders.cargoButton.get()) {
       cargo.cargoTransfer(1);
+      mechanum.mechanumRoller(1);
     } else {
       cargo.stop();
     }
@@ -55,13 +58,22 @@ public class Teleop {
     
     drive.drive(driveStick);
     
-    if(driveStick.getStickButtonPressed(Hand.kRight)) {
+    if (driveStick.getStickButtonPressed(Hand.kRight)) {
       drive.gearShift();
     }
 
-    if(driveStick.getBumperPressed(Hand.kRight)) {
+    if (driveStick.getBumperPressed(Hand.kLeft)) {
       new HatchRelease(this, 2);
     }
+
+    if (driveStick.getStartButton()) {
+      mechanum.mechanumRoller(-1);
+    }
+
+    if (driveStick.getBumperPressed(Hand.kRight)) {
+      mechanum.mechanumShift();
+    }
+
   }
 
   /**
