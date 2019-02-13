@@ -1,6 +1,8 @@
 package ca.fourthreethreefour.teleop;
 
 import ca.fourthreethreefour.teleop.intake.Cargo;
+import ca.fourthreethreefour.teleop.intake.Hatch;
+import ca.fourthreethreefour.teleop.intake.HatchRelease;
 import ca.fourthreethreefour.teleop.systems.Encoders;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
@@ -15,6 +17,7 @@ public class Teleop {
   
   public Cargo cargo = new Cargo();
   public Encoders encoders = new Encoders();
+  public Hatch hatch = new Hatch();
   private Drive drive = new Drive();
 
   /**
@@ -54,6 +57,10 @@ public class Teleop {
     
     if(driveStick.getStickButtonPressed(Hand.kRight)) {
       drive.gearShift();
+    }
+
+    if(driveStick.getBumperPressed(Hand.kRight)) {
+      new HatchRelease(this, 2);
     }
   }
 
