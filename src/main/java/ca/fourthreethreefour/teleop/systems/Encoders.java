@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj.SPI;
 
 public class Encoders {
     
+    //Creates left and right encoder objects and sets
+    //them to their respective digital input channels
     public Encoder leftEncoder = new Encoder(0, 1);
     public Encoder rightEncoder = new Encoder(2, 3);
     public AHRS navX;

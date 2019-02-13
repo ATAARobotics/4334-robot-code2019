@@ -48,7 +48,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    auto.AutoInit(); // Runs everything set in the .AutoInit() function.
+    // Runs everything set in the .AutoInit() function.
+    auto.AutoInit(); 
   }
 
   /**
@@ -56,7 +57,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-    auto.AutoPeriodic(); // Runs everything set in the .AutoPeriodic() function.
+    // Runs everything set in the .AutoPeriodic() function.
+    auto.AutoPeriodic(); 
   }
 
   /**
@@ -64,7 +66,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopInit() {
-    auto.AutoDisabled(); // Runs everything set in the .AutoDisabled() function.
+    // Runs everything set in the .AutoDisabled() function.
+    auto.AutoDisabled(); 
   }
 
   /**
