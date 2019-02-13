@@ -5,6 +5,7 @@ import ca.fourthreethreefour.teleop.intake.Hatch;
 import ca.fourthreethreefour.teleop.intake.HatchRelease;
 import ca.fourthreethreefour.teleop.systems.Encoders;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import ca.fourthreethreefour.teleop.drivetrain.Drive;
 
@@ -18,14 +19,13 @@ public class Teleop {
   public Cargo cargo = new Cargo();
   public Encoders encoders = new Encoders();
   public Hatch hatch = new Hatch();
-  private Drive drive = new Drive();
+  public Drive drive = new Drive();
 
   /**
    * Runs as the start of teleop
    * @return void
    */
   public void TeleopInit() {
-    
   }
   
 
@@ -60,8 +60,16 @@ public class Teleop {
     }
 
     if(driveStick.getBumperPressed(Hand.kRight)) {
-      new HatchRelease(this, 2);
+      //new HatchRelease(this, 2);
+      hatch.hatchSolenoidIn();
     }
+    
+    if(driveStick.getBumperPressed(Hand.kLeft)) {
+      //new HatchRelease(this, 2);
+      hatch.hatchSolenoidOut();
+    }
+
+    System.out.println(hatch.hatchKnockoffSolenoid.get());
   }
 
   /**
