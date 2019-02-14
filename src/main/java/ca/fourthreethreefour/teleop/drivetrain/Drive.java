@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Drive extends Subsystem {
@@ -41,10 +42,11 @@ public class Drive extends Subsystem {
    * @return void
    */
   public void drive(XboxController controller) {
-    //Calls the arcadeDrive class in teleop
-    double leftSpeed = controller.getRawAxis(1) - controller.getRawAxis(4);
-    double rightSpeed = controller.getRawAxis(1) + controller.getRawAxis(4);
-    driveTrain.tankDrive(leftSpeed, rightSpeed);
+    // //Calls the arcadeDrive class in teleop
+    // double leftSpeed = controller.getRawAxis(1) - controller.getRawAxis(4);
+    // double rightSpeed = controller.getRawAxis(1) + controller.getRawAxis(4);
+    // driveTrain.tankDrive(leftSpeed, rightSpeed);
+    driveTrain.arcadeDrive(controller.getY(Hand.kLeft), -controller.getX(Hand.kRight));
   }
 
   /**
