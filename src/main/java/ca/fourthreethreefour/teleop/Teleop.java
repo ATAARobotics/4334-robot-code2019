@@ -6,6 +6,7 @@ import ca.fourthreethreefour.teleop.intake.HatchRelease;
 import ca.fourthreethreefour.teleop.intake.Mechanum;
 import ca.fourthreethreefour.teleop.systems.Encoders;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import ca.fourthreethreefour.teleop.drivetrain.Drive;
 
@@ -19,15 +20,14 @@ public class Teleop {
   public Cargo cargo = new Cargo();
   public Encoders encoders = new Encoders();
   public Hatch hatch = new Hatch();
-  private Drive drive = new Drive();
   private Mechanum mechanum = new Mechanum();
+  public Drive drive = new Drive();
 
   /**
    * Runs as the start of teleop
    * @return void
    */
   public void TeleopInit() {
-    
   }
   
 

@@ -22,9 +22,10 @@ public class Drive extends Subsystem {
     private WPI_TalonSRX frontRightMotor = new WPI_TalonSRX(2);
     private SpeedControllerGroup leftSpeedControllerGroup = new SpeedControllerGroup(rearLeftMotor, frontLeftMotor);
     private SpeedControllerGroup rightSpeedControllerGroup = new SpeedControllerGroup(rearRightMotor, frontRightMotor);
-    private DifferentialDrive driveTrain = new DifferentialDrive(leftSpeedControllerGroup, rightSpeedControllerGroup);
+    public DifferentialDrive driveTrain = new DifferentialDrive(leftSpeedControllerGroup, rightSpeedControllerGroup);
     //Sets the boolean lowGear equal to true
     private boolean lowGear = true;
+    
 
   @Override
   public void initDefaultCommand() {

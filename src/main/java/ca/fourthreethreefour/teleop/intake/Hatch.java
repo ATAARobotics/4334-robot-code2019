@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Hatch extends Subsystem {
 
-  private DoubleSolenoid hatchKnockoffSolenoid = new DoubleSolenoid(0, 1);
+  public DoubleSolenoid hatchKnockoffSolenoid = new DoubleSolenoid(0, 1);
 
   @Override
   public void initDefaultCommand() {
@@ -25,10 +25,10 @@ public class Hatch extends Subsystem {
   }
 
   public void hatchSolenoidOut() {
-    new SetSolenoid(hatchKnockoffSolenoid, DoubleSolenoid.Value.kForward);
+    new SetSolenoid(hatchKnockoffSolenoid, DoubleSolenoid.Value.kReverse).set();
   }
   
   public void hatchSolenoidIn() {
-    new SetSolenoid(hatchKnockoffSolenoid, DoubleSolenoid.Value.kReverse);
+    new SetSolenoid(hatchKnockoffSolenoid, DoubleSolenoid.Value.kForward).set();
   }
 }
