@@ -1,7 +1,6 @@
 package ca.fourthreethreefour.teleop.drivetrain;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import ca.fourthreethreefour.commands.ReverseSolenoid;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;

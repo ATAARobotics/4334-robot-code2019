@@ -12,8 +12,7 @@ import ca.fourthreethreefour.teleop.drivetrain.Drive;
 public class Teleop {
 
 
-  //Creates and initializes joystick objects and assigns them
-  //to their respective ports on the Driver Station
+  //Creates and initializes various objects needed in teleop
   private XboxController driveStick = new XboxController(0);
   
   public Cargo cargo = new Cargo();
