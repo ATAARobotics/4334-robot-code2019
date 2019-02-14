@@ -25,6 +25,7 @@ public class Teleop {
    * @return void
    */
   public void TeleopInit() {
+    drive.gearShiftSolenoid.set(drive.gearLow);
   }
   
 
@@ -49,7 +50,6 @@ public class Teleop {
     double intakeSpeed = driveStick.getTriggerAxis(Hand.kRight) - driveStick.getTriggerAxis(Hand.kLeft);
     if (Math.abs(intakeSpeed) > 0.05) {
       cargo.intakeRotate(intakeSpeed*0.25);
-
     };
     
     drive.drive(driveStick);
