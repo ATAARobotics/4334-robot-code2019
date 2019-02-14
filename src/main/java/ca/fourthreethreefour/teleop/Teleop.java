@@ -25,6 +25,10 @@ public class Teleop {
    * @return void
    */
   public void TeleopInit() {
+    cargo.intakeRotateMotor1.setSafetyEnabled(true);
+    cargo.intakeRotateMotor2.setSafetyEnabled(true);
+    cargo.cargoOuttakeLeftMotor.setSafetyEnabled(true);
+    cargo.cargoOuttakeRightMotor.setSafetyEnabled(true);
     drive.gearShiftSolenoid.set(drive.gearLow);
   }
   
