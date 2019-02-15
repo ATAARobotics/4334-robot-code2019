@@ -7,8 +7,10 @@
 
 package ca.fourthreethreefour.teleop.intake;
 
+import ca.fourthreethreefour.commands.ReverseSolenoid;
 import ca.fourthreethreefour.commands.SetSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -32,5 +34,9 @@ public class Hatch extends Subsystem {
   
   public void hatchSolenoidIn() {
     new SetSolenoid(hatchKnockoffSolenoid, DoubleSolenoid.Value.kReverse).set();
+  }
+
+  public void hatchShift() {
+    new ReverseSolenoid(hatchKnockoffSolenoid, Value.kReverse).reverse();
   }
 }
