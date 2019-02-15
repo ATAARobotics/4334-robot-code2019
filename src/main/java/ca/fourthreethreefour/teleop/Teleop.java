@@ -13,8 +13,7 @@ import ca.fourthreethreefour.teleop.drivetrain.Drive;
 public class Teleop {
 
 
-  //Creates and initializes joystick objects and assigns them
-  //to their respective ports on the Driver Station
+  //Creates and initializes various objects needed in teleop
   private XboxController driveStick = new XboxController(0);
   
   public Cargo cargo = new Cargo();
@@ -28,6 +27,11 @@ public class Teleop {
    * @return void
    */
   public void TeleopInit() {
+    cargo.intakeRotateMotor1.setSafetyEnabled(true);
+    cargo.intakeRotateMotor2.setSafetyEnabled(true);
+    cargo.cargoOuttakeLeftMotor.setSafetyEnabled(true);
+    cargo.cargoOuttakeRightMotor.setSafetyEnabled(true);
+    drive.gearShiftSolenoid.set(drive.gearLow);
   }
   
 
@@ -53,7 +57,6 @@ public class Teleop {
     double intakeSpeed = driveStick.getTriggerAxis(Hand.kRight) - driveStick.getTriggerAxis(Hand.kLeft);
     if (Math.abs(intakeSpeed) > 0.05) {
       cargo.intakeRotate(intakeSpeed*0.25);
-
     };
     
     drive.drive(driveStick);

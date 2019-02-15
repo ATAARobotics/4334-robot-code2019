@@ -16,6 +16,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Hatch extends Subsystem {
 
+  //Creates a double solenoid object and sets it
+  //to its respective ports on the robot
   public DoubleSolenoid hatchKnockoffSolenoid = new DoubleSolenoid(0, 1);
 
   @Override
@@ -25,10 +27,10 @@ public class Hatch extends Subsystem {
   }
 
   public void hatchSolenoidOut() {
-    new SetSolenoid(hatchKnockoffSolenoid, DoubleSolenoid.Value.kReverse).set();
+    new SetSolenoid(hatchKnockoffSolenoid, DoubleSolenoid.Value.kForward).set();
   }
   
   public void hatchSolenoidIn() {
-    new SetSolenoid(hatchKnockoffSolenoid, DoubleSolenoid.Value.kForward).set();
+    new SetSolenoid(hatchKnockoffSolenoid, DoubleSolenoid.Value.kReverse).set();
   }
 }
