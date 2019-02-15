@@ -51,22 +51,29 @@ public class Teleop {
 
     drive.drive(driver, cargoOuttake);
 
-    double intakeSpeed = driver.getTriggerAxis(Hand.kRight) - driver.getTriggerAxis(Hand.kLeft);
-    if (Math.abs(intakeSpeed) > 0.05) {
-      cargo.intakeRotate(intakeSpeed*Settings.INTAKE_ROTATE_SPEED);
+    // double intakeSpeed = driver.getTriggerAxis(Hand.kRight) - driver.getTriggerAxis(Hand.kLeft);
+    // if (Math.abs(intakeSpeed) > 0.05) {
+    //   cargo.intakeRotate(intakeSpeed*Settings.INTAKE_ROTATE_SPEED);
+    // } else {
+    //   cargo.intakeRotate(0);
+    // };
+    if (driver.getBumper(Hand.kRight)) {
+      cargo.intakeRotate(Settings.INTAKE_ROTATE_SPEED);
+    } else if (driver.getBumper(Hand.kLeft)) {
+      cargo.intakeRotate(-Settings.INTAKE_ROTATE_SPEED);
     } else {
       cargo.intakeRotate(0);
-    };
+    }
 
     if (operator.getTriggerAxis(Hand.kLeft) > 0.05) {
       cargo.cargoOuttake(operator.getTriggerAxis(Hand.kLeft));
-    } else if (driver.getBumper(Hand.kRight) && encoders.cargoButton.get()) {
-      cargo.cargoTransfer(1);
-      mechanum.mechanumRoller(1);
+    } else if (driver.getTriggerAxis(Hand.kRight) > 0.05 && encoders.cargoButton.get()) {
+      cargo.cargoTransfer(driver.getTriggerAxis(Hand.kRight));
+      mechanum.mechanumRoller(driver.getTriggerAxis(Hand.kRight));
     } else {
       cargo.stop();
-      if (driver.getBumper(Hand.kLeft)) {
-        mechanum.mechanumRoller(-1);
+      if (driver.getTriggerAxis(Hand.kLeft) > 0.05) {
+        mechanum.mechanumRoller(-driver.getTriggerAxis(Hand.kLeft));
       } else {
         mechanum.mechanumRoller(0);
       }
