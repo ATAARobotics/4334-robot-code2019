@@ -3,6 +3,8 @@ package ca.fourthreethreefour.shuffleboard;
 import java.util.Map;
 
 import ca.fourthreethreefour.teleop.Teleop;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -19,6 +21,7 @@ public class Settings {
     // Example of ShuffleboardTab setup.
     private ShuffleboardTab exampleTab = Shuffleboard.getTab("Example");
     public ShuffleboardTab settingsTab = Shuffleboard.getTab("Settings");
+    private ShuffleboardTab dashboardTab = Shuffleboard.getTab("Dashboard");
 
     // Example of port (non-dynamic) entries setup
     private NetworkTableEntry EXAMPLE_PORT_ENTRY;
@@ -40,6 +43,10 @@ public class Settings {
      * needs to be updated at initialization.
      */
     public void ShuffleInit(Teleop teleop) {
+        UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+            dashboardTab.add(camera);
+            dashboardTab.add(teleop.drive.driveTrain);
+
         EXAMPLE_PORT_ENTRY = exampleTab.addPersistent("Example Port", 0).getEntry();
         EXAMPLE_PORT = (int) EXAMPLE_PORT_ENTRY.getDouble(0);
         LOGGING_ENABLED_ENTRY = settingsTab.addPersistent("Logging", true)
@@ -53,7 +60,6 @@ public class Settings {
         INTAKE_ROTATE_SPEED_ENTRY = settingsTab.addPersistent("Intake Rotate Speed", 0.25)
             .withWidget(BuiltInWidgets.kNumberSlider)
                 .withProperties(Map.of("Min", 0, "Max", 1)).getEntry();
-        settingsTab.add(teleop.drive.driveTrain);
     }
 
     /**
