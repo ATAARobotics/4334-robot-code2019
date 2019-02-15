@@ -19,7 +19,7 @@ public class Mechanum extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  private VictorSP mechanumMotor = new VictorSP(4);
+  private VictorSP mechanumMotor = new VictorSP(9);
   private DoubleSolenoid mechanumSolenoid = new DoubleSolenoid(4, 5);
 
   @Override
