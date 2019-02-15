@@ -7,6 +7,8 @@ import ca.fourthreethreefour.teleop.systems.Encoders;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import ca.fourthreethreefour.commands.debug.Logging;
+import ca.fourthreethreefour.shuffleboard.Settings;
 import ca.fourthreethreefour.teleop.drivetrain.Drive;
 
 public class Teleop {
@@ -21,6 +23,8 @@ public class Teleop {
   private Mechanum mechanum = new Mechanum();
   public Drive drive = new Drive();
 
+  public static boolean cargoOuttake;
+
   /**
    * Runs as the start of teleop
    * @return void
@@ -30,7 +34,10 @@ public class Teleop {
     cargo.intakeRotateMotor2.setSafetyEnabled(true);
     cargo.cargoOuttakeLeftMotor.setSafetyEnabled(true);
     cargo.cargoOuttakeRightMotor.setSafetyEnabled(true);
+    mechanum.mechanumMotor.setSafetyEnabled(true);
     drive.gearShiftSolenoid.set(drive.gearLow);
+    mechanum.mechanumSolenoid.set(Value.kReverse);
+    cargoOuttake = true;
   }
   
 
@@ -51,25 +58,33 @@ public class Teleop {
       mechanum.mechanumRoller(1);
     } else {
       cargo.stop();
+      if (driveStick.getStartButton()) {
+        mechanum.mechanumRoller(-1);
+      } else {
+        mechanum.mechanumRoller(0);
+      }
     }
 
     double intakeSpeed = driveStick.getTriggerAxis(Hand.kRight) - driveStick.getTriggerAxis(Hand.kLeft);
     if (Math.abs(intakeSpeed) > 0.05) {
-      cargo.intakeRotate(intakeSpeed*0.25);
+      cargo.intakeRotate(intakeSpeed*Settings.INTAKE_ROTATE_SPEED);
+    } else {
+      cargo.intakeRotate(0);
     };
     
-    drive.drive(driveStick);
+    drive.drive(driveStick, cargoOuttake);
     
     if (driveStick.getStickButtonPressed(Hand.kRight)) {
       drive.gearShift();
     }
 
-    if (driveStick.getBumperPressed(Hand.kLeft)) {
-      hatch.hatchShift();
+    if (driveStick.getStickButtonPressed(Hand.kLeft)) {
+      cargoOuttake =  !cargoOuttake;
+      Logging.put(Settings.DRIVE_DIRECTION_ENTRY, cargoOuttake);
     }
 
-    if (driveStick.getStartButton()) {
-      mechanum.mechanumRoller(-1);
+    if (driveStick.getBumperPressed(Hand.kLeft)) {
+      hatch.hatchShift();
     }
 
     if (driveStick.getBumperPressed(Hand.kRight)) {
