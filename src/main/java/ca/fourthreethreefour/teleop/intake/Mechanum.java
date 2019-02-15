@@ -8,19 +8,19 @@
 package ca.fourthreethreefour.teleop.intake;
 
 import ca.fourthreethreefour.commands.ReverseSolenoid;
-import ca.fourthreethreefour.commands.SetSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- * Hatches
+ * Add your docs here.
  */
-public class Hatch extends Subsystem {
+public class Mechanum extends Subsystem {
+  // Put methods for controlling this subsystem
+  // here. Call these from Commands.
 
-  //Creates a double solenoid object and sets it
-  //to its respective ports on the robot
-  public DoubleSolenoid hatchKnockoffSolenoid = new DoubleSolenoid(0, 1);
+  public VictorSP mechanumMotor = new VictorSP(4);
+  public DoubleSolenoid mechanumSolenoid = new DoubleSolenoid(5, 6);
 
   @Override
   public void initDefaultCommand() {
@@ -28,15 +28,11 @@ public class Hatch extends Subsystem {
     // setDefaultCommand(new MySpecialCommand());
   }
 
-  public void hatchSolenoidOut() {
-    new SetSolenoid(hatchKnockoffSolenoid, DoubleSolenoid.Value.kForward).set();
-  }
-  
-  public void hatchSolenoidIn() {
-    new SetSolenoid(hatchKnockoffSolenoid, DoubleSolenoid.Value.kReverse).set();
+  public void mechanumRoller(double speed) {
+    mechanumMotor.set(speed);
   }
 
-  public void hatchShift() {
-    new ReverseSolenoid(hatchKnockoffSolenoid, Value.kReverse).reverse();
+  public void mechanumShift() {
+    new ReverseSolenoid(mechanumSolenoid).reverse();
   }
 }

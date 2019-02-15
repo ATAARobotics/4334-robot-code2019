@@ -45,6 +45,7 @@ public class Cargo extends Subsystem {
   public void intakeRotate(double speed) {
     intakeRotateMotor1.set(speed);
     intakeRotateMotor2.set(speed);
+    // System.out.println("Motor 1: " + intakeRotateMotor1.get() + ", Motor 2: " + intakeRotateMotor2.get());
   }
 
   //Stops the motors

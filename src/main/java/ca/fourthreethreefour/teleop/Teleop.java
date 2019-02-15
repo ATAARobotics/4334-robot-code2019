@@ -2,11 +2,13 @@ package ca.fourthreethreefour.teleop;
 
 import ca.fourthreethreefour.teleop.intake.Cargo;
 import ca.fourthreethreefour.teleop.intake.Hatch;
-import ca.fourthreethreefour.teleop.intake.HatchRelease;
+import ca.fourthreethreefour.teleop.intake.Mechanum;
 import ca.fourthreethreefour.teleop.systems.Encoders;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import ca.fourthreethreefour.commands.debug.Logging;
+import ca.fourthreethreefour.shuffleboard.Settings;
 import ca.fourthreethreefour.teleop.drivetrain.Drive;
 
 public class Teleop {
@@ -15,10 +17,13 @@ public class Teleop {
   //Creates and initializes various objects needed in teleop
   private XboxController driveStick = new XboxController(0);
   
-  public Cargo cargo = new Cargo();
-  public Encoders encoders = new Encoders();
-  public Hatch hatch = new Hatch();
+  private Cargo cargo = new Cargo();
+  private Encoders encoders = new Encoders();
+  private Hatch hatch = new Hatch();
+  private Mechanum mechanum = new Mechanum();
   public Drive drive = new Drive();
+
+  public static boolean cargoOuttake;
 
   /**
    * Runs as the start of teleop
@@ -29,7 +34,10 @@ public class Teleop {
     cargo.intakeRotateMotor2.setSafetyEnabled(true);
     cargo.cargoOuttakeLeftMotor.setSafetyEnabled(true);
     cargo.cargoOuttakeRightMotor.setSafetyEnabled(true);
+    mechanum.mechanumMotor.setSafetyEnabled(true);
     drive.gearShiftSolenoid.set(drive.gearLow);
+    mechanum.mechanumSolenoid.set(Value.kReverse);
+    cargoOuttake = true;
   }
   
 
@@ -47,32 +55,42 @@ public class Teleop {
       cargo.cargoOuttake(1);
     } else if (driveStick.getXButton() && encoders.cargoButton.get()) {
       cargo.cargoTransfer(1);
+      mechanum.mechanumRoller(1);
     } else {
       cargo.stop();
+      if (driveStick.getStartButton()) {
+        mechanum.mechanumRoller(-1);
+      } else {
+        mechanum.mechanumRoller(0);
+      }
     }
 
     double intakeSpeed = driveStick.getTriggerAxis(Hand.kRight) - driveStick.getTriggerAxis(Hand.kLeft);
     if (Math.abs(intakeSpeed) > 0.05) {
-      cargo.intakeRotate(intakeSpeed*0.25);
+      cargo.intakeRotate(intakeSpeed*Settings.INTAKE_ROTATE_SPEED);
+    } else {
+      cargo.intakeRotate(0);
     };
     
-    drive.drive(driveStick);
+    drive.drive(driveStick, cargoOuttake);
     
-    if(driveStick.getStickButtonPressed(Hand.kRight)) {
+    if (driveStick.getStickButtonPressed(Hand.kRight)) {
       drive.gearShift();
     }
 
-    if(driveStick.getBumperPressed(Hand.kRight)) {
-      //new HatchRelease(this, 2);
-      hatch.hatchSolenoidIn();
-    }
-    
-    if(driveStick.getBumperPressed(Hand.kLeft)) {
-      //new HatchRelease(this, 2);
-      hatch.hatchSolenoidOut();
+    if (driveStick.getStickButtonPressed(Hand.kLeft)) {
+      cargoOuttake =  !cargoOuttake;
+      Logging.put(Settings.DRIVE_DIRECTION_ENTRY, cargoOuttake);
     }
 
-    System.out.println(hatch.hatchKnockoffSolenoid.get());
+    if (driveStick.getBumperPressed(Hand.kLeft)) {
+      hatch.hatchShift();
+    }
+
+    if (driveStick.getBumperPressed(Hand.kRight)) {
+      mechanum.mechanumShift();
+    }
+
   }
 
   /**
