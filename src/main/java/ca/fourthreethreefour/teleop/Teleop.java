@@ -2,7 +2,6 @@ package ca.fourthreethreefour.teleop;
 
 import ca.fourthreethreefour.teleop.intake.Cargo;
 import ca.fourthreethreefour.teleop.intake.Hatch;
-import ca.fourthreethreefour.teleop.intake.HatchRelease;
 import ca.fourthreethreefour.teleop.intake.Mechanum;
 import ca.fourthreethreefour.teleop.systems.Encoders;
 import edu.wpi.first.wpilibj.XboxController;
@@ -16,9 +15,9 @@ public class Teleop {
   //Creates and initializes various objects needed in teleop
   private XboxController driveStick = new XboxController(0);
   
-  public Cargo cargo = new Cargo();
-  public Encoders encoders = new Encoders();
-  public Hatch hatch = new Hatch();
+  private Cargo cargo = new Cargo();
+  private Encoders encoders = new Encoders();
+  private Hatch hatch = new Hatch();
   private Mechanum mechanum = new Mechanum();
   public Drive drive = new Drive();
 
@@ -66,7 +65,7 @@ public class Teleop {
     }
 
     if (driveStick.getBumperPressed(Hand.kLeft)) {
-      new HatchRelease(this, 2);
+      hatch.hatchShift();
     }
 
     if (driveStick.getStartButton()) {
