@@ -3,6 +3,7 @@ package ca.fourthreethreefour.teleop.drivetrain;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import ca.fourthreethreefour.commands.ReverseSolenoid;
+import ca.fourthreethreefour.shuffleboard.Settings;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SpeedController;
@@ -46,7 +47,10 @@ public class Drive extends Subsystem {
     // double leftSpeed = controller.getRawAxis(1) - controller.getRawAxis(4);
     // double rightSpeed = controller.getRawAxis(1) + controller.getRawAxis(4);
     // driveTrain.tankDrive(leftSpeed, rightSpeed);
-    driveTrain.arcadeDrive(controller.getY(Hand.kLeft), -controller.getX(Hand.kRight));
+    double speed = controller.getY(Hand.kLeft), turn = -controller.getX(Hand.kRight);
+    speed = speed * Settings.DRIVE_SPEED;
+    turn = turn >= 0 ? Math.pow(turn, Settings.TURN_CURVE) : -Math.pow(Math.abs(turn), Settings.TURN_CURVE);
+    driveTrain.arcadeDrive(Math.sqrt(speed), turn);
   }
 
   /**
