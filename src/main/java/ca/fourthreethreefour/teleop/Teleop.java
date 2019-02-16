@@ -15,8 +15,8 @@ public class Teleop {
 
 
   //Creates and initializes various objects needed in teleop
-  private XboxController driver = new XboxController(0);
-  private XboxController operator = new XboxController(1);
+  private XboxController driver = new XboxController(Settings.DRIVER_CONTROLLER_PORT);
+  private XboxController operator = new XboxController(Settings.OPERATOR_CONTROLLER_PORT);
   
   private Cargo cargo = new Cargo();
   private Encoders encoders = new Encoders();
@@ -25,7 +25,6 @@ public class Teleop {
   public Drive drive = new Drive();
 
   public static boolean cargoOuttake;
-
   /**
    * Runs as the start of teleop
    * @return void

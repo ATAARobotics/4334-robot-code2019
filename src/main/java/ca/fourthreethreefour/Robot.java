@@ -19,8 +19,8 @@ import edu.wpi.first.wpilibj.TimedRobot;
  * directory.
  */
 public class Robot extends TimedRobot {
-  Teleop teleop = new Teleop();
   Settings shuffleboard = new Settings();
+  Teleop teleop;
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -28,6 +28,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     shuffleboard.ShuffleInit(teleop);
+    this.teleop = new Teleop();
     
   }
 

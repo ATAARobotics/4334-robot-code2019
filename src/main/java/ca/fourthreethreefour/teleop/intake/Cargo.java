@@ -7,6 +7,7 @@
 
 package ca.fourthreethreefour.teleop.intake;
 
+import ca.fourthreethreefour.shuffleboard.Settings;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -17,10 +18,10 @@ public class Cargo extends Subsystem {
 
   //Creates and initializes motor objects and assigns them
   //to their respective ports on the robot
-  public VictorSP cargoOuttakeLeftMotor = new VictorSP(2);
-  public VictorSP cargoOuttakeRightMotor = new VictorSP(3);
-  public VictorSP intakeRotateMotor1 = new VictorSP(0);
-  public VictorSP intakeRotateMotor2 = new VictorSP(1);
+  public VictorSP cargoOuttakeLeftMotor = new VictorSP(Settings.CARGO_OUTTAKE_LEFT_PORT);
+  public VictorSP cargoOuttakeRightMotor = new VictorSP(Settings.CARGO_OUTTAKE_RIGHT_PORT);
+  public VictorSP intakeRotateMotor1 = new VictorSP(Settings.INTAKE_ROTATE_PORT_1);
+  public VictorSP intakeRotateMotor2 = new VictorSP(Settings.INTAKE_ROTATE_PORT_2);
 
   @Override
   //Initialize the default command for this subsystem
