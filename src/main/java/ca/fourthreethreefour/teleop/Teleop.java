@@ -35,7 +35,7 @@ public class Teleop {
     drive.frontRightMotor.setSensorPhase(false);
 
     //Initialize NavX for the encoder
-    encoder.initalizeNavX();
+    // encoder.initalizeNavX();
   }
 
   //Function that runs when teleop begins
@@ -45,11 +45,11 @@ public class Teleop {
 
   //Function that is called periodically in teleop
   public void TeleopPeriodic() {
-    drive.drive(driveStick);
+    // drive.drive(driveStick);
     
-    if(driveStick.getRawButton(3)) {
-      drive.gearShift();
-    }
+    // if(driveStick.getRawButton(3)) {
+    //   drive.gearShift();
+    // }
   }
 
   public void ExtDrive(double leftValue, double rightValue) {
