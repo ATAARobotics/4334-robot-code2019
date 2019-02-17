@@ -1,4 +1,4 @@
-package ca.fourthreethreefour;
+package ca.fourthreethreefour.vision;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -19,11 +19,11 @@ public class VisionProcessing {
     NetworkTableEntry SPEED_VISION_ENTRY = dynamicSettingsTab.addPersistent("Speed Value", 0.8).getEntry();
     
 
-    private double getVisionRotation(){
+    public double getVisionRotation(){
         return(DRIVE_VISION_ENTRY.getDouble(0));
     }
     
-    private double getVisionSpeed(){
+    public double getVisionSpeed(){
         return(SPEED_VISION_ENTRY.getDouble(0.8));
     }
 
