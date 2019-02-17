@@ -1,5 +1,6 @@
 package ca.fourthreethreefour.teleop;
 
+import ca.fourthreethreefour.teleop.intake.Arm;
 import ca.fourthreethreefour.teleop.intake.Cargo;
 import ca.fourthreethreefour.teleop.intake.Hatch;
 import ca.fourthreethreefour.teleop.intake.Mechanum;
@@ -22,6 +23,7 @@ public class Teleop {
   private Encoders encoders = new Encoders();
   private Hatch hatch = new Hatch();
   private Mechanum mechanum = new Mechanum();
+  private Arm arm = new Arm(encoders, cargo);
   public Drive drive = new Drive();
 
   public static boolean cargoOuttake;
@@ -38,6 +40,7 @@ public class Teleop {
     drive.driveTrain.setSafetyEnabled(true);
     drive.gearShiftSolenoid.set(drive.gearLow);
     mechanum.mechanumSolenoid.set(Value.kReverse);
+    arm.enable();
     cargoOuttake = true;
   }
   
@@ -50,6 +53,8 @@ public class Teleop {
 
     drive.drive(driver, cargoOuttake);
 
+
+    System.out.println(arm.returnPIDInput());
     // double intakeSpeed = driver.getTriggerAxis(Hand.kRight) - driver.getTriggerAxis(Hand.kLeft);
     // if (Math.abs(intakeSpeed) > 0.05) {
     //   cargo.intakeRotate(intakeSpeed*Settings.INTAKE_ROTATE_SPEED);
@@ -84,8 +89,8 @@ public class Teleop {
 
     if (driver.getStickButtonPressed(Hand.kLeft)) {
       cargoOuttake =  !cargoOuttake;
-      Logging.put(Settings.DRIVE_DIRECTION_ENTRY, cargoOuttake);
     }
+    Logging.put(Settings.DRIVE_DIRECTION_ENTRY, cargoOuttake);
 
     if (driver.getAButtonPressed()) {
       hatch.hatchShift();
