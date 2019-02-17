@@ -8,6 +8,7 @@
 package ca.fourthreethreefour.teleop.intake;
 
 import ca.fourthreethreefour.teleop.systems.Encoders;
+import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
 /**
@@ -17,11 +18,12 @@ public class Arm extends PIDSubsystem {
 
   Encoders encoders;
   Cargo arm;
+
   /**
    * Add your docs here.
    */
   public Arm(Encoders encoders, Cargo cargo) {
-    // Intert a subsystem name and PID values here
+    // Insert a subsystem name and PID values here
     super("ArmRotate", 0, 0, 0);
     this.encoders = encoders;
     this.arm = cargo;
@@ -29,6 +31,18 @@ public class Arm extends PIDSubsystem {
     // setSetpoint() - Sets where the PID controller should move the system
     // to
     // enable() - Enables the PID controller.
+  }
+
+  public void setP(int p) {
+    super.getPIDController().setP(p);
+  }
+
+  public void setI(int i) {
+    super.getPIDController().setI(i);
+  }
+
+  public void setD(int d) {
+    super.getPIDController().setD(d);
   }
 
   @Override

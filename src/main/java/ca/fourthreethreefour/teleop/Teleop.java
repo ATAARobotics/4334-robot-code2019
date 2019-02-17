@@ -40,7 +40,6 @@ public class Teleop {
     drive.driveTrain.setSafetyEnabled(true);
     drive.gearShiftSolenoid.set(drive.gearLow);
     mechanum.mechanumSolenoid.set(Value.kReverse);
-    arm.enable();
     cargoOuttake = true;
   }
   
@@ -102,12 +101,22 @@ public class Teleop {
 
     if (operator.getAButtonPressed()) {
       Logging.log("Shooter set point A");
+      //arm.setSetpoint();
+      arm.enable();
     } else if (driver.getBButtonPressed()) {
       Logging.log("Shooter set point B");
+      //arm.setSetpoint();
+      arm.enable();
     } else if (driver.getXButtonPressed()) {
       Logging.log("Shooter set point X");
+      //arm.setSetpoint();
+      arm.enable();
     } else if (driver.getYButtonPressed()) {
       Logging.log("Shooter set point Y");
+      //arm.setSetpoint();
+      arm.enable();
+    } else {
+      arm.disable();
     }
 
   }

@@ -131,7 +131,6 @@ public class Settings {
         MECHANUM_SOLENOID_PORT_2_ENTRY = portsTab.addPersistent("Mechanum Solenoid 2", 6).getEntry();
             MECHANUM_SOLENOID_PORT_2 = (int) MECHANUM_SOLENOID_PORT_2_ENTRY.getDouble(6);
 
-
         LOGGING_ENABLED_ENTRY = settingsTab.addPersistent("Logging", true)
             .withWidget(BuiltInWidgets.kToggleSwitch).getEntry();
         DRIVE_SPEED_ENTRY = settingsTab.addPersistent("Drive Speed", 1)
