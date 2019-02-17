@@ -8,6 +8,7 @@
 package ca.fourthreethreefour.teleop.intake;
 
 import ca.fourthreethreefour.commands.ReverseSolenoid;
+import ca.fourthreethreefour.shuffleboard.Settings;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -19,8 +20,8 @@ public class Mechanum extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  public VictorSP mechanumMotor = new VictorSP(4);
-  public DoubleSolenoid mechanumSolenoid = new DoubleSolenoid(5, 6);
+  public VictorSP mechanumMotor = new VictorSP(Settings.MECHANUM_MOTOR_PORT);
+  public DoubleSolenoid mechanumSolenoid = new DoubleSolenoid(Settings.MECHANUM_SOLENOID_PORT_1, Settings.MECHANUM_SOLENOID_PORT_2);
 
   @Override
   public void initDefaultCommand() {

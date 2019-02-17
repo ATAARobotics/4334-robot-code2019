@@ -9,6 +9,7 @@ package ca.fourthreethreefour.teleop.intake;
 
 import ca.fourthreethreefour.commands.ReverseSolenoid;
 import ca.fourthreethreefour.commands.SetSolenoid;
+import ca.fourthreethreefour.shuffleboard.Settings;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -20,7 +21,7 @@ public class Hatch extends Subsystem {
 
   //Creates a double solenoid object and sets it
   //to its respective ports on the robot
-  public DoubleSolenoid hatchKnockoffSolenoid = new DoubleSolenoid(0, 1);
+  public DoubleSolenoid hatchKnockoffSolenoid = new DoubleSolenoid(Settings.HATCH_SOLENOID_PORT_1, Settings.HATCH_SOLENOID_PORT_2);
 
   @Override
   public void initDefaultCommand() {

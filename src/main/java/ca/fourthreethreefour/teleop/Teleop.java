@@ -15,7 +15,8 @@ public class Teleop {
 
 
   //Creates and initializes various objects needed in teleop
-  private XboxController driveStick = new XboxController(0);
+  private XboxController driver = new XboxController(Settings.DRIVER_CONTROLLER_PORT);
+  private XboxController operator = new XboxController(Settings.OPERATOR_CONTROLLER_PORT);
   
   private Cargo cargo = new Cargo();
   private Encoders encoders = new Encoders();
@@ -24,7 +25,6 @@ public class Teleop {
   public Drive drive = new Drive();
 
   public static boolean cargoOuttake;
-
   /**
    * Runs as the start of teleop
    * @return void
@@ -35,6 +35,7 @@ public class Teleop {
     cargo.cargoOuttakeLeftMotor.setSafetyEnabled(true);
     cargo.cargoOuttakeRightMotor.setSafetyEnabled(true);
     mechanum.mechanumMotor.setSafetyEnabled(true);
+    drive.driveTrain.setSafetyEnabled(true);
     drive.gearShiftSolenoid.set(drive.gearLow);
     mechanum.mechanumSolenoid.set(Value.kReverse);
     cargoOuttake = true;
@@ -46,49 +47,62 @@ public class Teleop {
    * @return void
    */
   public void TeleopPeriodic() {
-    // if (driveStick.getYButton()) {
-      // cargo.cargoOuttake(1);
+
+    drive.drive(driver, cargoOuttake);
+
+    // double intakeSpeed = driver.getTriggerAxis(Hand.kRight) - driver.getTriggerAxis(Hand.kLeft);
+    // if (Math.abs(intakeSpeed) > 0.05) {
+    //   cargo.intakeRotate(intakeSpeed*Settings.INTAKE_ROTATE_SPEED);
     // } else {
-      // cargo.cargoOuttake(0);
-    // }
-    if (driveStick.getYButton()) {
-      cargo.cargoOuttake(1);
-    } else if (driveStick.getXButton() && encoders.cargoButton.get()) {
-      cargo.cargoTransfer(1);
-      mechanum.mechanumRoller(1);
+    //   cargo.intakeRotate(0);
+    // };
+    if (driver.getBumper(Hand.kRight)) {
+      cargo.intakeRotate(Settings.INTAKE_ROTATE_SPEED);
+    } else if (driver.getBumper(Hand.kLeft)) {
+      cargo.intakeRotate(-Settings.INTAKE_ROTATE_SPEED);
+    } else {
+      cargo.intakeRotate(0);
+    }
+
+    if (operator.getTriggerAxis(Hand.kLeft) > 0.05) {
+      cargo.cargoOuttake(operator.getTriggerAxis(Hand.kLeft));
+    } else if (driver.getTriggerAxis(Hand.kRight) > 0.05 && encoders.cargoButton.get()) {
+      cargo.cargoTransfer(driver.getTriggerAxis(Hand.kRight));
+      mechanum.mechanumRoller(driver.getTriggerAxis(Hand.kRight));
     } else {
       cargo.stop();
-      if (driveStick.getStartButton()) {
-        mechanum.mechanumRoller(-1);
+      if (driver.getTriggerAxis(Hand.kLeft) > 0.05) {
+        mechanum.mechanumRoller(-driver.getTriggerAxis(Hand.kLeft));
       } else {
         mechanum.mechanumRoller(0);
       }
     }
-
-    double intakeSpeed = driveStick.getTriggerAxis(Hand.kRight) - driveStick.getTriggerAxis(Hand.kLeft);
-    if (Math.abs(intakeSpeed) > 0.05) {
-      cargo.intakeRotate(intakeSpeed*Settings.INTAKE_ROTATE_SPEED);
-    } else {
-      cargo.intakeRotate(0);
-    };
     
-    drive.drive(driveStick, cargoOuttake);
-    
-    if (driveStick.getStickButtonPressed(Hand.kRight)) {
+    if (driver.getStickButtonPressed(Hand.kRight)) {
       drive.gearShift();
     }
 
-    if (driveStick.getStickButtonPressed(Hand.kLeft)) {
+    if (driver.getStickButtonPressed(Hand.kLeft)) {
       cargoOuttake =  !cargoOuttake;
       Logging.put(Settings.DRIVE_DIRECTION_ENTRY, cargoOuttake);
     }
 
-    if (driveStick.getBumperPressed(Hand.kLeft)) {
+    if (driver.getAButtonPressed()) {
       hatch.hatchShift();
     }
 
-    if (driveStick.getBumperPressed(Hand.kRight)) {
+    if (operator.getBumperPressed(Hand.kRight)) {
       mechanum.mechanumShift();
+    }
+
+    if (operator.getAButtonPressed()) {
+      Logging.log("Shooter set point A");
+    } else if (driver.getBButtonPressed()) {
+      Logging.log("Shooter set point B");
+    } else if (driver.getXButtonPressed()) {
+      Logging.log("Shooter set point X");
+    } else if (driver.getYButtonPressed()) {
+      Logging.log("Shooter set point Y");
     }
 
   }
