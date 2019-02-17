@@ -32,8 +32,8 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     shuffleboard.ShuffleInit();
     teleop.TeleopInit();
-    ultrasonics.ultrasonicPollingThread();
     ultrasonics.enable();
+    ultrasonics.ultrasonicPollingThread();
   }
 
   /**
@@ -42,7 +42,7 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledPeriodic() {
     shuffleboard.ShufflePeriodic();
-    System.out.println(shuffleboard.EXAMPLE_PORT);
+    // System.out.println(shuffleboard.EXAMPLE_PORT);
   }
 
   /**
