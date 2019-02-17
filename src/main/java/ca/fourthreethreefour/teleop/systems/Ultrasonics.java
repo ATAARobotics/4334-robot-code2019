@@ -18,12 +18,13 @@ public class Ultrasonics extends Subsystem {
    * @return void
    */
     public Ultrasonics () {
-        setAutomaticMode(true);
-        ultrasonicPollingThread();
+        // enable();
+        // setAutomaticMode(true);
+        // ultrasonicPollingThread();
     }
 
     // Function to start a new thread to poll the ultrasonic sensors
-    private void ultrasonicPollingThread()
+    public void ultrasonicPollingThread()
     {
         // Sets up a new thread that polls at a set interval
         Thread thread = new Thread(() -> {
@@ -50,16 +51,16 @@ public class Ultrasonics extends Subsystem {
         ultrasonicSensorRight.setEnabled(true);
     }
 
- /** Enables automatic mode on sensors
-   *  @param enabling mode to set
-   * @return void
-   */
-    private void setAutomaticMode(boolean enabling){
-        ultrasonicSensorFront.setAutomaticMode(true);
-        ultrasonicSensorLeft.setAutomaticMode(true);
-        ultrasonicSensorBack.setAutomaticMode(true);
-        ultrasonicSensorRight.setAutomaticMode(true);
-    }
+//  /** Enables automatic mode on sensors
+//    *  @param enabling mode to set
+//    * @return void
+//    */
+//     private void setAutomaticMode(boolean enabling){
+//         ultrasonicSensorFront.setAutomaticMode(true);
+//         ultrasonicSensorLeft.setAutomaticMode(true);
+//         ultrasonicSensorBack.setAutomaticMode(true);
+//         ultrasonicSensorRight.setAutomaticMode(true);
+//     }
 
   /**
    *  Logging to shuffleboard
