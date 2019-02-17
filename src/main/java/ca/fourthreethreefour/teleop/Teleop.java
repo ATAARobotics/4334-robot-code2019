@@ -58,7 +58,7 @@ public class Teleop {
     // };
     if (driver.getBumper(Hand.kRight)) {
       cargo.intakeRotate(Settings.INTAKE_ROTATE_SPEED);
-    } else if (driver.getBumper(Hand.kLeft)) {
+    } else if (driver.getBumper(Hand.kLeft) && encoders.cargoButton.get()) {
       cargo.intakeRotate(-Settings.INTAKE_ROTATE_SPEED);
     } else {
       cargo.intakeRotate(0);
