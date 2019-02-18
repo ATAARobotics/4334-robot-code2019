@@ -136,17 +136,10 @@ public class Settings {
             MECHANUM_SOLENOID_PORT_2 = (int) MECHANUM_SOLENOID_PORT_2_ENTRY.getDouble(6);
 
 
-        LOGGING_ENABLED_ENTRY = settingsTab.addPersistent("Logging", true)
-            .withWidget(BuiltInWidgets.kToggleSwitch).getEntry();
-        DRIVE_SPEED_ENTRY = settingsTab.addPersistent("Drive Speed", 1)
-            .withWidget(BuiltInWidgets.kNumberSlider)
-                .withProperties(Map.of("Min", 0, "Max", 1)).getEntry();
-        TURN_CURVE_ENTRY = settingsTab.addPersistent("Turn Curve", 1.5)
-            .withWidget(BuiltInWidgets.kNumberSlider)
-                .withProperties(Map.of("Min", 1, "Max", 10)).getEntry();
-        INTAKE_ROTATE_SPEED_ENTRY = settingsTab.addPersistent("Intake Rotate Speed", 0.25)
-            .withWidget(BuiltInWidgets.kNumberSlider)
-                .withProperties(Map.of("Min", 0, "Max", 1)).getEntry();
+        LOGGING_ENABLED_ENTRY = settingsTab.addPersistent("Logging", true).withWidget(BuiltInWidgets.kToggleSwitch).getEntry();
+        DRIVE_SPEED_ENTRY = settingsTab.addPersistent("Drive Speed", 1).withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min", 0, "max", 1)).getEntry();
+        TURN_CURVE_ENTRY = settingsTab.addPersistent("Turn Curve", 1.5).withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min", 1, "max", 10)).getEntry();
+        INTAKE_ROTATE_SPEED_ENTRY = settingsTab.addPersistent("Intake Rotate Speed", 0.25).withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min", 0, "max", 1)).getEntry();
     }
 
     /**
