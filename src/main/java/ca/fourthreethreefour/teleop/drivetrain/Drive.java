@@ -9,7 +9,7 @@ package ca.fourthreethreefour.teleop.drivetrain;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
+//import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -21,10 +21,10 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 public class Drive extends Subsystem {
 
-    //Creates and initializes various objects and assigns
-    //them to their respective ports on the robot
-    private DoubleSolenoid gearShiftSolenoid = new DoubleSolenoid(2, 3); 
-    //may need to add another solenoid, there is two gearboxes after all.
+    // //Creates and initializes various objects and assigns
+    // //them to their respective ports on the robot
+    //private DoubleSolenoid gearShiftSolenoid = new DoubleSolenoid(2, 3); 
+    // //may need to add another solenoid, there is two gearboxes after all.
     private WPI_TalonSRX rearLeftMotor = new WPI_TalonSRX(1);
     public WPI_TalonSRX frontLeftMotor = new WPI_TalonSRX(0);
     private WPI_TalonSRX rearRightMotor = new WPI_TalonSRX(3);

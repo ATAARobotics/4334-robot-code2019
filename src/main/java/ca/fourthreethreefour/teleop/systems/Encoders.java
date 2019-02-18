@@ -1,12 +1,12 @@
 package ca.fourthreethreefour.teleop.systems;
 
-import com.kauailabs.navx.frc.AHRS;
+//import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogGyro;
-import edu.wpi.first.wpilibj.DriverStation;
+//import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.SPI;
+//import edu.wpi.first.wpilibj.SPI;
 
 public class Encoders {
     
@@ -25,7 +25,7 @@ public class Encoders {
     //         navX.reset();
     //     } catch (RuntimeException ex)
     //     {
-    //         DriverStation.reportError("Error instantiating navX-MXP:  " + ex.getMessage(), true);
+    //         DriverStation.reportError("Error instantiating navX-MXP: " + ex.getMessage(), true);
     //     }
     // }
 }

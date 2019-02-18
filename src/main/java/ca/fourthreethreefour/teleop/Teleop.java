@@ -9,10 +9,10 @@ import edu.wpi.first.wpilibj.Joystick;
 public class Teleop {
 
 
-  //Creates and initializes joystick objects and assigns them
-  //to their respective ports on the Driver Station
+  // //Creates and initializes joystick objects and assigns them
+  // //to their respective ports on the Driver Station
   private Joystick operatorStick = new Joystick(1);
-  private Joystick driveStick = new Joystick(0);
+  //private Joystick driveStick = new Joystick(0);
   //Creates drive and encoder objects
   public Drive drive = new Drive();
   public Encoders encoder = new Encoders();

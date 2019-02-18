@@ -8,11 +8,11 @@
 
 package ca.fourthreethreefour.autonomous.pathweaver;
 
-import com.kauailabs.navx.frc.AHRS;
+//import com.kauailabs.navx.frc.AHRS;
 
 import ca.fourthreethreefour.teleop.Teleop;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-import edu.wpi.first.wpilibj.AnalogGyro;
+//import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Notifier;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.PathfinderFRC;
@@ -24,6 +24,7 @@ import jaci.pathfinder.followers.EncoderFollower;
  */
 public class PathFinder {
 
+    //Stores various variables in the pathfinder class
     private static final int k_ticks_per_rev = 30000;
     private static final double k_wheel_diameter = 0.1524;
     private static final double k_max_velocity = 4.5;
@@ -48,9 +49,12 @@ public class PathFinder {
 
     public void pathRun() {
 
+        //Sets the left and right motor sensors to their
+        //original positions when pathfinder is running
         teleop.drive.frontLeftMotor.setSelectedSensorPosition(0);
         teleop.drive.frontRightMotor.setSelectedSensorPosition(0);
         
+        //Disables drivetrain safety when pathfinder is running
         teleop.drive.driveTrain.setSafetyEnabled(false);
         
         Trajectory left_trajectory = PathfinderFRC.getTrajectory(k_path_name + ".left");
