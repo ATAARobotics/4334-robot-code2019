@@ -24,7 +24,7 @@ public class Vision {
 
     public void drive(){
         double turnAngle = visionProcessing.getVisionRotation();
-        double speed = visionProcessing.getVisionRotation();
+        double speed = visionProcessing.getVisionSpeed();
         teleop.ExtArcadeDrive(speed, turnAngle);
     }
 
