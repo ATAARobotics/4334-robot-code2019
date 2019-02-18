@@ -21,10 +21,10 @@ public class Teleop {
   
   private Cargo cargo = new Cargo();
   private Encoders encoders = new Encoders();
-  private Hatch hatch = new Hatch();
+  public Hatch hatch = new Hatch();
   private Mechanum mechanum = new Mechanum();
   public Drive drive = new Drive();
-  private Ultrasonics ultrasonics = new Ultrasonics();
+  public Ultrasonics ultrasonics = new Ultrasonics();
 
   public static boolean cargoOuttake;
 

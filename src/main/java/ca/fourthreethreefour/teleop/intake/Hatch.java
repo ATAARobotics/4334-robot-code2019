@@ -40,4 +40,8 @@ public class Hatch extends Subsystem {
   public void hatchShift() {
     new ReverseSolenoid(hatchKnockoffSolenoid, Value.kReverse).reverse();
   }
+
+  public Value get() {
+    return hatchKnockoffSolenoid.get();
+  }
 }
