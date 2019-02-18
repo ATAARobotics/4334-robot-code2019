@@ -21,9 +21,10 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 public class Drive extends Subsystem {
 
-    //Creates and initializes solenoid and motor objects and
-    //assigns them to their respective ports on the robot
-    private DoubleSolenoid gearShiftSolenoid = new DoubleSolenoid(2, 3); //may need to add another solenoid, there is two gearboxes after all.
+    //Creates and initializes various objects and assigns
+    //them to their respective ports on the robot
+    private DoubleSolenoid gearShiftSolenoid = new DoubleSolenoid(2, 3); 
+    //may need to add another solenoid, there is two gearboxes after all.
     private WPI_TalonSRX rearLeftMotor = new WPI_TalonSRX(1);
     public WPI_TalonSRX frontLeftMotor = new WPI_TalonSRX(0);
     private WPI_TalonSRX rearRightMotor = new WPI_TalonSRX(3);
@@ -31,7 +32,8 @@ public class Drive extends Subsystem {
     public SpeedControllerGroup leftSpeedControllerGroup = new SpeedControllerGroup(rearLeftMotor, frontLeftMotor);
     public SpeedControllerGroup rightSpeedControllerGroup = new SpeedControllerGroup(rearRightMotor, frontRightMotor);
     public DifferentialDrive driveTrain = new DifferentialDrive(leftSpeedControllerGroup, rightSpeedControllerGroup);
-    //Sets the boolean lowGear equal to true
+    //Sets the boolean lowGear equal to true and
+    //the boolean slow equal to false
     private boolean lowGear = true;
     private boolean slow = false;
 
