@@ -135,4 +135,8 @@ public class Teleop {
   public void ExtDrive(double leftValue, double rightValue) {
     drive.ExtDrive(leftValue, rightValue);
   }
+
+  public void ExtArcadeDrive(double speed, double angle){
+    drive.ExtArcadeDrive(speed, angle);
+  }
 }

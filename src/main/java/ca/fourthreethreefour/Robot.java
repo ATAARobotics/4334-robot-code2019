@@ -9,6 +9,7 @@ package ca.fourthreethreefour;
 
 import ca.fourthreethreefour.autonomous.Auto;
 import ca.fourthreethreefour.teleop.Teleop;
+import ca.fourthreethreefour.vision.Vision;
 import ca.fourthreethreefour.shuffleboard.Settings;
 import ca.fourthreethreefour.teleop.Teleop;
 import ca.fourthreethreefour.teleop.systems.Ultrasonics;
@@ -25,6 +26,7 @@ public class Robot extends TimedRobot {
   Auto auto = new Auto();
   Settings shuffleboard = new Settings();
   Teleop teleop;
+  Vision vision;
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -34,6 +36,8 @@ public class Robot extends TimedRobot {
     shuffleboard.ShuffleInit(teleop);
     this.teleop = new Teleop();
     teleop.RobotInit();
+    this.vision = new Vision(teleop);
+    
   }
 
   /**
@@ -51,6 +55,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     auto.AutoInit(); // Runs everything set in the .AutoInit() function.
+    vision.visionInit();
   }
 
   /**
@@ -59,6 +64,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     auto.AutoPeriodic(); // Runs everything set in the .AutoPeriodic() function.
+    vision.drive();
   }
 
   /**

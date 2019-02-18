@@ -67,6 +67,10 @@ public class Drive extends Subsystem {
     driveTrain.tankDrive(leftDrive, rightDrive);
   }
 
+  public void ExtArcadeDrive(double speed, double angle){
+    driveTrain.arcadeDrive(speed, angle);
+  }
+
   /**
    * Gearshift function
    * @return void
