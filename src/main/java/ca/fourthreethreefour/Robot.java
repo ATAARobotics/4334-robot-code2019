@@ -31,7 +31,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     shuffleboard.ShuffleInit();
-    teleop.TeleopInit();
+    teleop.RobotInit();
     ultrasonics.enable();
     ultrasonics.ultrasonicPollingThread();
   }
@@ -71,6 +71,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    teleopPeriodic();
   }
 
   /**
