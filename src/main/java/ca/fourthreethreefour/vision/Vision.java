@@ -14,7 +14,7 @@ public class Vision {
         this.teleop = teleop;
     }
 
-    public void visionInit(){
+    public void startVision(){
         visionProcessing.startVision();
     }
 
