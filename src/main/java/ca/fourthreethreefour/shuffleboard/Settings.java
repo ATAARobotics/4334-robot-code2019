@@ -85,8 +85,12 @@ public class Settings {
      */
     public void ShuffleInit(Teleop teleop) {
         UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+        camera.setResolution(320, 240);
+        camera.setFPS(16);
             dashboardTab.add(camera);
             //dashboardTab.add(teleop.drive.driveTrain);
+
+        DRIVE_DIRECTION_ENTRY = dashboardTab.addPersistent("Drive Direction", true).getEntry();
 
         DRIVER_CONTROLLER_PORT_ENTRY = portsTab.addPersistent("Driver Controller", 0).getEntry();
             DRIVER_CONTROLLER_PORT = (int) DRIVER_CONTROLLER_PORT_ENTRY.getDouble(0);

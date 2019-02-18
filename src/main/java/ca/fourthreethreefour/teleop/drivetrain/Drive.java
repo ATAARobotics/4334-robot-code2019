@@ -50,6 +50,7 @@ public class Drive extends Subsystem {
     double speed = controller.getY(Hand.kLeft), turn = -controller.getX(Hand.kRight);
     speed = speed * Settings.DRIVE_SPEED;
     speed = cargoOuttake ? speed : -speed;
+    System.out.println("Speed: " + speed + " Turn: " + turn);
     //speed = speed >= 0 ? Math.sqrt(speed) : -Math.sqrt(speed);
     //turn = turn >= 0 ? Math.pow(turn, Settings.TURN_CURVE) : -Math.pow(Math.abs(turn), Settings.TURN_CURVE);
     driveTrain.arcadeDrive(speed, turn);
