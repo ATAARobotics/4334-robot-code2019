@@ -9,9 +9,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Ultrasonics extends Subsystem {
 
     // Assigns all the DIO sensors to their respective objects (the number in brackets is the port # of what is connected where)
-    Ultrasonic ultrasonicSensorFront = new Ultrasonic(6, 7);
+    public Ultrasonic ultrasonicSensorFront = new Ultrasonic(6, 7);
     // Ultrasonic ultrasonicSensorLeft = new Ultrasonic(2, 3);
-    Ultrasonic ultrasonicSensorBack = new Ultrasonic(8, 9);
+    public Ultrasonic ultrasonicSensorBack = new Ultrasonic(8, 9);
     // Ultrasonic ultrasonicSensorRight = new Ultrasonic(6, 7);
 
   /** Constructor for initalizing
@@ -75,6 +75,15 @@ public class Ultrasonics extends Subsystem {
         // Logging.log("Ultrasonic Right"+ String.valueOf( (ultrasonicSensorRight.isRangeValid() == false) ? SmartDashboard.getNumber("Ultrasonic Right", 999.0) : ultrasonicSensorRight.getRangeInches()));
         Logging.log("--------------------------------------------------------------------------");
     }
+
+    public double getUltrasonicFrontValue() {
+        return ultrasonicSensorFront.isRangeValid() ? ultrasonicSensorFront.getRangeInches() : 999.0;
+    }
+
+    public double getUltrasonicBackValue() {
+        return ultrasonicSensorBack.isRangeValid() ? ultrasonicSensorBack.getRangeInches() : 999.0;
+    }
+
     @Override
     protected void initDefaultCommand() {
   
