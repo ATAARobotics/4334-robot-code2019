@@ -14,6 +14,14 @@ public class Vision {
         this.teleop = teleop;
     }
 
+    public void visionInit(){
+        visionProcessing.startVision();
+    }
+
+    public void endVision(){
+        visionProcessing.stopVision();
+    }
+
     public void drive(){
         double turnAngle = visionProcessing.getVisionRotation();
         double speed = visionProcessing.getVisionRotation();
