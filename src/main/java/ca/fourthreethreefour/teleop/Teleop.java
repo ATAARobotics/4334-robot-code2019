@@ -23,7 +23,7 @@ public class Teleop {
   private Encoders encoders = new Encoders();
   private Hatch hatch = new Hatch();
   private Mechanum mechanum = new Mechanum();
-  private Arm arm = new Arm(encoders, cargo);
+  public Arm arm = new Arm(encoders, cargo);
   public Drive drive = new Drive();
 
   public static boolean cargoOuttake;

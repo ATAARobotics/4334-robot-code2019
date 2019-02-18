@@ -22,6 +22,7 @@ public class Settings {
     private ShuffleboardTab portsTab = Shuffleboard.getTab("Ports");
     public ShuffleboardTab settingsTab = Shuffleboard.getTab("Settings");
     private ShuffleboardTab dashboardTab = Shuffleboard.getTab("Dashboard");
+    private ShuffleboardTab outputTab = Shuffleboard.getTab("Output");
 
     // Example of port (non-dynamic) entries setup
     private NetworkTableEntry DRIVER_CONTROLLER_PORT_ENTRY;
@@ -86,7 +87,10 @@ public class Settings {
     public void ShuffleInit(Teleop teleop) {
         UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
             dashboardTab.add(camera);
+            dashboardTab.add(teleop.arm);
             //dashboardTab.add(teleop.drive.driveTrain);
+
+        DRIVE_DIRECTION_ENTRY = outputTab.add("Drive Direction", true).getEntry();
 
         DRIVER_CONTROLLER_PORT_ENTRY = portsTab.addPersistent("Driver Controller", 0).getEntry();
             DRIVER_CONTROLLER_PORT = (int) DRIVER_CONTROLLER_PORT_ENTRY.getDouble(0);
