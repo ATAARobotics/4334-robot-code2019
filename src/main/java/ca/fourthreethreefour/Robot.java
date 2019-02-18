@@ -55,7 +55,6 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     auto.AutoInit(); // Runs everything set in the .AutoInit() function.
-    vision.visionInit();
   }
 
   /**
@@ -64,7 +63,6 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     auto.AutoPeriodic(); // Runs everything set in the .AutoPeriodic() function.
-    vision.drive();
   }
 
   /**
