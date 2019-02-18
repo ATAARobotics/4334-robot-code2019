@@ -112,8 +112,17 @@ public class Teleop {
     // } else if (operator.getYButtonPressed()) {
     //   Logging.log("Shooter set point Y");
     // }
+    if (driver.getPOV() == 0) {
+        Logging.log("Shooter set point up");
+    } else if (driver.getPOV() == 90) {
+      Logging.log("Shooter set point right");
+    } else if (driver.getPOV() == 180) {
+      Logging.log("Shooter set point down");
+    } else if (driver.getPOV() == 270) {
+      Logging.log("Shooter set point left");
+    }
 
-    ultrasonics.printValues();
+    // ultrasonics.printValues();
 
   }
 
