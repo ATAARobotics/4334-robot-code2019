@@ -68,10 +68,12 @@ public class Ultrasonics extends Subsystem {
    */
     public void printValues()
     {
-        Logging.log("Ultrasonic Front" + String.valueOf((ultrasonicSensorFront.isRangeValid() == false) ? SmartDashboard.getNumber("Ultrasonic Front", 999.0) : ultrasonicSensorFront.getRangeInches()));
+        Logging.log("--------------------------------------------------------------------------");
+        Logging.log("Ultrasonic Front: " + String.valueOf((ultrasonicSensorFront.isRangeValid() == false) ? SmartDashboard.getNumber("Ultrasonic Front", 999.0) : ultrasonicSensorFront.getRangeInches()));
         // Logging.log("Ultrasonic Left" + String.valueOf((ultrasonicSensorLeft.isRangeValid() == false) ? SmartDashboard.getNumber("Ultrasonic Left", 999.0) : ultrasonicSensorLeft.getRangeInches()));
-        Logging.log("Ultrasonic Back" + String.valueOf((ultrasonicSensorBack.isRangeValid() == false) ? SmartDashboard.getNumber("Ultrasonic Back", 999.0) : ultrasonicSensorBack.getRangeInches()));
+        Logging.log("Ultrasonic Back: " + String.valueOf((ultrasonicSensorBack.isRangeValid() == false) ? SmartDashboard.getNumber("Ultrasonic Back", 999.0) : ultrasonicSensorBack.getRangeInches()));
         // Logging.log("Ultrasonic Right"+ String.valueOf( (ultrasonicSensorRight.isRangeValid() == false) ? SmartDashboard.getNumber("Ultrasonic Right", 999.0) : ultrasonicSensorRight.getRangeInches()));
+        Logging.log("--------------------------------------------------------------------------");
     }
     @Override
     protected void initDefaultCommand() {
