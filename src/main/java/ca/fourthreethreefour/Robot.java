@@ -10,6 +10,8 @@ package ca.fourthreethreefour;
 import ca.fourthreethreefour.autonomous.Auto;
 import ca.fourthreethreefour.teleop.Teleop;
 import ca.fourthreethreefour.shuffleboard.Settings;
+import ca.fourthreethreefour.teleop.Teleop;
+import ca.fourthreethreefour.teleop.systems.Ultrasonics;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 /**
@@ -31,7 +33,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     shuffleboard.ShuffleInit(teleop);
     this.teleop = new Teleop();
-    
+    teleop.RobotInit();
   }
 
   /**

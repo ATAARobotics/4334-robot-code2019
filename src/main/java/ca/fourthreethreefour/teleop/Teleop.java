@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import ca.fourthreethreefour.commands.debug.Logging;
 import ca.fourthreethreefour.shuffleboard.Settings;
 import ca.fourthreethreefour.teleop.drivetrain.Drive;
+import ca.fourthreethreefour.teleop.systems.Ultrasonics;
 
 public class Teleop {
 
@@ -23,8 +24,15 @@ public class Teleop {
   private Hatch hatch = new Hatch();
   private Mechanum mechanum = new Mechanum();
   public Drive drive = new Drive();
+  private Ultrasonics ultrasonics = new Ultrasonics();
 
   public static boolean cargoOuttake;
+
+  public void RobotInit() {
+    ultrasonics.enable();
+    ultrasonics.ultrasonicPollingThread();
+  }
+
   /**
    * Runs as the start of teleop
    * @return void
@@ -104,6 +112,8 @@ public class Teleop {
     } else if (driver.getYButtonPressed()) {
       Logging.log("Shooter set point Y");
     }
+
+    ultrasonics.printValues();
 
   }
 
