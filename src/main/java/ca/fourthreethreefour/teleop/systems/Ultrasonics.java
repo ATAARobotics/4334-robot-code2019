@@ -9,9 +9,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Ultrasonics extends Subsystem {
 
     // Assigns all the DIO sensors to their respective objects (the number in brackets is the port # of what is connected where)
-    Ultrasonic ultrasonicSensorFront = new Ultrasonic(4, 5);
+    Ultrasonic ultrasonicSensorFront = new Ultrasonic(6, 7);
     // Ultrasonic ultrasonicSensorLeft = new Ultrasonic(2, 3);
-    Ultrasonic ultrasonicSensorBack = new Ultrasonic(0, 1);
+    Ultrasonic ultrasonicSensorBack = new Ultrasonic(8, 9);
     // Ultrasonic ultrasonicSensorRight = new Ultrasonic(6, 7);
 
   /** Constructor for initalizing
