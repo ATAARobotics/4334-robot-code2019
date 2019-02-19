@@ -1,10 +1,11 @@
 package ca.fourthreethreefour.commands;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.command.InstantCommand;
 
-public class ReverseSolenoid {
+public class ReverseSolenoid extends InstantCommand {
 
-		//Declares solenoid and default direction variables
+	//Declares solenoid and default direction variables
     private final DoubleSolenoid solenoid;
     private final DoubleSolenoid.Value defaultDirection;
 
@@ -13,7 +14,7 @@ public class ReverseSolenoid {
 		this.defaultDirection = DoubleSolenoid.Value.kForward;
     }
 
-		//Constructor that reverses a solenoid to a its default direction
+    //Constructor that reverses a solenoid to a its default direction
     public ReverseSolenoid (DoubleSolenoid solenoid, DoubleSolenoid.Value defaultDirection) {
 		this.solenoid = solenoid;
 		this.defaultDirection = defaultDirection;
@@ -21,7 +22,7 @@ public class ReverseSolenoid {
 		
 	//Sets the solenoid direction to a default direction if it is off,
 	//otherwise it reverses its direction	
-	public void reverse() {
+	public void execute() {
 		if (solenoid.get() == DoubleSolenoid.Value.kOff) {
 			solenoid.set(defaultDirection);
 		} else if (solenoid.get() == DoubleSolenoid.Value.kReverse) {
