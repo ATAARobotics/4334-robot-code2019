@@ -49,7 +49,7 @@ public class Robot extends TimedRobot {
   }
 
   /**
-   * This functionss is run once each time the robot enters autonomous mode.
+   * This function is run once each time the robot enters autonomous mode.
    */
   @Override
   public void autonomousInit() {
