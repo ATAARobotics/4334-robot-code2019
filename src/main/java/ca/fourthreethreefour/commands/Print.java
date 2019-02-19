@@ -1,6 +1,8 @@
 package ca.fourthreethreefour.commands;
 
-public class Print {
+import edu.wpi.first.wpilibj.command.InstantCommand;
+
+public class Print extends InstantCommand {
 
     private final String str;
 
@@ -8,7 +10,7 @@ public class Print {
         this.str = str;
     }
 
-    public void print() {
+    public void execute() {
         System.out.println(str);
     }
 }
