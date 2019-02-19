@@ -12,6 +12,7 @@ import ca.fourthreethreefour.teleop.Teleop;
 import ca.fourthreethreefour.shuffleboard.Settings;
 import ca.fourthreethreefour.teleop.Teleop;
 import ca.fourthreethreefour.teleop.systems.Ultrasonics;
+import com.sun.corba.se.spi.ior.ObjectAdapterId;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 /**
@@ -25,6 +26,7 @@ public class Robot extends TimedRobot {
   Auto auto = new Auto();
   Settings shuffleboard = new Settings();
   Teleop teleop;
+
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -34,6 +36,7 @@ public class Robot extends TimedRobot {
     shuffleboard.ShuffleInit(teleop);
     this.teleop = new Teleop();
     teleop.RobotInit();
+
   }
 
   /**
