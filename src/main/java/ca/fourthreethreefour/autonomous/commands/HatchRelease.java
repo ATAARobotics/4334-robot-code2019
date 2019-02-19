@@ -5,19 +5,16 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package ca.fourthreethreefour.autonomous.driverassist;
+package ca.fourthreethreefour.autonomous.commands;
 
-import ca.fourthreethreefour.shuffleboard.Settings;
 import ca.fourthreethreefour.teleop.Teleop;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
-public class UltrasonicsDrive extends Command {
-
+public class HatchRelease extends Command {
   Teleop teleop;
-  double ultrasonicFinal;
-  public UltrasonicsDrive(Teleop teleop, double ultrasonicFinal) {
+  public HatchRelease(Teleop teleop) {
     this.teleop = teleop;
-    this.ultrasonicFinal = ultrasonicFinal;
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -25,18 +22,18 @@ public class UltrasonicsDrive extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    teleop.hatch.hatchSolenoidOut();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    teleop.ExtArcadeDrive(Settings.DRIVE_SPEED, 0);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    if (teleop.ultrasonics.getUltrasonicFrontValue() <= ultrasonicFinal) {
+    if (teleop.hatch.get() == Value.kForward) {
       return true;
     } else {
       return false;
@@ -46,7 +43,7 @@ public class UltrasonicsDrive extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    teleop.ExtArcadeDrive(0, 0);
+    teleop.hatch.hatchSolenoidIn();
   }
 
   // Called when another command which requires one or more of the same

@@ -3,7 +3,7 @@ package ca.fourthreethreefour.commands;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 
-public class SetSolenoid extends InstantCommand {
+public class SetSolenoid {
 
     //Declares solenoid and direction variables
     private final DoubleSolenoid solenoid;
@@ -16,7 +16,7 @@ public class SetSolenoid extends InstantCommand {
     };
 
     //Sets the solenoid to a specified direction
-    public void execute() {
+    public void set() {
         solenoid.set(direction);
     }   
 }

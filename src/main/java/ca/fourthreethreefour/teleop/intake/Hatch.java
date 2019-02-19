@@ -30,15 +30,15 @@ public class Hatch extends Subsystem {
   }
 
   public void hatchSolenoidOut() {
-    new SetSolenoid(hatchKnockoffSolenoid, DoubleSolenoid.Value.kForward).execute();
+    new SetSolenoid(hatchKnockoffSolenoid, DoubleSolenoid.Value.kForward).set();
   }
   
   public void hatchSolenoidIn() {
-    new SetSolenoid(hatchKnockoffSolenoid, DoubleSolenoid.Value.kReverse).execute();
+    new SetSolenoid(hatchKnockoffSolenoid, DoubleSolenoid.Value.kReverse).set();
   }
 
   public void hatchShift() {
-    new ReverseSolenoid(hatchKnockoffSolenoid, Value.kReverse).execute();
+    new ReverseSolenoid(hatchKnockoffSolenoid, Value.kReverse).reverse();
   }
 
   public Value get() {

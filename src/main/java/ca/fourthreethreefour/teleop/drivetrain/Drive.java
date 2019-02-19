@@ -75,6 +75,6 @@ public class Drive extends Subsystem {
    * @return void
    */
   public void gearShift() {
-      new ReverseSolenoid(gearShiftSolenoid, gearLow).execute();
+      new ReverseSolenoid(gearShiftSolenoid, gearLow).reverse();
   }
 }

@@ -36,7 +36,7 @@ public class Mechanum extends Subsystem {
   }
 
   public void mechanumShift() {
-    new ReverseSolenoid(mechanumSolenoid).execute();
+    new ReverseSolenoid(mechanumSolenoid).reverse();
   }
 
   public void mechanumRetract() {

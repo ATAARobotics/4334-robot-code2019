@@ -1,4 +1,4 @@
-package ca.fourthreethreefour.commands;
+package ca.fourthreethreefour.autonomous.commands;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
 

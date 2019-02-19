@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package ca.fourthreethreefour.autonomous.driverassist;
+package ca.fourthreethreefour.autonomous.commands;
 
 import ca.fourthreethreefour.vision.Vision;
 import edu.wpi.first.wpilibj.command.Command;

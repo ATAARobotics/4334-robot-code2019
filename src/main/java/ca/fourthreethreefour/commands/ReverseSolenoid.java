@@ -3,7 +3,7 @@ package ca.fourthreethreefour.commands;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 
-public class ReverseSolenoid extends InstantCommand {
+public class ReverseSolenoid {
 
 	//Declares solenoid and default direction variables
     private final DoubleSolenoid solenoid;
@@ -22,14 +22,14 @@ public class ReverseSolenoid extends InstantCommand {
 		
 	//Sets the solenoid direction to a default direction if it is off,
 	//otherwise it reverses its direction	
-	public void execute() {
+	public void reverse() {
 		if (solenoid.get() == DoubleSolenoid.Value.kOff) {
 			solenoid.set(defaultDirection);
 		} else if (solenoid.get() == DoubleSolenoid.Value.kReverse) {
 			solenoid.set(DoubleSolenoid.Value.kForward);
 		} else {
             solenoid.set(DoubleSolenoid.Value.kReverse);
-        }
+		}
 	}
 
 }
