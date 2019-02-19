@@ -27,8 +27,8 @@ public class Settings {
     // Example of port (non-dynamic) entries setup
     private NetworkTableEntry DRIVER_CONTROLLER_PORT_ENTRY;
     static public int DRIVER_CONTROLLER_PORT;
-    private NetworkTableEntry OPERATOR_CONTROLLER_PORT_ENTRY;
-    static public int OPERATOR_CONTROLLER_PORT;
+    // private NetworkTableEntry OPERATOR_CONTROLLER_PORT_ENTRY;
+    // static public int OPERATOR_CONTROLLER_PORT;
 
     private NetworkTableEntry CARGO_BUTTON_PORT_ENTRY;
     static public int CARGO_BUTTON_PORT;
@@ -85,17 +85,21 @@ public class Settings {
      * needs to be updated at initialization.
      */
     public void ShuffleInit(Teleop teleop) {
-        UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-            dashboardTab.add(camera);
+        UsbCamera camera1 = CameraServer.getInstance().startAutomaticCapture("Microsoft LifeCam HD-3000 (Image Analysis)", 0);
+
+        camera1.setResolution(320, 240);
+        camera1.setFPS(30);
+            dashboardTab.add(camera1);
+            
             dashboardTab.add(teleop.arm);
             //dashboardTab.add(teleop.drive.driveTrain);
 
-        DRIVE_DIRECTION_ENTRY = outputTab.add("Drive Direction", true).getEntry();
+        DRIVE_DIRECTION_ENTRY = dashboardTab.addPersistent("Drive Direction", true).getEntry();
 
         DRIVER_CONTROLLER_PORT_ENTRY = portsTab.addPersistent("Driver Controller", 0).getEntry();
             DRIVER_CONTROLLER_PORT = (int) DRIVER_CONTROLLER_PORT_ENTRY.getDouble(0);
-        OPERATOR_CONTROLLER_PORT_ENTRY = portsTab.addPersistent("Operator Controller", 1).getEntry();
-            OPERATOR_CONTROLLER_PORT = (int) OPERATOR_CONTROLLER_PORT_ENTRY.getDouble(1);
+        // OPERATOR_CONTROLLER_PORT_ENTRY = portsTab.addPersistent("Operator Controller", 1).getEntry();
+        //     OPERATOR_CONTROLLER_PORT = (int) OPERATOR_CONTROLLER_PORT_ENTRY.getDouble(1);
 
         CARGO_BUTTON_PORT_ENTRY = portsTab.addPersistent("Cargo Button", 0).getEntry();
             CARGO_BUTTON_PORT = (int) CARGO_BUTTON_PORT_ENTRY.getDouble(0);
@@ -135,17 +139,11 @@ public class Settings {
         MECHANUM_SOLENOID_PORT_2_ENTRY = portsTab.addPersistent("Mechanum Solenoid 2", 6).getEntry();
             MECHANUM_SOLENOID_PORT_2 = (int) MECHANUM_SOLENOID_PORT_2_ENTRY.getDouble(6);
 
-        LOGGING_ENABLED_ENTRY = settingsTab.addPersistent("Logging", true)
-            .withWidget(BuiltInWidgets.kToggleSwitch).getEntry();
-        DRIVE_SPEED_ENTRY = settingsTab.addPersistent("Drive Speed", 1)
-            .withWidget(BuiltInWidgets.kNumberSlider)
-                .withProperties(Map.of("Min", 0, "Max", 1)).getEntry();
-        TURN_CURVE_ENTRY = settingsTab.addPersistent("Turn Curve", 1.5)
-            .withWidget(BuiltInWidgets.kNumberSlider)
-                .withProperties(Map.of("Min", 1, "Max", 10)).getEntry();
-        INTAKE_ROTATE_SPEED_ENTRY = settingsTab.addPersistent("Intake Rotate Speed", 0.25)
-            .withWidget(BuiltInWidgets.kNumberSlider)
-                .withProperties(Map.of("Min", 0, "Max", 1)).getEntry();
+
+        LOGGING_ENABLED_ENTRY = settingsTab.addPersistent("Logging", true).withWidget(BuiltInWidgets.kToggleSwitch).getEntry();
+        DRIVE_SPEED_ENTRY = settingsTab.addPersistent("Drive Speed", 1).withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min", 0, "max", 1)).getEntry();
+        TURN_CURVE_ENTRY = settingsTab.addPersistent("Turn Curve", 1.5).withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min", 1, "max", 10)).getEntry();
+        INTAKE_ROTATE_SPEED_ENTRY = settingsTab.addPersistent("Intake Rotate Speed", 0.25).withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min", 0, "max", 1)).getEntry();
     }
 
     /**

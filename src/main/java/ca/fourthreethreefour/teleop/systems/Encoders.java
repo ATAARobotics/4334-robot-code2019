@@ -9,4 +9,5 @@ public class Encoders {
     
     public DigitalInput cargoButton = new DigitalInput(Settings.CARGO_BUTTON_PORT);
     public Potentiometer armPotentiometer = new AnalogPotentiometer(0, 360);
+    public DigitalInput armInnerLimitSwitch = new DigitalInput(2);
 }
