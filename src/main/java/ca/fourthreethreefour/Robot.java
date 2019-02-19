@@ -11,8 +11,6 @@ import ca.fourthreethreefour.autonomous.Auto;
 import ca.fourthreethreefour.teleop.Teleop;
 import ca.fourthreethreefour.vision.Vision;
 import ca.fourthreethreefour.shuffleboard.Settings;
-import ca.fourthreethreefour.teleop.Teleop;
-import ca.fourthreethreefour.teleop.systems.Ultrasonics;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 /**
@@ -39,10 +37,6 @@ public class Robot extends TimedRobot {
     this.vision = new Vision(teleop);
     
   }
-
-  /**
-   * This function is called periodically while disabled.
-   */
   @Override
   public void disabledPeriodic() {
     shuffleboard.ShufflePeriodic();

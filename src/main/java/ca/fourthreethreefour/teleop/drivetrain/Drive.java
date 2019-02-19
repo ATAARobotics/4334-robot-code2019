@@ -6,7 +6,6 @@ import ca.fourthreethreefour.commands.ReverseSolenoid;
 import ca.fourthreethreefour.shuffleboard.Settings;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -76,6 +75,6 @@ public class Drive extends Subsystem {
    * @return void
    */
   public void gearShift() {
-      new ReverseSolenoid(gearShiftSolenoid, gearLow).reverse();
+      new ReverseSolenoid(gearShiftSolenoid, gearLow).execute();
   }
 }
