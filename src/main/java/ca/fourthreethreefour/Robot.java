@@ -41,6 +41,7 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledPeriodic() {
     shuffleboard.ShufflePeriodic();
+    vision.endVision();
     // System.out.println(shuffleboard.EXAMPLE_PORT);
   }
 
