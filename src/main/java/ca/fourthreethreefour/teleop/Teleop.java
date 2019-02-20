@@ -90,7 +90,7 @@ public class Teleop {
       drive.gearShift();
     }
 
-    if (driver.getStickButtonPressed(Hand.kLeft)) {
+    if (driver.getStickButtonPressed(Hand.kLeft) && Settings.REVERSABLE_CONTROLS) {
       cargoOuttake =  !cargoOuttake;
       Logging.put(Settings.DRIVE_DIRECTION_ENTRY, cargoOuttake);
     }

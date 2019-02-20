@@ -67,6 +67,9 @@ public class Settings {
     private NetworkTableEntry MECHANUM_SOLENOID_PORT_2_ENTRY;
     static public int MECHANUM_SOLENOID_PORT_2;
 
+    NetworkTableEntry REVERSABLE_CONTROLS_ENTRY;
+    static public boolean REVERSABLE_CONTROLS;
+
     // Dynamic settings
     NetworkTableEntry LOGGING_ENABLED_ENTRY;
     static public boolean LOGGING_ENABLED;
@@ -135,6 +138,9 @@ public class Settings {
             MECHANUM_SOLENOID_PORT_1 = (int) MECHANUM_SOLENOID_PORT_1_ENTRY.getDouble(5);
         MECHANUM_SOLENOID_PORT_2_ENTRY = portsTab.addPersistent("Mechanum Solenoid 2", 6).getEntry();
             MECHANUM_SOLENOID_PORT_2 = (int) MECHANUM_SOLENOID_PORT_2_ENTRY.getDouble(6);
+
+        REVERSABLE_CONTROLS_ENTRY = settingsTab.addPersistent("Reversable Controls", false).withWidget(BuiltInWidgets.kToggleSwitch).getEntry();
+            REVERSABLE_CONTROLS = REVERSABLE_CONTROLS_ENTRY.getBoolean(false);
 
 
         LOGGING_ENABLED_ENTRY = settingsTab.addPersistent("Logging", true).withWidget(BuiltInWidgets.kToggleSwitch).getEntry();
