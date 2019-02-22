@@ -8,9 +8,11 @@
 package ca.fourthreethreefour.teleop.intake;
 
 import ca.fourthreethreefour.commands.ReverseSolenoid;
+import ca.fourthreethreefour.commands.SetSolenoid;
 import ca.fourthreethreefour.shuffleboard.Settings;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -35,5 +37,9 @@ public class Mechanum extends Subsystem {
 
   public void mechanumShift() {
     new ReverseSolenoid(mechanumSolenoid).reverse();
+  }
+
+  public void mechanumRetract() {
+    new SetSolenoid(mechanumSolenoid, Value.kReverse).set();
   }
 }
