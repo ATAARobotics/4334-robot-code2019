@@ -17,8 +17,7 @@ public class Teleop {
 
   //Creates and initializes various objects needed in teleop
   private XboxController driver = new XboxController(Settings.DRIVER_CONTROLLER_PORT);
-  // private XboxController operator = new XboxController(Settings.OPERATOR_CONTROLLER_PORT);
-  
+
   private Cargo cargo = new Cargo();
   private Encoders encoders = new Encoders();
   private Hatch hatch = new Hatch();
@@ -58,12 +57,6 @@ public class Teleop {
 
     drive.drive(driver, cargoOuttake);
 
-    // double intakeSpeed = driver.getTriggerAxis(Hand.kRight) - driver.getTriggerAxis(Hand.kLeft);
-    // if (Math.abs(intakeSpeed) > 0.05) {
-    //   cargo.intakeRotate(intakeSpeed*Settings.INTAKE_ROTATE_SPEED);
-    // } else {
-    //   cargo.intakeRotate(0);
-    // };
     if (driver.getBumper(Hand.kLeft)) {
       cargo.intakeRotate(Settings.INTAKE_ROTATE_SPEED);
     } else if (driver.getBumper(Hand.kRight) && encoders.armInnerLimitSwitch.get()) {
@@ -102,16 +95,6 @@ public class Teleop {
     if (driver.getBButtonReleased()) {
       mechanum.mechanumShift();
     }
-
-    // if (operator.getAButtonPressed()) {
-    //   Logging.log("Shooter set point A");
-    // } else if (operator.getBButtonPressed()) {
-    //   Logging.log("Shooter set point B");
-    // } else if (operator.getXButtonPressed()) {
-    //   Logging.log("Shooter set point X");
-    // } else if (operator.getYButtonPressed()) {
-    //   Logging.log("Shooter set point Y");
-    // }
 
     ultrasonics.printValues();
 
