@@ -1,13 +1,10 @@
 package ca.fourthreethreefour.teleop.drivetrain;
 
-
 // import libraries
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-
-
 
 public class ATADrive {
 
