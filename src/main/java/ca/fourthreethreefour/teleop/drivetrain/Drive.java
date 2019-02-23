@@ -44,9 +44,8 @@ public class Drive extends Subsystem {
     double speed = controller.getY(Hand.kLeft), turn = -controller.getX(Hand.kRight);
     speed = speed * Settings.DRIVE_SPEED;
     speed = cargoOuttake ? speed : -speed;
+    //Log the speed and turn values
     Logging.log("Speed: " + speed + " Turn: " + turn);
-    //turn = turn >= 0 ? Math.pow(turn, Settings.TURN_CURVE) : -Math.pow(Math.abs(turn), Settings.TURN_CURVE);
-    driveTrain.arcadeDrive(speed, turn);
   }
 
   /**
