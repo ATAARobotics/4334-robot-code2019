@@ -8,7 +8,6 @@
 package ca.fourthreethreefour.teleop.intake;
 
 import ca.fourthreethreefour.teleop.systems.Encoders;
-import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
 /**

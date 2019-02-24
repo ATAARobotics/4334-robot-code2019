@@ -8,10 +8,8 @@
 package ca.fourthreethreefour;
 
 import ca.fourthreethreefour.autonomous.Auto;
-import ca.fourthreethreefour.teleop.Teleop;
 import ca.fourthreethreefour.shuffleboard.Settings;
 import ca.fourthreethreefour.teleop.Teleop;
-import ca.fourthreethreefour.teleop.systems.Ultrasonics;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 /**
