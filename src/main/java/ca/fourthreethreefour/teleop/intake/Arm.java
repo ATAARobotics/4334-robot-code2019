@@ -18,13 +18,15 @@ public class Arm extends PIDSubsystem {
 
   Encoders encoders;
   Cargo arm;
+  boolean isEnabled;
+  double setpoint;
 
   /**
    * Add your docs here.
    */
   public Arm(Encoders encoders, Cargo cargo) {
     // Insert a subsystem name and PID values here
-    super("ArmRotate", 0, 0, 0);
+    super("ArmRotate", 0.05, 0, 0);
     this.encoders = encoders;
     this.arm = cargo;
     // Use these to get going:
@@ -49,6 +51,32 @@ public class Arm extends PIDSubsystem {
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
+  }
+
+  @Override
+  public void enable() {
+    super.enable();
+    isEnabled = true;
+  }
+
+  @Override
+  public void disable() {
+    super.enable();
+    isEnabled = false;
+  }
+
+  @Override
+  public void setSetpoint(double setpoint) {
+    super.setSetpoint(setpoint);
+    this.setpoint = setpoint;
+  }
+
+  public boolean isEnabled() {
+    return isEnabled;
+  }
+
+  public double getSetpoint() {
+    return setpoint;
   }
 
   @Override

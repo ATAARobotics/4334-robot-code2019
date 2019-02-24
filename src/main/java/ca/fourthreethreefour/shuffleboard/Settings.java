@@ -142,8 +142,8 @@ public class Settings {
         MECHANUM_SOLENOID_PORT_2_ENTRY = portsTab.addPersistent("Mechanum Solenoid 2", 6).getEntry();
             MECHANUM_SOLENOID_PORT_2 = (int) MECHANUM_SOLENOID_PORT_2_ENTRY.getDouble(6);
 
-        REVERSABLE_CONTROLS_ENTRY = settingsTab.addPersistent("Reversable Controls", false).withWidget(BuiltInWidgets.kToggleSwitch).getEntry();
-            REVERSABLE_CONTROLS = REVERSABLE_CONTROLS_ENTRY.getBoolean(false);
+        REVERSABLE_CONTROLS_ENTRY = settingsTab.addPersistent("Reversable Controls", true).withWidget(BuiltInWidgets.kToggleSwitch).getEntry();
+            REVERSABLE_CONTROLS = REVERSABLE_CONTROLS_ENTRY.getBoolean(true);
 
 
         LOGGING_ENABLED_ENTRY = settingsTab.addPersistent("Logging", true).withWidget(BuiltInWidgets.kToggleSwitch).getEntry();

@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 public class Encoders {
     
     public DigitalInput cargoButton = new DigitalInput(Settings.CARGO_BUTTON_PORT);
-    public Potentiometer armPotentiometer = new AnalogPotentiometer(0, 360);
     public DigitalInput armInnerLimitSwitch = new DigitalInput(2);
+
+    public Potentiometer armPotentiometer = new AnalogPotentiometer(0, 1800, -1520);
 }

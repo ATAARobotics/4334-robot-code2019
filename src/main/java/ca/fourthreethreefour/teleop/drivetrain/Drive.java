@@ -48,13 +48,13 @@ public class Drive extends Subsystem {
     // double rightSpeed = controller.getRawAxis(1) + controller.getRawAxis(4);
     // driveTrain.tankDrive(leftSpeed, rightSpeed);
     double speed = Math.abs(controller.getY(Hand.kLeft)) > 0.05 ? controller.getY(Hand.kLeft) : 0,
-      turn = Math.abs(controller.getX(Hand.kRight)) > 0.05 ? -controller.getX(Hand.kRight) : 0;
+      turn = Math.abs(controller.getX(Hand.kRight)) > 0.05 ? controller.getX(Hand.kRight) : 0;
     speed = speed * Settings.DRIVE_SPEED;
     speed = cargoOuttake ? speed : -speed;
     speed = speed >= 0 ? speed*speed : -(speed*speed);
     turn = turn >= 0 ? Math.pow(turn, Settings.TURN_CURVE) : -Math.pow(Math.abs(turn), Settings.TURN_CURVE);
     System.out.println("Speed: " + speed + " Turn: " + turn);
-    driveTrain.arcadeDrive(speed, turn);
+    driveTrain.arcadeDrive(speed, turn); // TODO add a shuffleboard turn speed modifier
   }
 
   /**

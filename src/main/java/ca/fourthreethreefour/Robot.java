@@ -36,6 +36,10 @@ public class Robot extends TimedRobot {
     teleop.RobotInit();
   }
 
+  @Override
+  public void disabledInit() {
+    teleop.arm.disable();
+  }
   /**
    * This function is called periodically while disabled.
    */

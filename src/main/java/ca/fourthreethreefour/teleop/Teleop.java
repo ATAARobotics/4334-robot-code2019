@@ -48,6 +48,8 @@ public class Teleop {
     drive.driveTrain.setSafetyEnabled(true);
     drive.gearShiftSolenoid.set(drive.gearLow);
     mechanum.mechanumSolenoid.set(Value.kReverse);
+    hatch.hatchSolenoidIn();
+    arm.setAbsoluteTolerance(2);
     cargoOuttake = true;
   }
   
@@ -72,7 +74,7 @@ public class Teleop {
       cargo.intakeRotate(Settings.INTAKE_ROTATE_SPEED);
     } else if (driver.getBumper(Hand.kRight) && encoders.armInnerLimitSwitch.get()) {
       cargo.intakeRotate(-Settings.INTAKE_ROTATE_SPEED);
-    } else {
+    } else if (!arm.isEnabled()) {
       cargo.intakeRotate(0);
     }
 
@@ -94,13 +96,15 @@ public class Teleop {
       drive.gearShift();
     }
 
-    if (driver.getStickButtonPressed(Hand.kLeft) && Settings.REVERSABLE_CONTROLS) {
+    if (driver.getStickButtonReleased(Hand.kLeft) && Settings.REVERSABLE_CONTROLS) {
       cargoOuttake =  !cargoOuttake;
     }
     Logging.put(Settings.DRIVE_DIRECTION_ENTRY, cargoOuttake);
 
-    if (driver.getAButtonReleased()) {
-      hatch.hatchShift();
+    if (driver.getAButton()) {
+      hatch.hatchSolenoidOut();
+    } else {
+      hatch.hatchSolenoidIn();
     }
 
     if (driver.getBButtonReleased()) {
@@ -116,17 +120,40 @@ public class Teleop {
     // } else if (operator.getYButtonPressed()) {
     //   Logging.log("Shooter set point Y");
     // }
-    if (driver.getPOV() == 0) {
-        Logging.log("Shooter set point up");
+    if (driver.getPOV() == 0) { // TODO make the setpoints shuffleboard stuff
+      Logging.log("Shooter set point up");
+      arm.setSetpoint(90);
+      arm.enable();
+      mechanum.mechanumRetract();
     } else if (driver.getPOV() == 90) {
       Logging.log("Shooter set point right");
+      arm.setSetpoint(110);
+      arm.enable();
+      mechanum.mechanumRetract();
     } else if (driver.getPOV() == 180) {
       Logging.log("Shooter set point down");
+      arm.setSetpoint(200);
+      arm.enable();
+      mechanum.mechanumRetract();
     } else if (driver.getPOV() == 270) {
       Logging.log("Shooter set point left");
+      arm.setSetpoint(10);
+      arm.enable();
+      mechanum.mechanumExtend();
+    } else if (arm.onTarget()) {
+      arm.disable();
+    } else if (arm.isEnabled() && !encoders.armInnerLimitSwitch.get() && arm.getSetpoint() != 111) {
+      arm.disable();
+      // TODO armPIDOffset += encoders.armPotentionmeter.get();
     }
 
     // ultrasonics.printValues();
+
+    if (!encoders.cargoButton.get()) {
+      arm.setSetpoint(111);
+      arm.enable();
+      mechanum.mechanumRetract();
+    }
 
   }
 
