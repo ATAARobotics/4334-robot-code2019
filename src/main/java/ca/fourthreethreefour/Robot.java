@@ -46,7 +46,7 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledPeriodic() {
     shuffleboard.ShufflePeriodic();
-    vision.endVision();
+    vision.stopVision();
     // System.out.println(shuffleboard.EXAMPLE_PORT);
   }
 
@@ -55,7 +55,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    vision.visionInit();
+    vision.startVision();
     auto.AutoInit(); // Runs everything set in the .AutoInit() function.
   }
 
