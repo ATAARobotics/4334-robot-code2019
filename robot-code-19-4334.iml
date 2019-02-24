@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module relativePaths="true" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output/>
+    <orderEntry type="inheritedJdk"/>
+    <content url="file://$MODULE_DIR$/">
+      <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false"/>
+      <excludeFolder url="file://$MODULE_DIR$/.gradle"/>
+      <excludeFolder url="file://$MODULE_DIR$/build"/>
+    </content>
+    <orderEntry type="sourceFolder" forTests="false"/>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://C:/Users/trevo/.gradle/caches/modules-2/files-2.1/edu.wpi.first.wpilibj/wpilibj-java/2019.3.1/c10042eb46f587734104db8e7da32442425cc379/wpilibj-java-2019.3.1.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar://C:/Users/trevo/.gradle/caches/modules-2/files-2.1/edu.wpi.first.wpilibj/wpilibj-java/2019.3.1/833de3f0c566a45afc1cdc74f037040f7f362f0/wpilibj-java-2019.3.1-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://C:/Users/trevo/.gradle/caches/modules-2/files-2.1/edu.wpi.first.ntcore/ntcore-java/2019.3.1/e06232d308edeee8ca93677d52ed7bf69c5d1c04/ntcore-java-2019.3.1.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar://C:/Users/trevo/.gradle/caches/modules-2/files-2.1/edu.wpi.first.ntcore/ntcore-java/2019.3.1/1bccdb2b3b486ea633ab7777f2e518b4a1e1a4ac/ntcore-java-2019.3.1-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://C:/Users/trevo/.gradle/caches/modules-2/files-2.1/edu.wpi.first.wpiutil/wpiutil-java/2019.3.1/afdadea26c3036bc013d0b2f0967c63768c129d/wpiutil-java-2019.3.1.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar://C:/Users/trevo/.gradle/caches/modules-2/files-2.1/edu.wpi.first.wpiutil/wpiutil-java/2019.3.1/7921033a4ef8e3a743531e4b7f54f352a1afca62/wpiutil-java-2019.3.1-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://C:/Users/Public/frc2019/maven/edu/wpi/first/thirdparty/frc2019/opencv/opencv-java/3.4.4-4/opencv-java-3.4.4-4.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar://C:/Users/Public/frc2019/maven/edu/wpi/first/thirdparty/frc2019/opencv/opencv-java/3.4.4-4/opencv-java-3.4.4-4-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://C:/Users/trevo/.gradle/caches/modules-2/files-2.1/edu.wpi.first.cscore/cscore-java/2019.3.1/efe085809b133dbdcb4443ecf6763681acb6bf9d/cscore-java-2019.3.1.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar://C:/Users/trevo/.gradle/caches/modules-2/files-2.1/edu.wpi.first.cscore/cscore-java/2019.3.1/725ff2ee1dbf3ecbc437cba00c1d8ec59836c128/cscore-java-2019.3.1-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://C:/Users/trevo/.gradle/caches/modules-2/files-2.1/edu.wpi.first.cameraserver/cameraserver-java/2019.3.1/9e86a2c674c9e26d054655ae3923767b5485f886/cameraserver-java-2019.3.1.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar://C:/Users/trevo/.gradle/caches/modules-2/files-2.1/edu.wpi.first.cameraserver/cameraserver-java/2019.3.1/5d5615d15cdec097e55558c3b3749d6ff33fb979/cameraserver-java-2019.3.1-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://C:/Users/trevo/.gradle/caches/modules-2/files-2.1/edu.wpi.first.hal/hal-java/2019.3.1/e86cc23970d2c6b27f3fd41c3e0384679cb8fe0e/hal-java-2019.3.1.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar://C:/Users/trevo/.gradle/caches/modules-2/files-2.1/edu.wpi.first.hal/hal-java/2019.3.1/43e4e399082cd74460efe172fa6bb672806112a6/hal-java-2019.3.1-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://C:/Users/trevo/.gradle/caches/modules-2/files-2.1/jaci.pathfinder/Pathfinder-Java/2019.2.19/184a2e0b22eb05eccf41512c10b421f10f7cb43/Pathfinder-Java-2019.2.19.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar://C:/Users/trevo/.gradle/caches/modules-2/files-2.1/jaci.pathfinder/Pathfinder-Java/2019.2.19/1cba949fc4de1708c0432029a4396f1e6c3c4489/Pathfinder-Java-2019.2.19-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://C:/Users/trevo/.gradle/caches/modules-2/files-2.1/jaci.jniloader/JNILoader/1.0.1/cda8f6f8880538cb168c9d6cf62e2d96c01ee7b5/JNILoader-1.0.1.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar://C:/Users/trevo/.gradle/caches/modules-2/files-2.1/jaci.jniloader/JNILoader/1.0.1/43472fb5bec68edf76f499d3ba49b7746465885a/JNILoader-1.0.1-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://C:/Users/trevo/.gradle/caches/modules-2/files-2.1/jaci.pathfinder/Pathfinder-FRCSupport/2019.2.19/c4a4b192cee7c24e6f57098c1f3fb232638432f9/Pathfinder-FRCSupport-2019.2.19.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar://C:/Users/trevo/.gradle/caches/modules-2/files-2.1/jaci.pathfinder/Pathfinder-FRCSupport/2019.2.19/1067fc1fae4c7e8780ff98f75a1e8b3f9b29113f/Pathfinder-FRCSupport-2019.2.19-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://C:/Users/trevo/.gradle/caches/modules-2/files-2.1/com.ctre.phoenix/api-java/5.13.0/f9b2c1e7b6f2cabc3204e791386c47a856654fc5/api-java-5.13.0.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar://C:/Users/trevo/.gradle/caches/modules-2/files-2.1/com.ctre.phoenix/api-java/5.13.0/d556f9757205f08a4106a6072291b7a8f2f00b9c/api-java-5.13.0-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://C:/Users/trevo/.gradle/caches/modules-2/files-2.1/com.ctre.phoenix/wpiapi-java/5.13.0/d37ff722315cf93181d9f28b10a6bbcb023306ff/wpiapi-java-5.13.0.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar://C:/Users/trevo/.gradle/caches/modules-2/files-2.1/com.ctre.phoenix/wpiapi-java/5.13.0/1176e3b7dc8b05a37d92c1e2fc398cef726ede28/wpiapi-java-5.13.0-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="TEST">
+      <library>
+        <CLASSES>
+          <root url="jar://C:/Users/Public/frc2019/maven/junit/junit/4.12/junit-4.12.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar://C:/Users/Public/frc2019/maven/junit/junit/4.12/junit-4.12-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="TEST">
+      <library>
+        <CLASSES>
+          <root url="jar://C:/Users/Public/frc2019/maven/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar://C:/Users/Public/frc2019/maven/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+  </component>
+  <component name="ModuleRootManager"/>
+</module>

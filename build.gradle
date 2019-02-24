@@ -1,10 +1,8 @@
 plugins {
+    id "idea"
     id "java"
-    id "edu.wpi.first.GradleRIO" version "2019.2.1"
+    id "edu.wpi.first.GradleRIO" version "2019.3.2"
 }
-
-sourceCompatibility = JavaVersion.VERSION_11
-targetCompatibility = JavaVersion.VERSION_11
 
 def ROBOT_MAIN_CLASS = "ca.fourthreethreefour.Main"
 
@@ -37,14 +35,6 @@ deploy {
     }
 }
 
-// Set this to true to enable desktop support.
-def includeDesktopSupport = false
-
-// Maven central needed for JUnit
-repositories {
-    mavenCentral()
-}
-
 // Defining my dependencies. In this case, WPILib (+ friends), and vendor libraries.
 // Also defines JUnit 4.
 dependencies {
@@ -61,4 +51,8 @@ dependencies {
 jar {
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     manifest edu.wpi.first.gradlerio.GradleRIOPlugin.javaManifest(ROBOT_MAIN_CLASS)
+}
+
+wrapper {
+    gradleVersion = '5.0'
 }
