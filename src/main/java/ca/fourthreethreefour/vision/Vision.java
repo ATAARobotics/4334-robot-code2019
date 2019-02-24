@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Relay.Value;
 import ca.fourthreethreefour.teleop.*;
+import ca.fourthreethreefour.teleop.systems.Encoders;
 
 
 /**
@@ -24,29 +25,35 @@ public class Vision {
     //Creates Shuffleboard Items for Vision
     private NetworkTableEntry VISION_ACTIVE_ENTRY_SHUFFLE = dynamicSettingsTab.addPersistent("Vision Active", false).getEntry();
 
+    //Creates object for LedRing Relay
+    private Relay ledRelay = new Relay(1);
+
     //Creates Teleop Object
-    Teleop teleop;
+    private Teleop teleop;
+
+    //Creates PID Object
+    private VisionPID visionPID;
+
+    //Creates Encoders Object
+    private Encoders encoders = new Encoders();
 
     //Creates NetworkTable Items
     private NetworkTableEntry VISION_DRIVE_VALUE;
     private NetworkTableEntry VISION_SPEED_VALUE;
-    NetworkTable table = inst.getTable("datatable");
-
-    //Creates object for LedRing Relay
-    private Relay ledRelay = new Relay(1);
-
-
+    private NetworkTable table = inst.getTable("datatable");
 
     public Vision(Teleop teleop){
         VISION_DRIVE_VALUE = table.getEntry("VISION_DRIVE_VALUE");
         VISION_SPEED_VALUE = table.getEntry("VISION_SPEED_VALUE");
         this.teleop = teleop;
+        visionPID = new VisionPID(teleop, encoders);
     }
 
     //Starts Vision on Pi and Enables LED Ring
     public void startVision(){
         VISION_ACTIVE_ENTRY_SHUFFLE.setBoolean(true);
         ledRelay.set(Value.kForward);
+        encoders.initalizeNavX();
         
     }
 
@@ -66,10 +73,21 @@ public class Vision {
         return(VISION_SPEED_VALUE.getDouble(0.5));
     }
 
+    private Double angleGoal;
 
     //Drive Value from NetworkTable
     public void drive(){
-        teleop.ExtArcadeDrive(getPiSpeed(), getPiRotation());
+        //teleop.ExtArcadeDrive(getPiSpeed(), getPiRotation());
+        angleGoal = encoders.getNavXAngle() + getPiRotation();
+        visionPID.setSetpoint(angleGoal);
+        visionPID.enable();
+        while(true){
+            if(visionPID.onTarget() == true){
+                visionPID.disable();
+                visionPID.free();
+                break;
+            }
+        }
     }
 
 }
