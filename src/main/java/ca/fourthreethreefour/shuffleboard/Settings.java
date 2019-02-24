@@ -132,7 +132,7 @@ public class Settings {
             MECHANUM_SOLENOID_PORT_2 = (int) MECHANUM_SOLENOID_PORT_2_ENTRY.getDouble(6);
 
 
-        LOGGING_ENABLED_ENTRY = settingsTab.addPersistent("Logging", true)
+/*        LOGGING_ENABLED_ENTRY = settingsTab.addPersistent("Logging", true)
             .withWidget(BuiltInWidgets.kToggleSwitch).getEntry();
         DRIVE_SPEED_ENTRY = settingsTab.addPersistent("Drive Speed", 1)
             .withWidget(BuiltInWidgets.kNumberSlider)
@@ -142,7 +142,7 @@ public class Settings {
                 .withProperties(Map.of("Min", 1, "Max", 10)).getEntry();
         INTAKE_ROTATE_SPEED_ENTRY = settingsTab.addPersistent("Intake Rotate Speed", 0.25)
             .withWidget(BuiltInWidgets.kNumberSlider)
-                .withProperties(Map.of("Min", 0, "Max", 1)).getEntry();
+                .withProperties(Map.of("Min", 0, "Max", 1)).getEntry();*/
     }
 
     /**
