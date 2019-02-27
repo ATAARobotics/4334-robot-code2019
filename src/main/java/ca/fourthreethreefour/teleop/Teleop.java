@@ -10,21 +10,29 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import ca.fourthreethreefour.commands.debug.Logging;
 import ca.fourthreethreefour.shuffleboard.Settings;
 import ca.fourthreethreefour.teleop.drivetrain.Drive;
+import ca.fourthreethreefour.teleop.systems.Ultrasonics;
 
 public class Teleop {
 
 
   //Creates and initializes various objects needed in teleop
   private XboxController driver = new XboxController(Settings.DRIVER_CONTROLLER_PORT);
-  private XboxController operator = new XboxController(Settings.OPERATOR_CONTROLLER_PORT);
+  // private XboxController operator = new XboxController(Settings.OPERATOR_CONTROLLER_PORT);
   
   private Cargo cargo = new Cargo();
   private Encoders encoders = new Encoders();
   private Hatch hatch = new Hatch();
   private Mechanum mechanum = new Mechanum();
   public Drive drive = new Drive();
+  private Ultrasonics ultrasonics = new Ultrasonics();
 
   public static boolean cargoOuttake;
+
+  public void RobotInit() {
+    ultrasonics.enable();
+    ultrasonics.ultrasonicPollingThread();
+  }
+
   /**
    * Runs as the start of teleop
    * @return void
@@ -56,25 +64,25 @@ public class Teleop {
     // } else {
     //   cargo.intakeRotate(0);
     // };
-    if (driver.getBumper(Hand.kRight)) {
+    if (driver.getBumper(Hand.kLeft)) {
       cargo.intakeRotate(Settings.INTAKE_ROTATE_SPEED);
-    } else if (driver.getBumper(Hand.kLeft)) {
+    } else if (driver.getBumper(Hand.kRight) && encoders.armInnerLimitSwitch.get()) {
       cargo.intakeRotate(-Settings.INTAKE_ROTATE_SPEED);
     } else {
       cargo.intakeRotate(0);
     }
 
-    if (operator.getTriggerAxis(Hand.kLeft) > 0.05) {
-      cargo.cargoOuttake(operator.getTriggerAxis(Hand.kLeft));
+    if (driver.getTriggerAxis(Hand.kLeft) > 0.05) {
+      cargo.cargoOuttake(driver.getTriggerAxis(Hand.kLeft));
+      mechanum.mechanumRoller(-driver.getTriggerAxis(Hand.kLeft));
     } else if (driver.getTriggerAxis(Hand.kRight) > 0.05 && encoders.cargoButton.get()) {
       cargo.cargoTransfer(driver.getTriggerAxis(Hand.kRight));
       mechanum.mechanumRoller(driver.getTriggerAxis(Hand.kRight));
     } else {
       cargo.stop();
-      if (driver.getTriggerAxis(Hand.kLeft) > 0.05) {
-        mechanum.mechanumRoller(-driver.getTriggerAxis(Hand.kLeft));
-      } else {
-        mechanum.mechanumRoller(0);
+      mechanum.mechanumRoller(0);
+      if (!encoders.cargoButton.get()) {
+        mechanum.mechanumRetract();
       }
     }
     
@@ -87,23 +95,34 @@ public class Teleop {
       Logging.put(Settings.DRIVE_DIRECTION_ENTRY, cargoOuttake);
     }
 
-    if (driver.getAButtonPressed()) {
+    if (driver.getAButtonReleased()) {
       hatch.hatchShift();
     }
 
-    if (operator.getBumperPressed(Hand.kRight)) {
+    if (driver.getBButtonReleased()) {
       mechanum.mechanumShift();
     }
 
-    if (operator.getAButtonPressed()) {
-      Logging.log("Shooter set point A");
-    } else if (driver.getBButtonPressed()) {
-      Logging.log("Shooter set point B");
-    } else if (driver.getXButtonPressed()) {
-      Logging.log("Shooter set point X");
-    } else if (driver.getYButtonPressed()) {
-      Logging.log("Shooter set point Y");
+    // if (operator.getAButtonPressed()) {
+    //   Logging.log("Shooter set point A");
+    // } else if (operator.getBButtonPressed()) {
+    //   Logging.log("Shooter set point B");
+    // } else if (operator.getXButtonPressed()) {
+    //   Logging.log("Shooter set point X");
+    // } else if (operator.getYButtonPressed()) {
+    //   Logging.log("Shooter set point Y");
+    // }
+    if (driver.getPOV() == 0) {
+        Logging.log("Shooter set point up");
+    } else if (driver.getPOV() == 90) {
+      Logging.log("Shooter set point right");
+    } else if (driver.getPOV() == 180) {
+      Logging.log("Shooter set point down");
+    } else if (driver.getPOV() == 270) {
+      Logging.log("Shooter set point left");
     }
+
+    // ultrasonics.printValues();
 
   }
 
