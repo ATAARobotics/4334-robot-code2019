@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Relay.Value;
 import ca.fourthreethreefour.teleop.*;
+import ca.fourthreethreefour.vision.exceptions.visionTargetDetectionException;
 
 
 /**
@@ -30,6 +31,7 @@ public class Vision {
     //Creates NetworkTable Items
     private NetworkTableEntry VISION_DRIVE_VALUE;
     private NetworkTableEntry VISION_SPEED_VALUE;
+    private NetworkTableEntry VISION_ERROR_NOTARGET;
     NetworkTable table = inst.getTable("datatable");
 
     //Creates object for LedRing Relay
@@ -40,6 +42,7 @@ public class Vision {
     public Vision(Teleop teleop){
         VISION_DRIVE_VALUE = table.getEntry("VISION_DRIVE_VALUE");
         VISION_SPEED_VALUE = table.getEntry("VISION_SPEED_VALUE");
+        VISION_ERROR_NOTARGET =  table.getEntry("VISION_ERROR_NOTARGET");
         this.teleop = teleop;
     }
 
@@ -68,8 +71,11 @@ public class Vision {
 
 
     //Drive Value from NetworkTable
-    public void drive(){
+    public void drive() throws visionTargetDetectionException {
         teleop.ExtArcadeDrive(getPiSpeed(), getPiRotation());
+        if(VISION_ERROR_NOTARGET.getBoolean(false) == false){
+            throw new visionTargetDetectionException("Unable to lcoate more than 1 target");
+        }
     }
 
 }

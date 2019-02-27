@@ -10,6 +10,7 @@ package ca.fourthreethreefour;
 import ca.fourthreethreefour.autonomous.Auto;
 import ca.fourthreethreefour.teleop.Teleop;
 import ca.fourthreethreefour.vision.Vision;
+import ca.fourthreethreefour.vision.exceptions.visionTargetDetectionException;
 import ca.fourthreethreefour.shuffleboard.Settings;
 import ca.fourthreethreefour.teleop.Teleop;
 import ca.fourthreethreefour.teleop.systems.Ultrasonics;
@@ -64,7 +65,11 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-    vision.drive();
+    try {
+      vision.drive();
+    } catch (visionTargetDetectionException e) {
+      System.out.println(e.getMessage());
+	}
     auto.AutoPeriodic(); // Runs everything set in the .AutoPeriodic() function.
   }
 
