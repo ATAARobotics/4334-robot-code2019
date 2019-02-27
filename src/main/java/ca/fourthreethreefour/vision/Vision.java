@@ -73,7 +73,7 @@ public class Vision {
     //Drive Value from NetworkTable
     public void drive() throws visionTargetDetectionException {
         teleop.ExtArcadeDrive(getPiSpeed(), getPiRotation());
-        if(VISION_ERROR_NOTARGET.getBoolean(false) == false){
+        if(VISION_ERROR_NOTARGET.getBoolean(true) == true){
             throw new visionTargetDetectionException("Unable to lcoate more than 1 target");
         }
     }
