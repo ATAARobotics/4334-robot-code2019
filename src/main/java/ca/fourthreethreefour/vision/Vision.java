@@ -77,12 +77,11 @@ public class Vision {
 
     //Drive Value from NetworkTable
     public void drive(){
-        //teleop.ExtArcadeDrive(getPiSpeed(), getPiRotation());
         angleGoal = encoders.getNavXAngle() + getPiRotation();
         visionPID.setSetpoint(angleGoal);
         visionPID.enable();
         while(true){
-            if(visionPID.onTarget() == true){
+            if(visionPID.onTarget()){
                 visionPID.disable();
                 visionPID.free();
                 break;
