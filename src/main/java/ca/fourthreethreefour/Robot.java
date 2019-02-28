@@ -56,6 +56,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     vision.startVision();
+    vision.startPIDDrive();
     auto.AutoInit(); // Runs everything set in the .AutoInit() function.
   }
 

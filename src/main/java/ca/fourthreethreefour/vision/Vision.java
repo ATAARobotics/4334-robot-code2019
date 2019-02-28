@@ -40,13 +40,18 @@ public class Vision {
     //Creates NetworkTable Items
     private NetworkTableEntry VISION_DRIVE_VALUE;
     private NetworkTableEntry VISION_SPEED_VALUE;
+    private NetworkTableEntry VISION_PID_P;
+    private NetworkTableEntry VISION_PID_I;
+    private NetworkTableEntry VISION_PID_D;
     private NetworkTable table = inst.getTable("datatable");
 
     public Vision(Teleop teleop){
         VISION_DRIVE_VALUE = table.getEntry("VISION_DRIVE_VALUE");
         VISION_SPEED_VALUE = table.getEntry("VISION_SPEED_VALUE");
+        VISION_PID_P = table.getEntry("VISION_PID_P");
+        VISION_PID_I = table.getEntry("VISION_PID_I");
+        VISION_PID_D = table.getEntry("VISION_PID_D");
         this.teleop = teleop;
-        visionPID = new VisionPID(teleop, encoders);
     }
 
     //Starts Vision on Pi and Enables LED Ring
@@ -54,6 +59,8 @@ public class Vision {
         VISION_ACTIVE_ENTRY_SHUFFLE.setBoolean(true);
         ledRelay.set(Value.kForward);
         encoders.initalizeNavX();
+        encoders.navX.reset();
+        visionPID = new VisionPID(teleop, encoders);
         
     }
 
@@ -75,17 +82,20 @@ public class Vision {
 
     private Double angleGoal;
 
-    //Drive Value from NetworkTable
-    public void drive(){
+    public void startPIDDrive(){
+        encoders.navX.reset();
         angleGoal = encoders.getNavXAngle() + getPiRotation();
         visionPID.setSetpoint(angleGoal);
         visionPID.enable();
-        while(true){
-            if(visionPID.onTarget()){
-                visionPID.disable();
-                visionPID.free();
-                break;
-            }
+    }
+
+    public boolean drive(){
+        if(visionPID.onTarget()){
+            visionPID.disable();
+            visionPID.free();
+            return(true);
+        } else {
+            return(false);
         }
     }
 
