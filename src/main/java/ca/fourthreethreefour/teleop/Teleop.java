@@ -16,12 +16,13 @@ import ca.fourthreethreefour.teleop.systems.Ultrasonics;
 public class Teleop {
 
 
+  double armPIDOffset = -1506;
   //Creates and initializes various objects needed in teleop
   private XboxController driver = new XboxController(Settings.DRIVER_CONTROLLER_PORT);
   // private XboxController operator = new XboxController(Settings.OPERATOR_CONTROLLER_PORT);
   
   private Cargo cargo = new Cargo();
-  private Encoders encoders = new Encoders();
+  public Encoders encoders = new Encoders(armPIDOffset);
   private Hatch hatch = new Hatch();
   private Mechanum mechanum = new Mechanum();
   public Arm arm = new Arm(encoders, cargo);
@@ -71,8 +72,10 @@ public class Teleop {
     //   cargo.intakeRotate(0);
     // };
     if (driver.getBumper(Hand.kLeft)) {
+      arm.disable();
       cargo.intakeRotate(Settings.INTAKE_ROTATE_SPEED);
     } else if (driver.getBumper(Hand.kRight) && encoders.armInnerLimitSwitch.get()) {
+      arm.disable();
       cargo.intakeRotate(-Settings.INTAKE_ROTATE_SPEED);
     } else if (!arm.isEnabled()) {
       cargo.intakeRotate(0);
@@ -111,40 +114,34 @@ public class Teleop {
       mechanum.mechanumShift();
     }
 
-    // if (operator.getAButtonPressed()) {
-    //   Logging.log("Shooter set point A");
-    // } else if (operator.getBButtonPressed()) {
-    //   Logging.log("Shooter set point B");
-    // } else if (operator.getXButtonPressed()) {
-    //   Logging.log("Shooter set point X");
-    // } else if (operator.getYButtonPressed()) {
-    //   Logging.log("Shooter set point Y");
-    // }
-    if (driver.getPOV() == 0) { // TODO make the setpoints shuffleboard stuff
+    // Up D-Pad - Sets the PID setpoint to hatch outtake and retracts the mecanum intake
+    if (!encoders.armInnerLimitSwitch.get() && arm.getSetpoint() != 111) {
+      arm.disable();
+      armPIDOffset += encoders.armPotentiometer.get();
+    } else if (driver.getPOV() == 0) { // TODO make the setpoints shuffleboard stuff
       Logging.log("Shooter set point up");
       arm.setSetpoint(90);
       arm.enable();
       mechanum.mechanumRetract();
-    } else if (driver.getPOV() == 90) {
+    } else if (driver.getPOV() == 90) {  // Right D-Pad - Sets the PID setpoint to cargo outtake and retracts the mecanum intake
       Logging.log("Shooter set point right");
       arm.setSetpoint(110);
       arm.enable();
       mechanum.mechanumRetract();
-    } else if (driver.getPOV() == 180) {
+    } else if (driver.getPOV() == 180) {  // Down D-Pad - Sets the PID setpoint to hatch ground and retracts the mecanum intake
       Logging.log("Shooter set point down");
-      arm.setSetpoint(200);
+      arm.setSetpoint(172);
       arm.enable();
       mechanum.mechanumRetract();
-    } else if (driver.getPOV() == 270) {
+    } else if (driver.getPOV() == 270) {  // Left D-Pad - Sets the PID setpoint to cargo intake from the mecanum intake
       Logging.log("Shooter set point left");
       arm.setSetpoint(10);
       arm.enable();
       mechanum.mechanumExtend();
     } else if (arm.onTarget()) {
       arm.disable();
-    } else if (arm.isEnabled() && !encoders.armInnerLimitSwitch.get() && arm.getSetpoint() != 111) {
+    } else {
       arm.disable();
-      // TODO armPIDOffset += encoders.armPotentionmeter.get();
     }
 
     // ultrasonics.printValues();
@@ -154,6 +151,11 @@ public class Teleop {
       arm.enable();
       mechanum.mechanumRetract();
     }
+
+    // System.out.println("Is enabled? " + arm.isEnabled());
+    // System.out.println("Setpoint: " + arm.getSetpoint());
+    System.out.println("Arm Motor 1: " + cargo.intakeRotateMotor1.get() + " Arm Motor 2: " + cargo.intakeRotateMotor2.get());
+    System.out.println(encoders.armInnerLimitSwitch.get());
 
   }
 
