@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Relay.Value;
 import ca.fourthreethreefour.teleop.*;
+import ca.fourthreethreefour.teleop.systems.Encoders;
 
 
 /**
@@ -24,29 +25,43 @@ public class Vision {
     //Creates Shuffleboard Items for Vision
     private NetworkTableEntry VISION_ACTIVE_ENTRY_SHUFFLE = dynamicSettingsTab.addPersistent("Vision Active", false).getEntry();
 
+    //Creates object for LedRing Relay
+    private Relay ledRelay = new Relay(1);
+
     //Creates Teleop Object
-    Teleop teleop;
+    private Teleop teleop;
+
+    //Creates PID Object
+    private VisionPID visionPID;
+
+    //Creates Encoders Object
+    private Encoders encoders;
 
     //Creates NetworkTable Items
     private NetworkTableEntry VISION_DRIVE_VALUE;
     private NetworkTableEntry VISION_SPEED_VALUE;
-    NetworkTable table = inst.getTable("datatable");
+    private NetworkTableEntry VISION_PID_P;
+    private NetworkTableEntry VISION_PID_I;
+    private NetworkTableEntry VISION_PID_D;
+    private NetworkTable table = inst.getTable("datatable");
 
-    //Creates object for LedRing Relay
-    private Relay ledRelay = new Relay(1);
-
-
+    public boolean PIDEnabled = false;
 
     public Vision(Teleop teleop){
         VISION_DRIVE_VALUE = table.getEntry("VISION_DRIVE_VALUE");
         VISION_SPEED_VALUE = table.getEntry("VISION_SPEED_VALUE");
+        VISION_PID_P = table.getEntry("VISION_PID_P");
+        VISION_PID_I = table.getEntry("VISION_PID_I");
+        VISION_PID_D = table.getEntry("VISION_PID_D");
         this.teleop = teleop;
+        this.encoders = teleop.encoders;
     }
 
     //Starts Vision on Pi and Enables LED Ring
     public void startVision(){
         VISION_ACTIVE_ENTRY_SHUFFLE.setBoolean(true);
         ledRelay.set(Value.kForward);
+        visionPID = new VisionPID(teleop, encoders);
         
     }
 
@@ -66,10 +81,28 @@ public class Vision {
         return(VISION_SPEED_VALUE.getDouble(0.5));
     }
 
+    private Double angleGoal;
 
-    //Drive Value from NetworkTable
-    public void drive(){
-        teleop.ExtArcadeDrive(getPiSpeed(), getPiRotation());
+    public void startPIDDrive(){
+        angleGoal = encoders.getNavXAngle() + getPiRotation();
+        visionPID.setSetpoint(angleGoal);
+        visionPID.enable();
+        PIDEnabled = true;
+    }
+
+    public boolean drive(){
+        if(visionPID.onTarget()){
+            visionPID.disable();
+            visionPID.free();
+            return(true);
+        } else {
+            return(false);
+        }
+    }
+
+    public void stopVisionPID(){
+        visionPID.disable();
+        PIDEnabled = false;
     }
 
 }
