@@ -60,7 +60,7 @@ public class Arm extends PIDSubsystem {
 
   @Override
   public void disable() {
-    super.enable();
+    super.disable();
     isEnabled = false;
   }
 
