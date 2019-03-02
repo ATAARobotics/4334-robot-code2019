@@ -40,9 +40,6 @@ public class Vision {
     //Creates NetworkTable Items
     private NetworkTableEntry VISION_DRIVE_VALUE;
     private NetworkTableEntry VISION_SPEED_VALUE;
-    private NetworkTableEntry VISION_PID_P;
-    private NetworkTableEntry VISION_PID_I;
-    private NetworkTableEntry VISION_PID_D;
     private NetworkTable table = inst.getTable("datatable");
 
     public boolean PIDEnabled = false;
@@ -50,9 +47,6 @@ public class Vision {
     public Vision(Teleop teleop){
         VISION_DRIVE_VALUE = table.getEntry("VISION_DRIVE_VALUE");
         VISION_SPEED_VALUE = table.getEntry("VISION_SPEED_VALUE");
-        VISION_PID_P = table.getEntry("VISION_PID_P");
-        VISION_PID_I = table.getEntry("VISION_PID_I");
-        VISION_PID_D = table.getEntry("VISION_PID_D");
         this.teleop = teleop;
         this.encoders = teleop.encoders;
     }
