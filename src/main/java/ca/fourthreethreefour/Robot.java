@@ -10,10 +10,13 @@ package ca.fourthreethreefour;
 import ca.fourthreethreefour.autonomous.Auto;
 import ca.fourthreethreefour.teleop.Teleop;
 import ca.fourthreethreefour.vision.Vision;
+import ca.fourthreethreefour.vision.exceptions.visionErrorException;
 import ca.fourthreethreefour.vision.exceptions.visionTargetDetectionException;
 import ca.fourthreethreefour.shuffleboard.Settings;
 import ca.fourthreethreefour.teleop.Teleop;
+import ca.fourthreethreefour.teleop.systems.Encoders;
 import ca.fourthreethreefour.teleop.systems.Ultrasonics;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 /**
@@ -28,16 +31,20 @@ public class Robot extends TimedRobot {
   Settings shuffleboard = new Settings();
   Teleop teleop;
   Vision vision;
+  Encoders encoders;
+
   /**
-   * This function is run when the robot is first started up and should be
-   * used for any initialization code.
+   * This function is run when the robot is first started up and should be used
+   * for any initialization code.
    */
   @Override
   public void robotInit() {
     shuffleboard.ShuffleInit(teleop);
     this.teleop = new Teleop();
     this.vision = new Vision(teleop);
-    
+    this.encoders = teleop.encoders;
+    encoders.initalizeNavX();
+
     teleop.RobotInit();
   }
 
@@ -48,6 +55,9 @@ public class Robot extends TimedRobot {
   public void disabledPeriodic() {
     shuffleboard.ShufflePeriodic();
     vision.stopVision();
+    if (vision.PIDEnabled == true) {
+      vision.stopVisionPID();
+    }
     // System.out.println(shuffleboard.EXAMPLE_PORT);
   }
 
@@ -56,7 +66,13 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    vision.startVision();
+    try {
+      vision.startVision();
+    } catch (visionErrorException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    vision.startPIDDrive();
     auto.AutoInit(); // Runs everything set in the .AutoInit() function.
   }
 
@@ -88,6 +104,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     teleop.TeleopPeriodic();
+    System.out.println("NavX: " + encoders.getNavXAngle());
   }
 
   /**

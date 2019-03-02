@@ -20,7 +20,7 @@ public class Teleop {
   // private XboxController operator = new XboxController(Settings.OPERATOR_CONTROLLER_PORT);
   
   private Cargo cargo = new Cargo();
-  private Encoders encoders = new Encoders();
+  public Encoders encoders = new Encoders();
   private Hatch hatch = new Hatch();
   private Mechanum mechanum = new Mechanum();
   public Drive drive = new Drive();
