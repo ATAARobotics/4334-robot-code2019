@@ -40,10 +40,7 @@ public class Drive extends Subsystem {
    * @return void
    */
   public void drive(XboxController controller, boolean cargoOuttake) {
-    // //Calls the arcadeDrive class in teleop
-    // double leftSpeed = controller.getRawAxis(1) - controller.getRawAxis(4);
-    // double rightSpeed = controller.getRawAxis(1) + controller.getRawAxis(4);
-    // driveTrain.tankDrive(leftSpeed, rightSpeed);
+    
     double speed = Math.abs(controller.getY(Hand.kLeft)) > 0.05 ? controller.getY(Hand.kLeft) : 0,
       turn = Math.abs(controller.getX(Hand.kRight)) > 0.05 ? controller.getX(Hand.kRight) : 0;
     speed = speed * Settings.DRIVE_SPEED;

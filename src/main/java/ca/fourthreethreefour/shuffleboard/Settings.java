@@ -27,8 +27,6 @@ public class Settings {
     // Example of port (non-dynamic) entries setup
     private NetworkTableEntry DRIVER_CONTROLLER_PORT_ENTRY;
     static public int DRIVER_CONTROLLER_PORT;
-    // private NetworkTableEntry OPERATOR_CONTROLLER_PORT_ENTRY;
-    // static public int OPERATOR_CONTROLLER_PORT;
 
     private NetworkTableEntry CARGO_BUTTON_PORT_ENTRY;
     static public int CARGO_BUTTON_PORT;
@@ -101,8 +99,6 @@ public class Settings {
 
         DRIVER_CONTROLLER_PORT_ENTRY = portsTab.addPersistent("Driver Controller", 0).getEntry();
             DRIVER_CONTROLLER_PORT = (int) DRIVER_CONTROLLER_PORT_ENTRY.getDouble(0);
-        // OPERATOR_CONTROLLER_PORT_ENTRY = portsTab.addPersistent("Operator Controller", 1).getEntry();
-        //     OPERATOR_CONTROLLER_PORT = (int) OPERATOR_CONTROLLER_PORT_ENTRY.getDouble(1);
 
         CARGO_BUTTON_PORT_ENTRY = portsTab.addPersistent("Cargo Button", 0).getEntry();
             CARGO_BUTTON_PORT = (int) CARGO_BUTTON_PORT_ENTRY.getDouble(0);
