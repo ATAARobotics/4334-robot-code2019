@@ -5,6 +5,7 @@ import ca.fourthreethreefour.teleop.intake.Cargo;
 import ca.fourthreethreefour.teleop.intake.Hatch;
 import ca.fourthreethreefour.teleop.intake.Mechanum;
 import ca.fourthreethreefour.teleop.systems.Encoders;
+import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
@@ -15,25 +16,38 @@ import ca.fourthreethreefour.teleop.systems.Ultrasonics;
 
 public class Teleop {
 
+  // Initialize miscellaneous configuration values
+  private static int armPIDSetpoint = 90;
+  private static int armPIDScale = 1800;
+  private static int armPIDOffset = -1445; // Todo: Tune offset at competition
+  private static final int armPIDAcceptableError = 2;
+  private static final int armPIDHatchIntakeOuttakeSetpoint = 90;
+  private static final int armPIDCargoOuttakeSetpoint = 110;
+  private static final int armPIDHatchIntakeSetpoint = 200;
+  private static final int armPIDCargoIntakeSetpoint = 10;
 
-  double armPIDOffset = -1506;
   //Creates and initializes various objects needed in teleop
   private XboxController driver = new XboxController(Settings.DRIVER_CONTROLLER_PORT);
   // private XboxController operator = new XboxController(Settings.OPERATOR_CONTROLLER_PORT);
   
   private Cargo cargo = new Cargo();
-  public Encoders encoders = new Encoders(armPIDOffset);
+  public Encoders encoders = new Encoders();
   private Hatch hatch = new Hatch();
   private Mechanum mechanum = new Mechanum();
   public Arm arm = new Arm(encoders, cargo);
   public Drive drive = new Drive();
   private Ultrasonics ultrasonics = new Ultrasonics();
+  public PIDController armPIDLeft;
+  public PIDController armPIDRight;
 
   public static boolean cargoOuttake;
 
   public void RobotInit() {
     ultrasonics.enable();
     ultrasonics.ultrasonicPollingThread();
+    encoders.potentiometerInit(armPIDOffset);
+    armPIDLeft = new PIDController(0.05, 0, 0, encoders.armPotentiometer, cargo.intakeRotateMotor1);
+    armPIDRight = new PIDController(0.05, 0, 0, encoders.armPotentiometer, cargo.intakeRotateMotor2);
   }
 
   /**
@@ -50,7 +64,7 @@ public class Teleop {
     drive.gearShiftSolenoid.set(drive.gearLow);
     mechanum.mechanumSolenoid.set(Value.kReverse);
     hatch.hatchSolenoidIn();
-    arm.setAbsoluteTolerance(2);
+    arm.setAbsoluteTolerance(armPIDAcceptableError);
     cargoOuttake = true;
   }
   
@@ -64,22 +78,14 @@ public class Teleop {
     drive.drive(driver, cargoOuttake);
 
 
-    System.out.println(arm.returnPIDInput());
+    // System.out.println(arm.returnPIDInput());
+    Logging.log("PID: " + arm.returnPIDInput());
     // double intakeSpeed = driver.getTriggerAxis(Hand.kRight) - driver.getTriggerAxis(Hand.kLeft);
     // if (Math.abs(intakeSpeed) > 0.05) {
     //   cargo.intakeRotate(intakeSpeed*Settings.INTAKE_ROTATE_SPEED);
     // } else {
     //   cargo.intakeRotate(0);
     // };
-    if (driver.getBumper(Hand.kLeft)) {
-      arm.disable();
-      cargo.intakeRotate(Settings.INTAKE_ROTATE_SPEED);
-    } else if (driver.getBumper(Hand.kRight) && encoders.armInnerLimitSwitch.get()) {
-      arm.disable();
-      cargo.intakeRotate(-Settings.INTAKE_ROTATE_SPEED);
-    } else if (!arm.isEnabled()) {
-      cargo.intakeRotate(0);
-    }
 
     if (driver.getTriggerAxis(Hand.kLeft) > 0.05) {
       cargo.cargoOuttake(driver.getTriggerAxis(Hand.kLeft));
@@ -87,6 +93,16 @@ public class Teleop {
     } else if (driver.getTriggerAxis(Hand.kRight) > 0.05 && encoders.cargoButton.get()) {
       cargo.cargoTransfer(driver.getTriggerAxis(Hand.kRight));
       mechanum.mechanumRoller(driver.getTriggerAxis(Hand.kRight));
+      // if (!encoders.cargoButton.get())
+      //       {
+      //           armPIDSetpoint = armPIDCargoOuttakeSetpoint + 1;
+      //           armPIDLeft.setSetpoint(armPIDSetpoint);
+      //           armPIDRight.setSetpoint(armPIDSetpoint);
+      //           armPIDLeft.enable();
+      //           armPIDRight.enable();
+      //           mechanum.mechanumRetract();
+      //       }
+
     } else {
       cargo.stop();
       mechanum.mechanumRoller(0);
@@ -113,49 +129,57 @@ public class Teleop {
     if (driver.getBButtonReleased()) {
       mechanum.mechanumShift();
     }
-
+    
+    if (driver.getBumper(Hand.kLeft)) {
+        arm.armRotate(1);
+    } else if (driver.getBumper(Hand.kRight)) {
+      if (encoders.armInnerLimitSwitch.get()) {
+        arm.armRotate(-1);
+      }
+    } else if (driver.getPOV() >= 0) {
     // Up D-Pad - Sets the PID setpoint to hatch outtake and retracts the mecanum intake
-    if (!encoders.armInnerLimitSwitch.get() && arm.getSetpoint() != 111) {
-      arm.disable();
-      armPIDOffset += encoders.armPotentiometer.get();
-    } else if (driver.getPOV() == 0) { // TODO make the setpoints shuffleboard stuff
-      Logging.log("Shooter set point up");
-      arm.setSetpoint(90);
-      arm.enable();
-      mechanum.mechanumRetract();
-    } else if (driver.getPOV() == 90) {  // Right D-Pad - Sets the PID setpoint to cargo outtake and retracts the mecanum intake
-      Logging.log("Shooter set point right");
-      arm.setSetpoint(110);
-      arm.enable();
-      mechanum.mechanumRetract();
-    } else if (driver.getPOV() == 180) {  // Down D-Pad - Sets the PID setpoint to hatch ground and retracts the mecanum intake
-      Logging.log("Shooter set point down");
-      arm.setSetpoint(172);
-      arm.enable();
-      mechanum.mechanumRetract();
-    } else if (driver.getPOV() == 270) {  // Left D-Pad - Sets the PID setpoint to cargo intake from the mecanum intake
-      Logging.log("Shooter set point left");
-      arm.setSetpoint(10);
-      arm.enable();
-      mechanum.mechanumExtend();
-    } else if (arm.onTarget()) {
-      arm.disable();
-    } else {
+      if (driver.getPOV() == 0) { // TODO make the setpoints shuffleboard stuff
+        Logging.log("Shooter set point up");
+        arm.setSetpoint(armPIDHatchIntakeOuttakeSetpoint);
+        arm.enable();
+        mechanum.mechanumRetract();
+      } else if (driver.getPOV() == 90) {  // Right D-Pad - Sets the PID setpoint to cargo outtake and retracts the mecanum intake
+        Logging.log("Shooter set point right");
+        arm.setSetpoint(armPIDCargoOuttakeSetpoint);
+        arm.enable();
+        mechanum.mechanumRetract();
+      } else if (driver.getPOV() == 180) {  // Down D-Pad - Sets the PID setpoint to hatch ground and retracts the mecanum intake
+        Logging.log("Shooter set point down");
+        arm.setSetpoint(armPIDHatchIntakeSetpoint);
+        arm.enable();
+        mechanum.mechanumRetract();
+      } else if (driver.getPOV() == 270 && encoders.armInnerLimitSwitch.get()) {  // Left D-Pad - Sets the PID setpoint to cargo intake from the mecanum intake
+        Logging.log("Shooter set point left");
+        arm.setSetpoint(armPIDCargoIntakeSetpoint);
+        arm.enable();
+        mechanum.mechanumExtend();
+      } else if (arm.onTarget()) {
+        arm.disable();
+      } else if (!encoders.armInnerLimitSwitch.get() && arm.getSetpoint() != armPIDCargoOuttakeSetpoint + 1) {
+        arm.disable();
+        armPIDOffset += encoders.armPotentiometer.get();
+    }} else {
       arm.disable();
     }
 
     // ultrasonics.printValues();
-
-    if (!encoders.cargoButton.get()) {
-      arm.setSetpoint(111);
-      arm.enable();
-      mechanum.mechanumRetract();
-    }
-
     // System.out.println("Is enabled? " + arm.isEnabled());
     // System.out.println("Setpoint: " + arm.getSetpoint());
-    System.out.println("Arm Motor 1: " + cargo.intakeRotateMotor1.get() + " Arm Motor 2: " + cargo.intakeRotateMotor2.get());
-    System.out.println(encoders.armInnerLimitSwitch.get());
+    // System.out.println(encoders.armInnerLimitSwitch.get());
+
+    /*if (!encoders.armInnerLimitSwitch.get() && arm.getSetpoint() != 111) {
+      arm.disable();
+      armPIDOffset += encoders.armPotentiometer.get();
+    // } else if (!encoders.cargoButton.get()) {
+    //   arm.setSetpoint(111);
+    //   arm.enable();
+    //   mechanum.mechanumRetract();
+    } else*/ 
 
   }
 
