@@ -7,16 +7,16 @@ import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 
 public class Encoders {
 
-    double potentiometerOffset;
-
-    public Encoders(double offSet) {
-        potentiometerOffset = offSet;
-    }
+    // public static double potentiometerOffset = -1445;
     
     public DigitalInput cargoButton = new DigitalInput(Settings.CARGO_BUTTON_PORT);
     public DigitalInput armInnerLimitSwitch = new DigitalInput(2);
 
-    public Potentiometer armPotentiometer = new AnalogPotentiometer(0, 1800, -1506);
+    public Potentiometer armPotentiometer;
+
+    public void potentiometerInit(double potentiometerOffset) {
+        armPotentiometer = new AnalogPotentiometer(0, 1800, potentiometerOffset);
+    }
 
     public void printPotentiometer() {
         System.out.println(armPotentiometer.get());
