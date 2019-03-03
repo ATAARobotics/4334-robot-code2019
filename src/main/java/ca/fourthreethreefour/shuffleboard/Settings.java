@@ -157,7 +157,7 @@ public class Settings {
         DRIVE_SPEED_ENTRY = settingsTab.addPersistent("Drive Speed", 1).withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min", 0, "max", 1)).getEntry();
         TURN_SPEED_ENTRY = settingsTab.addPersistent("Turn Speed", 1).withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min", 0, "max", 1)).getEntry();
         TURN_CURVE_ENTRY = settingsTab.addPersistent("Turn Curve", 1.5).withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min", 1, "max", 10)).getEntry();
-        INTAKE_ROTATE_SPEED_ENTRY = settingsTab.addPersistent("Intake Rotate Speed", 0.25).withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min", 0, "max", 1)).getEntry();
+        INTAKE_ROTATE_SPEED_ENTRY = settingsTab.addPersistent("Intake Rotate Speed", 1).withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min", 0, "max", 1)).getEntry();
     }
 
     /**
@@ -168,7 +168,7 @@ public class Settings {
         DRIVE_SPEED = DRIVE_SPEED_ENTRY.getDouble(1);
         TURN_SPEED = DRIVE_SPEED_ENTRY.getDouble(1);
         TURN_CURVE = TURN_CURVE_ENTRY.getDouble(1.5);
-        INTAKE_ROTATE_SPEED = INTAKE_ROTATE_SPEED_ENTRY.getDouble(0.25);
+        INTAKE_ROTATE_SPEED = INTAKE_ROTATE_SPEED_ENTRY.getDouble(1);
     }
 
 
