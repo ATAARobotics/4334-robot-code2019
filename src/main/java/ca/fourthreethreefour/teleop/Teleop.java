@@ -19,7 +19,7 @@ public class Teleop {
   // Initialize miscellaneous configuration values
   private static int armPIDSetpoint = 90;
   private static int armPIDScale = 1800;
-  private static int armPIDOffset = -1445; // Todo: Tune offset at competition
+  private static int armPIDOffset = -1585; // Todo: Tune offset at competition
   private static final int armPIDAcceptableError = 2;
   private static final int armPIDHatchIntakeOuttakeSetpoint = 90;
   private static final int armPIDCargoOuttakeSetpoint = 110;
@@ -77,8 +77,8 @@ public class Teleop {
     drive.drive(driver, cargoOuttake);
 
 
-    // System.out.println(arm.returnPIDInput());
-    Logging.log("PID: " + arm.returnPIDInput());
+    System.out.println(arm.returnPIDInput());
+    // Logging.log("PID: " + arm.returnPIDInput());
     // double intakeSpeed = driver.getTriggerAxis(Hand.kRight) - driver.getTriggerAxis(Hand.kLeft);
     // if (Math.abs(intakeSpeed) > 0.05) {
     //   cargo.intakeRotate(intakeSpeed*Settings.INTAKE_ROTATE_SPEED);
@@ -163,7 +163,7 @@ public class Teleop {
         arm.disable();
         armPIDOffset += encoders.armPotentiometer.get();
     }} else {
-      arm.disable();
+      // arm.disable();
     }
 
     // ultrasonics.printValues();
