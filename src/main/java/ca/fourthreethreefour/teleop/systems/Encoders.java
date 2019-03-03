@@ -1,5 +1,6 @@
 package ca.fourthreethreefour.teleop.systems;
 
+import ca.fourthreethreefour.commands.debug.Logging;
 import ca.fourthreethreefour.shuffleboard.Settings;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -19,6 +20,6 @@ public class Encoders {
     }
 
     public void printPotentiometer() {
-        System.out.println(armPotentiometer.get());
+        Logging.log("Potentiometer value" + armPotentiometer.get());
     }
 }
