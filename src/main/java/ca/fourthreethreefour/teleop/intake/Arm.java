@@ -90,8 +90,11 @@ public class Arm extends PIDSubsystem {
   protected void usePIDOutput(double output) {
     // Use output to drive your system, like a motor
     // e.g. yourMotor.set(output);
-    arm.intakeRotateMotor1.set(output);
-    arm.intakeRotateMotor2.set(output);
+    this.armRotate(output);
+  }
+
+  public void armRotate(double output) {
+    arm.intakeRotate(output);
   }
 
 
