@@ -19,7 +19,7 @@ public class Teleop {
   // Initialize miscellaneous configuration values
   private static int armPIDSetpoint = 90;
   private static int armPIDScale = 1800;
-  private static int armPIDOffset = -1585; // Todo: Tune offset at competition
+  private static int armPIDOffset = -918; // Todo: Tune offset at competition
   private static final int armPIDAcceptableError = 2;
   private static final int armPIDHatchIntakeOuttakeSetpoint = 90;
   private static final int armPIDCargoOuttakeSetpoint = 110;
@@ -89,7 +89,7 @@ public class Teleop {
     if (driver.getTriggerAxis(Hand.kLeft) > 0.05) {
       cargo.cargoOuttake(driver.getTriggerAxis(Hand.kLeft));
       mechanum.mechanumRoller(-driver.getTriggerAxis(Hand.kLeft));
-    } else if (driver.getTriggerAxis(Hand.kRight) > 0.05 && encoders.cargoButton.get()) {
+    } else if (driver.getTriggerAxis(Hand.kRight) > 0.05 /* && encoders.cargoButton.get() */) {
       cargo.cargoTransfer(driver.getTriggerAxis(Hand.kRight));
       mechanum.mechanumRoller(driver.getTriggerAxis(Hand.kRight));
       if (!encoders.cargoButton.get()) {
