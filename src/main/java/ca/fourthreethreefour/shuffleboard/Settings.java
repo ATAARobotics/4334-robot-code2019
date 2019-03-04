@@ -22,12 +22,12 @@ public class Settings {
     private ShuffleboardTab portsTab = Shuffleboard.getTab("Ports");
     public ShuffleboardTab settingsTab = Shuffleboard.getTab("Settings");
     private ShuffleboardTab dashboardTab = Shuffleboard.getTab("Dashboard");
+    private ShuffleboardTab pidTab = Shuffleboard.getTab("PID");
+    private ShuffleboardTab outputTab = Shuffleboard.getTab("Output");
 
     // Example of port (non-dynamic) entries setup
     private NetworkTableEntry DRIVER_CONTROLLER_PORT_ENTRY;
     static public int DRIVER_CONTROLLER_PORT;
-    private NetworkTableEntry OPERATOR_CONTROLLER_PORT_ENTRY;
-    static public int OPERATOR_CONTROLLER_PORT;
 
     private NetworkTableEntry CARGO_BUTTON_PORT_ENTRY;
     static public int CARGO_BUTTON_PORT;
@@ -67,6 +67,12 @@ public class Settings {
     private NetworkTableEntry MECHANUM_SOLENOID_PORT_2_ENTRY;
     static public int MECHANUM_SOLENOID_PORT_2;
 
+    NetworkTableEntry REVERSABLE_CONTROLS_ENTRY;
+    static public boolean REVERSABLE_CONTROLS;
+
+    NetworkTableEntry POTENTIOMETER_OFFSET_ENTRY;
+    static public double POTENTIOMETER_OFFSET;
+
     // Dynamic settings
     NetworkTableEntry LOGGING_ENABLED_ENTRY;
     static public boolean LOGGING_ENABLED;
@@ -74,6 +80,8 @@ public class Settings {
     static public double DRIVE_SPEED;
     NetworkTableEntry TURN_CURVE_ENTRY;
     static public double TURN_CURVE;
+    NetworkTableEntry TURN_SPEED_ENTRY;
+    static public double TURN_SPEED;
     NetworkTableEntry INTAKE_ROTATE_SPEED_ENTRY;
     static public double INTAKE_ROTATE_SPEED;
 
@@ -84,18 +92,17 @@ public class Settings {
      * needs to be updated at initialization.
      */
     public void ShuffleInit(Teleop teleop) {
-        UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-        camera.setResolution(320, 240);
-        camera.setFPS(16);
-            dashboardTab.add(camera);
+        UsbCamera camera1 = CameraServer.getInstance().startAutomaticCapture("Microsoft LifeCam HD-3000 (Image Analysis)", 0);
+
+        camera1.setResolution(320, 240);
+        camera1.setFPS(30);
+            dashboardTab.add(camera1);
             //dashboardTab.add(teleop.drive.driveTrain);
 
         DRIVE_DIRECTION_ENTRY = dashboardTab.addPersistent("Drive Direction", true).getEntry();
 
         DRIVER_CONTROLLER_PORT_ENTRY = portsTab.addPersistent("Driver Controller", 0).getEntry();
             DRIVER_CONTROLLER_PORT = (int) DRIVER_CONTROLLER_PORT_ENTRY.getDouble(0);
-        OPERATOR_CONTROLLER_PORT_ENTRY = portsTab.addPersistent("Operator Controller", 1).getEntry();
-            OPERATOR_CONTROLLER_PORT = (int) OPERATOR_CONTROLLER_PORT_ENTRY.getDouble(1);
 
         CARGO_BUTTON_PORT_ENTRY = portsTab.addPersistent("Cargo Button", 0).getEntry();
             CARGO_BUTTON_PORT = (int) CARGO_BUTTON_PORT_ENTRY.getDouble(0);
@@ -135,18 +142,18 @@ public class Settings {
         MECHANUM_SOLENOID_PORT_2_ENTRY = portsTab.addPersistent("Mechanum Solenoid 2", 6).getEntry();
             MECHANUM_SOLENOID_PORT_2 = (int) MECHANUM_SOLENOID_PORT_2_ENTRY.getDouble(6);
 
+        REVERSABLE_CONTROLS_ENTRY = settingsTab.addPersistent("Reversable Controls", false).withWidget(BuiltInWidgets.kToggleSwitch).getEntry();
+            REVERSABLE_CONTROLS = REVERSABLE_CONTROLS_ENTRY.getBoolean(false);
 
-        LOGGING_ENABLED_ENTRY = settingsTab.addPersistent("Logging", true)
-            .withWidget(BuiltInWidgets.kToggleSwitch).getEntry();
-        DRIVE_SPEED_ENTRY = settingsTab.addPersistent("Drive Speed", 1)
-            .withWidget(BuiltInWidgets.kNumberSlider)
-                .withProperties(Map.of("Min", 0, "Max", 1)).getEntry();
-        TURN_CURVE_ENTRY = settingsTab.addPersistent("Turn Curve", 1.5)
-            .withWidget(BuiltInWidgets.kNumberSlider)
-                .withProperties(Map.of("Min", 1, "Max", 10)).getEntry();
-        INTAKE_ROTATE_SPEED_ENTRY = settingsTab.addPersistent("Intake Rotate Speed", 0.25)
-            .withWidget(BuiltInWidgets.kNumberSlider)
-                .withProperties(Map.of("Min", 0, "Max", 1)).getEntry();
+        POTENTIOMETER_OFFSET_ENTRY = pidTab.addPersistent("Potentiometer Offset", -1520).getEntry();
+            POTENTIOMETER_OFFSET = POTENTIOMETER_OFFSET_ENTRY.getDouble(-1520);
+
+
+        LOGGING_ENABLED_ENTRY = settingsTab.addPersistent("Logging", true).withWidget(BuiltInWidgets.kToggleSwitch).getEntry();
+        DRIVE_SPEED_ENTRY = settingsTab.addPersistent("Drive Speed", 1).withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min", 0, "max", 1)).getEntry();
+        TURN_SPEED_ENTRY = settingsTab.addPersistent("Turn Speed", 1).withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min", 0, "max", 1)).getEntry();
+        TURN_CURVE_ENTRY = settingsTab.addPersistent("Turn Curve", 1.5).withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min", 1, "max", 10)).getEntry();
+        INTAKE_ROTATE_SPEED_ENTRY = settingsTab.addPersistent("Intake Rotate Speed", 1).withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min", 0, "max", 1)).getEntry();
     }
 
     /**
@@ -155,8 +162,9 @@ public class Settings {
     public void ShufflePeriodic() {
         LOGGING_ENABLED = LOGGING_ENABLED_ENTRY.getBoolean(false);
         DRIVE_SPEED = DRIVE_SPEED_ENTRY.getDouble(1);
+        TURN_SPEED = DRIVE_SPEED_ENTRY.getDouble(1);
         TURN_CURVE = TURN_CURVE_ENTRY.getDouble(1.5);
-        INTAKE_ROTATE_SPEED = INTAKE_ROTATE_SPEED_ENTRY.getDouble(0.25);
+        INTAKE_ROTATE_SPEED = INTAKE_ROTATE_SPEED_ENTRY.getDouble(1);
     }
 
 
