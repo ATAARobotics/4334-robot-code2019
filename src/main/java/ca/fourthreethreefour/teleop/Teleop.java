@@ -92,15 +92,18 @@ public class Teleop {
     } else if (driver.getTriggerAxis(Hand.kRight) > 0.05 && encoders.cargoButton.get()) {
       cargo.cargoTransfer(driver.getTriggerAxis(Hand.kRight));
       mechanum.mechanumRoller(driver.getTriggerAxis(Hand.kRight));
-      // if (!encoders.cargoButton.get())
-      //       {
+      if (!encoders.cargoButton.get()) {
       //           armPIDSetpoint = armPIDCargoOuttakeSetpoint + 1;
       //           armPIDLeft.setSetpoint(armPIDSetpoint);
       //           armPIDRight.setSetpoint(armPIDSetpoint);
       //           armPIDLeft.enable();
       //           armPIDRight.enable();
       //           mechanum.mechanumRetract();
-      //       }
+              Logging.log("Auto shoot setpoint");
+              arm.setSetpoint(armPIDCargoOuttakeSetpoint + 1);
+              arm.enable();
+              mechanum.mechanumRetract();
+            }
 
     } else {
       cargo.stop();
@@ -135,36 +138,37 @@ public class Teleop {
       if (encoders.armInnerLimitSwitch.get()) {
         arm.armRotate(-1);
       }
-    } else if (driver.getPOV() >= 0) {
-    // Up D-Pad - Sets the PID setpoint to hatch outtake and retracts the mecanum intake
-      if (driver.getPOV() == 0) { // TODO make the setpoints shuffleboard stuff
-        Logging.log("Shooter set point up");
-        arm.setSetpoint(armPIDHatchIntakeOuttakeSetpoint);
-        arm.enable();
-        mechanum.mechanumRetract();
-      } else if (driver.getPOV() == 90) {  // Right D-Pad - Sets the PID setpoint to cargo outtake and retracts the mecanum intake
-        Logging.log("Shooter set point right");
-        arm.setSetpoint(armPIDCargoOuttakeSetpoint);
-        arm.enable();
-        mechanum.mechanumRetract();
-      } else if (driver.getPOV() == 180) {  // Down D-Pad - Sets the PID setpoint to hatch ground and retracts the mecanum intake
-        Logging.log("Shooter set point down");
-        arm.setSetpoint(armPIDHatchIntakeSetpoint);
-        arm.enable();
-        mechanum.mechanumRetract();
-      } else if (driver.getPOV() == 270 && encoders.armInnerLimitSwitch.get()) {  // Left D-Pad - Sets the PID setpoint to cargo intake from the mecanum intake
-        Logging.log("Shooter set point left");
-        arm.setSetpoint(armPIDCargoIntakeSetpoint);
-        arm.enable();
-        mechanum.mechanumExtend();
-      } else if (arm.onTarget()) {
-        arm.disable();
-      } else if (!encoders.armInnerLimitSwitch.get() && arm.getSetpoint() != armPIDCargoOuttakeSetpoint + 1) {
-        arm.disable();
-        armPIDOffset += encoders.armPotentiometer.get();
-    }} else {
-      // arm.disable();
+    } else if (!arm.isEnabled()) {
+      arm.armRotate(0);
     }
+
+      // Up D-Pad - Sets the PID setpoint to hatch outtake and retracts the mecanum intake
+        if (driver.getPOV() == 0) { // TODO make the setpoints shuffleboard stuff
+          Logging.log("Shooter set point up");
+          arm.setSetpoint(armPIDHatchIntakeOuttakeSetpoint);
+          arm.enable();
+          mechanum.mechanumRetract();
+        } else if (driver.getPOV() == 90) {  // Right D-Pad - Sets the PID setpoint to cargo outtake and retracts the mecanum intake
+          Logging.log("Shooter set point right");
+          arm.setSetpoint(armPIDCargoOuttakeSetpoint);
+          arm.enable();
+          mechanum.mechanumRetract();
+        } else if (driver.getPOV() == 180) {  // Down D-Pad - Sets the PID setpoint to hatch ground and retracts the mecanum intake
+          Logging.log("Shooter set point down");
+          arm.setSetpoint(armPIDHatchIntakeSetpoint);
+          arm.enable();
+          mechanum.mechanumRetract();
+        } else if (driver.getPOV() == 270 && encoders.armInnerLimitSwitch.get()) {  // Left D-Pad - Sets the PID setpoint to cargo intake from the mecanum intake
+          Logging.log("Shooter set point left");
+          arm.setSetpoint(armPIDCargoIntakeSetpoint);
+          arm.enable();
+          mechanum.mechanumExtend();
+        } else if (arm.onTarget()  && arm.isEnabled()) {
+          arm.disable();
+        } else if (!encoders.armInnerLimitSwitch.get() && arm.getSetpoint() != armPIDCargoOuttakeSetpoint + 1 && arm.isEnabled()) {
+          arm.disable();
+          armPIDOffset += encoders.armPotentiometer.get();
+      }
 
     // ultrasonics.printValues();
     // System.out.println("Is enabled? " + arm.isEnabled());
