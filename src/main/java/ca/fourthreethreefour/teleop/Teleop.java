@@ -28,7 +28,6 @@ public class Teleop {
 
   //Creates and initializes various objects needed in teleop
   private XboxController driver = new XboxController(Settings.DRIVER_CONTROLLER_PORT);
-  
   private Cargo cargo = new Cargo();
   public Encoders encoders = new Encoders();
   private Hatch hatch = new Hatch();
@@ -75,7 +74,6 @@ public class Teleop {
   public void TeleopPeriodic() {
 
     drive.drive(driver, cargoOuttake);
-
 
     System.out.println(arm.returnPIDInput());
     // Logging.log("PID: " + arm.returnPIDInput());
