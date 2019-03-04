@@ -142,8 +142,8 @@ public class Settings {
         MECHANUM_SOLENOID_PORT_2_ENTRY = portsTab.addPersistent("Mechanum Solenoid 2", 6).getEntry();
             MECHANUM_SOLENOID_PORT_2 = (int) MECHANUM_SOLENOID_PORT_2_ENTRY.getDouble(6);
 
-        REVERSABLE_CONTROLS_ENTRY = settingsTab.addPersistent("Reversable Controls", true).withWidget(BuiltInWidgets.kToggleSwitch).getEntry();
-            REVERSABLE_CONTROLS = REVERSABLE_CONTROLS_ENTRY.getBoolean(true);
+        REVERSABLE_CONTROLS_ENTRY = settingsTab.addPersistent("Reversable Controls", false).withWidget(BuiltInWidgets.kToggleSwitch).getEntry();
+            REVERSABLE_CONTROLS = REVERSABLE_CONTROLS_ENTRY.getBoolean(false);
 
         POTENTIOMETER_OFFSET_ENTRY = pidTab.addPersistent("Potentiometer Offset", -1520).getEntry();
             POTENTIOMETER_OFFSET = POTENTIOMETER_OFFSET_ENTRY.getDouble(-1520);
