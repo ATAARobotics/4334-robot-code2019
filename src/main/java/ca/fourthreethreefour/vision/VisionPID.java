@@ -13,7 +13,7 @@ public class VisionPID extends PIDSubsystem{
     Teleop teleop;
 
     VisionPID(Teleop teleop, Encoders encoders){
-        super("Rotation", -0.13, 0.0, 0.1);// The constructor passes a name for the subsystem and the P, I and D constants that are useed when computing the motor output
+        super("Rotation", -0.03, 0.0, 0.01);// The constructor passes a name for the subsystem and the P, I and D constants that are useed when computing the motor output
         setAbsoluteTolerance(0.5);
         getPIDController().setContinuous(false); //manipulating the raw internal PID Controller
         setOutputRange(-0.8, 0.8);
