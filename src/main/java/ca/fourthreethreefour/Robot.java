@@ -8,10 +8,8 @@
 package ca.fourthreethreefour;
 
 import ca.fourthreethreefour.autonomous.Auto;
-import ca.fourthreethreefour.teleop.Teleop;
 import ca.fourthreethreefour.shuffleboard.Settings;
 import ca.fourthreethreefour.teleop.Teleop;
-import ca.fourthreethreefour.teleop.systems.Ultrasonics;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 /**
@@ -36,6 +34,10 @@ public class Robot extends TimedRobot {
     teleop.RobotInit();
   }
 
+  @Override
+  public void disabledInit() {
+    teleop.arm.disable();
+  }
   /**
    * This function is called periodically while disabled.
    */
@@ -51,6 +53,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     auto.AutoInit(); // Runs everything set in the .AutoInit() function.
+    teleop.TeleopInit();
   }
 
   /**
@@ -59,6 +62,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     auto.AutoPeriodic(); // Runs everything set in the .AutoPeriodic() function.
+    teleop.TeleopPeriodic();
   }
 
   /**
