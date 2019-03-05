@@ -1,6 +1,7 @@
 package ca.fourthreethreefour.teleop.drivetrain;
 
 import ca.fourthreethreefour.commands.ReverseSolenoid;
+import ca.fourthreethreefour.commands.SetSolenoid;
 import ca.fourthreethreefour.commands.debug.Logging;
 import ca.fourthreethreefour.shuffleboard.Settings;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -49,6 +50,14 @@ public class Drive extends Subsystem {
     turn = turn >= 0 ? Math.pow(turn, Settings.TURN_CURVE) * Settings.TURN_SPEED : -Math.pow(Math.abs(turn), Settings.TURN_CURVE) * Settings.TURN_SPEED;
     Logging.log("Speed: " + speed + " Turn: " + turn);
     driveTrain.arcadeDrive(speed, turn);
+    // if (Math.abs(speed) < Settings.LOW_GEAR_THRESHOLD) {
+      // new SetSolenoid(gearShiftSolenoid, gearLow).set();
+    // }
+    // if (Math.abs(controllerTurn) >= Settings.LOW_GEAR_THRESHOLD) {
+      // new SetSolenoid(gearShiftSolenoid, gearLow);
+    // } else if (Math.abs(controllerSpeed) > Settings.LOW_GEAR_THRESHOLD && Math.abs(controllerTurn) < Settings.LOW_GEAR_THRESHOLD) {
+      // new SetSolenoid(gearShiftSolenoid, gearHigh);
+    // }
   }
 
   /**
@@ -67,5 +76,13 @@ public class Drive extends Subsystem {
    */
   public void gearShift() {
       new ReverseSolenoid(gearShiftSolenoid, gearLow).reverse();
+  }
+
+  public void setGearHigh() {
+    new SetSolenoid(gearShiftSolenoid, gearHigh).set();
+  }
+
+  public void setGearLow() {
+    new SetSolenoid(gearShiftSolenoid, gearLow).set();
   }
 }

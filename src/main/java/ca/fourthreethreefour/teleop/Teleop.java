@@ -19,7 +19,7 @@ public class Teleop {
   // Initialize miscellaneous configuration values
   private static int armPIDSetpoint = 90;
   private static int armPIDScale = 1800;
-  private static int armPIDOffset = -918; // Todo: Tune offset at competition
+  private static int armPIDOffset = -920; // Todo: Tune offset at competition
   private static final int armPIDAcceptableError = 2;
   private static final int armPIDHatchIntakeOuttakeSetpoint = 90;
   private static final int armPIDCargoOuttakeSetpoint = 110;
@@ -111,8 +111,10 @@ public class Teleop {
       }
     }
     
-    if (driver.getStickButtonPressed(Hand.kRight)) {
-      drive.gearShift();
+    if (driver.getStickButtonReleased(Hand.kRight)) {
+      drive.setGearHigh();
+    } else if (Math.abs(driver.getY(Hand.kLeft)) <= Settings.LOW_GEAR_THRESHOLD || (Math.abs(driver.getY(Hand.kLeft)) <= Settings.LOW_GEAR_THRESHOLD && Math.abs(driver.getX(Hand.kRight)) >= Settings.LOW_GEAR_THRESHOLD)) {
+      drive.setGearLow();
     }
 
     if (driver.getStickButtonReleased(Hand.kLeft) && Settings.REVERSABLE_CONTROLS) {
