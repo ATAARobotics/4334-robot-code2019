@@ -1,4 +1,4 @@
-To activate vision components:
+## To activate vision components:
 
 ```java
 Vision vision = new Vision
@@ -31,3 +31,15 @@ Manually stop PID loop
 Vision vision = new Vision
 vision.stopVisionPID();
 ```
+
+## Exceptions
+
+
+#### visionErrorException
+
+Thrown during when a communication error occurs such as errors verifying the Pi is online.
+
+
+#### visionErrorDetectionException
+
+Thrown when the Pi reports detecting less than 2 vision targets being detected, which makes Vision unable to run.
