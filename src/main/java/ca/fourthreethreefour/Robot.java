@@ -30,7 +30,6 @@ public class Robot extends TimedRobot {
   Auto auto = new Auto();
   Settings shuffleboard = new Settings();
   Teleop teleop;
-  Vision vision;
   Encoders encoders;
 
   /**
@@ -41,7 +40,6 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     shuffleboard.ShuffleInit(teleop);
     this.teleop = new Teleop();
-    this.vision = new Vision(teleop);
     this.encoders = teleop.encoders;
     encoders.initalizeNavX();
 
@@ -54,10 +52,6 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledPeriodic() {
     shuffleboard.ShufflePeriodic();
-    vision.stopVision();
-    if (vision.PIDEnabled == true) {
-      vision.stopVisionPID();
-    }
     // System.out.println(shuffleboard.EXAMPLE_PORT);
   }
 
@@ -66,13 +60,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    try {
-      vision.startVision();
-    } catch (visionErrorException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-    vision.startPIDDrive();
     auto.AutoInit(); // Runs everything set in the .AutoInit() function.
   }
 
@@ -81,11 +68,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-    try {
-      vision.drive();
-    } catch (visionTargetDetectionException e) {
-      System.out.println(e.getMessage());
-	}
     auto.AutoPeriodic(); // Runs everything set in the .AutoPeriodic() function.
   }
 

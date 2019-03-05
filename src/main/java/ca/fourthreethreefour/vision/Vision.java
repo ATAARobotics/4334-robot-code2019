@@ -66,7 +66,7 @@ public class Vision {
         ledRelay.set(Value.kForward);
         visionPID = new VisionPID(teleop, encoders);
         if(!piOnline()){
-            throw new visionErrorException("Could not verrify Pi Online");
+            throw new visionErrorException("Could not verify Pi Online");
         }
     }
 
