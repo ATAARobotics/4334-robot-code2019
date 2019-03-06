@@ -1,8 +1,10 @@
 package ca.fourthreethreefour.vision;
 
+import ca.fourthreethreefour.teleop.systems.Ultrasonics;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.Relay;
@@ -38,17 +40,20 @@ public class Vision {
     // Creates Teleop Object
     private Teleop teleop;
 
-    // Creates PID Object
-    private VisionPID visionPID;
-
     // Creates Encoders Object
     private Encoders encoders;
+
+    // Initializes Ultrasonics Object
+    private Ultrasonics ultrasonics = new Ultrasonics();
 
     // Creates NetworkTable Items
     private NetworkTableEntry VISION_DRIVE_VALUE;
     private NetworkTableEntry VISION_SPEED_VALUE;
     private NetworkTableEntry VISION_ERROR_NOTARGET;
     NetworkTable table = inst.getTable("datatable");
+
+    //Initialize VisionAssist PID Objects
+    private PIDSubsystem visionAlignPID;
 
     public boolean PIDEnabled = false;
 
@@ -60,21 +65,49 @@ public class Vision {
         this.encoders = teleop.encoders;
     }
 
-    // Starts Vision on Pi and Enables LED Ring
+
     public void startVision() throws visionErrorException {
         VISION_ACTIVE_ENTRY_SHUFFLE.setBoolean(true);
         ledRelay.set(Value.kForward);
-        visionPID = new VisionPID(teleop, encoders);
         if(!piOnline()){
             throw new visionErrorException("Could not verify Pi Online");
         }
     }
 
-    // Stops Vision on Pi and Disables LED Ring
     public void stopVision() {
         VISION_ACTIVE_ENTRY_SHUFFLE.setBoolean(false);
         ledRelay.set(Value.kReverse);
     }
+
+
+    //Alignment PID Commands
+    private Double angleGoal;
+    public void startAlignPID() {
+        angleGoal = encoders.getNavXAngle() + getPiRotation();
+        visionAlignPID.setSetpoint(angleGoal);
+        visionAlignPID.enable();
+        PIDEnabled = true;
+    }
+
+    public void stopAlignPID() {
+        visionAlignPID.disable();
+        PIDEnabled = false;
+    }
+
+    public boolean alignDrive() throws visionTargetDetectionException {
+        teleop.ExtArcadeDrive(getPiSpeed(), getPiRotation());
+        if (VISION_ERROR_NOTARGET.getBoolean(true)) {
+            throw new visionTargetDetectionException("Unable to locate more than 1 target");
+        }
+        if (visionAlignPID.onTarget()) {
+            visionAlignPID.disable();
+            visionAlignPID.free();
+            return (true);
+        } else {
+            return (false);
+        }
+    }
+
 
     // Access Rotation From NetworkTable
     private double getPiRotation() {
@@ -86,33 +119,6 @@ public class Vision {
         return (VISION_SPEED_VALUE.getDouble(0.5));
     }
 
-    private Double angleGoal;
-
-    public void startPIDDrive() {
-        angleGoal = encoders.getNavXAngle() + getPiRotation();
-        visionPID.setSetpoint(angleGoal);
-        visionPID.enable();
-        PIDEnabled = true;
-    }
-
-    public boolean drive() throws visionTargetDetectionException {
-        teleop.ExtArcadeDrive(getPiSpeed(), getPiRotation());
-        if (VISION_ERROR_NOTARGET.getBoolean(true) == true) {
-            throw new visionTargetDetectionException("Unable to lcoate more than 1 target");
-        }
-        if (visionPID.onTarget()) {
-            visionPID.disable();
-            visionPID.free();
-            return (true);
-        } else {
-            return (false);
-        }
-    }
-
-    public void stopVisionPID() {
-        visionPID.disable();
-        PIDEnabled = false;
-    }
 
     public boolean piOnline() {
         InetAddress address;
@@ -125,6 +131,23 @@ public class Vision {
             reachable = false;
         }
         return(reachable);
+    }
+
+    //Configure PID Controllers
+    public void configVisionPID(){
+        //Config Align PID
+        visionAlignPID = new PIDSubsystem("AlignPID", -0.03, 0.0, 0.01) {
+            @Override
+            protected double returnPIDInput() {return encoders.getNavXAngle(); }
+            @Override
+            protected void usePIDOutput(double output) { teleop.ExtArcadeDrive(0, output); }
+            @Override
+            protected void initDefaultCommand() { }
+        };
+        visionAlignPID.setAbsoluteTolerance(0.5);
+        visionAlignPID.getPIDController().setContinuous(false);
+        visionAlignPID.setOutputRange(-1,1);
+
     }
 
 }

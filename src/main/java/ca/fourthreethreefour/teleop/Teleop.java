@@ -6,7 +6,6 @@ import ca.fourthreethreefour.teleop.intake.Mechanum;
 import ca.fourthreethreefour.teleop.systems.Encoders;
 import ca.fourthreethreefour.vision.exceptions.visionErrorException;
 import ca.fourthreethreefour.vision.exceptions.visionTargetDetectionException;
-import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -16,6 +15,7 @@ import ca.fourthreethreefour.shuffleboard.Settings;
 import ca.fourthreethreefour.teleop.drivetrain.Drive;
 import ca.fourthreethreefour.teleop.systems.Ultrasonics;
 import ca.fourthreethreefour.vision.Vision;
+import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
 
 public class Teleop {
@@ -54,6 +54,9 @@ public class Teleop {
     drive.gearShiftSolenoid.set(drive.gearLow);
     mechanum.mechanumSolenoid.set(Value.kReverse);
     cargoOuttake = true;
+
+    //Configure PID Controller
+    vision.configVisionPID();
   }
   
 
@@ -135,13 +138,14 @@ public class Teleop {
     boolean visionAligned = false;
     double visionSpeed;
 
+    //Start Align DriverAssist
     if(driver.getStartButtonPressed()){
 
       visionAligned = false;
 
       try {
         vision.startVision();
-        vision.stopVisionPID();
+        vision.startAlignPID();
       } catch (visionErrorException e) {
         System.out.println(e.getMessage());
         driver.setRumble(RumbleType.kLeftRumble, 1);
@@ -149,6 +153,7 @@ public class Teleop {
       }
     }
 
+    //Continue Alignment
     if(driver.getStartButton()){
       try {
         if(visionAligned) {
@@ -160,19 +165,21 @@ public class Teleop {
             driver.setRumble(RumbleType.kRightRumble, 0.5);
           }
         } else {
-          visionAligned = vision.drive();
+          visionAligned = vision.alignDrive();
         }
       } catch (visionTargetDetectionException e) {
-
+        driver.setRumble(RumbleType.kLeftRumble, 1);
+        driver.setRumble(RumbleType.kRightRumble, 1);
       }
     }
 
+    //Stop Alignment
     if(driver.getStartButtonReleased()){
       vision.stopVision();
       driver.setRumble(RumbleType.kLeftRumble, 0);
       driver.setRumble(RumbleType.kRightRumble, 0);
       if(!visionAligned) {
-        vision.stopVisionPID();
+        vision.stopAlignPID();
       }
     }
 
@@ -198,4 +205,5 @@ public class Teleop {
   public void ExtArcadeDrive(double speed, double angle){
     drive.ExtArcadeDrive(speed, angle);
   }
+
 }
