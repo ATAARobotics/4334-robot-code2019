@@ -7,6 +7,9 @@
 
 package ca.fourthreethreefour;
 
+import ca.fourthreethreefour.autonomous.Auto;
+import ca.fourthreethreefour.shuffleboard.Settings;
+import ca.fourthreethreefour.teleop.Teleop;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 /**
@@ -17,13 +20,31 @@ import edu.wpi.first.wpilibj.TimedRobot;
  * directory.
  */
 public class Robot extends TimedRobot {
-
+  Auto auto = new Auto();
+  Settings shuffleboard = new Settings();
+  Teleop teleop;
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
    */
   @Override
   public void robotInit() {
+    shuffleboard.ShuffleInit(teleop);
+    this.teleop = new Teleop();
+    teleop.RobotInit();
+  }
+
+  @Override
+  public void disabledInit() {
+    teleop.arm.disable();
+  }
+  /**
+   * This function is called periodically while disabled.
+   */
+  @Override
+  public void disabledPeriodic() {
+    shuffleboard.ShufflePeriodic();
+    // System.out.println(shuffleboard.EXAMPLE_PORT);
   }
 
   /**
@@ -31,6 +52,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    auto.AutoInit(); // Runs everything set in the .AutoInit() function.
+    teleop.TeleopInit();
   }
 
   /**
@@ -38,6 +61,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
+    auto.AutoPeriodic(); // Runs everything set in the .AutoPeriodic() function.
+    teleop.TeleopPeriodic();
   }
 
   /**
@@ -45,6 +70,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopInit() {
+    auto.AutoDisabled(); // Runs everything set in the .AutoDisabled() function.
+    teleop.TeleopInit();
   }
 
   /**
@@ -52,6 +79,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    teleop.TeleopPeriodic();
   }
 
   /**
