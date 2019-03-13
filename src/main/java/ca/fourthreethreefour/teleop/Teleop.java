@@ -156,7 +156,7 @@ public class Teleop {
     if(visionActive){
       try {
         if(!visionAligned) {
-          visionAligned = vision.alignDrive();
+          visionAligned = vision.checkAlign();
         }
       } catch (visionTargetDetectionException e) {
         driver.setRumble(RumbleType.kLeftRumble, 1);

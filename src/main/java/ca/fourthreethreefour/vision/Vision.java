@@ -107,8 +107,7 @@ public class Vision {
         PIDEnabled = false;
     }
 
-    public boolean alignDrive() throws visionTargetDetectionException {
-        teleop.ExtArcadeDrive(getPiSpeed(), getPiRotation());
+    public boolean checkAlign() throws visionTargetDetectionException {
         if (VISION_ERROR_NOTARGET.getBoolean(true)) {
             throw new visionTargetDetectionException("Unable to locate more than 1 target");
         }

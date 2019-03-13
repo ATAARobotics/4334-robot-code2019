@@ -23,7 +23,7 @@ Check if PID is completed and automatically turn off PID loop if done
 
 ```java
 Vision vision = new Vision
-boolean complete = vision.drive();
+boolean complete = vision.checkAlign();
 ```
 
 Manually stop PID loop
