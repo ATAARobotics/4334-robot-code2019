@@ -137,7 +137,7 @@ public class Teleop {
     boolean visionActive = false;
 
     //Start Align DriverAssist
-    if(driver.getStartButtonPressed()){
+    if(driver.getBackButtonPressed()){
       //Block Controller from Driving Robot
       drive.ignoreController = true;
       //Set Alignment Variables
