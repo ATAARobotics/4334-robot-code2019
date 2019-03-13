@@ -140,7 +140,7 @@ public class Teleop {
 
     //Start Align DriverAssist
     if(driver.getStartButtonPressed()){
-
+      drive.ignoreController = true;
       visionAligned = false;
 
       try {
@@ -156,15 +156,7 @@ public class Teleop {
     //Continue Alignment
     if(driver.getStartButton()){
       try {
-        if(visionAligned) {
-          //TODO Recalculate drive speed calculations
-          visionSpeed = ultrasonics.getUltrasonicFrontValue()/10;
-          drive.ExtArcadeDrive(visionSpeed, 0);
-          if(visionSpeed == 0){
-            driver.setRumble(RumbleType.kLeftRumble, 0.5);
-            driver.setRumble(RumbleType.kRightRumble, 0.5);
-          }
-        } else {
+        if(!visionAligned) {
           visionAligned = vision.alignDrive();
         }
       } catch (visionTargetDetectionException e) {
@@ -181,6 +173,7 @@ public class Teleop {
       if(!visionAligned) {
         vision.stopAlignPID();
       }
+      drive.ignoreController = false;
     }
 
     // ultrasonics.printValues();

@@ -29,6 +29,8 @@ public class Drive extends Subsystem {
     private boolean lowGear = true;
     public Value gearLow = Value.kReverse;
     public Value gearHigh = Value.kForward;
+
+    public Boolean ignoreController;
     
 
   @Override
@@ -54,7 +56,9 @@ public class Drive extends Subsystem {
     speed = speed >= 0 ? speed*speed : -(speed*speed);
     turn = turn >= 0 ? Math.pow(turn, Settings.TURN_CURVE) : -Math.pow(Math.abs(turn), Settings.TURN_CURVE);
     System.out.println("Speed: " + speed + " Turn: " + turn);
-    driveTrain.arcadeDrive(speed, turn);
+    if(!ignoreController){
+        driveTrain.arcadeDrive(speed, turn);
+    }
   }
 
   /**
