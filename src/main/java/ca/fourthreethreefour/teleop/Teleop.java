@@ -54,9 +54,6 @@ public class Teleop {
     drive.gearShiftSolenoid.set(drive.gearLow);
     mechanum.mechanumSolenoid.set(Value.kReverse);
     cargoOuttake = true;
-
-    //Configure PID Controller
-    vision.configVisionPID();
   }
   
 
