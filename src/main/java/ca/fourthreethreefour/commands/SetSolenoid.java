@@ -1,7 +1,6 @@
 package ca.fourthreethreefour.commands;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.command.InstantCommand;
 
 public class SetSolenoid {
 

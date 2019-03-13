@@ -1,5 +1,6 @@
 package ca.fourthreethreefour.teleop;
 
+import ca.fourthreethreefour.autonomous.commands.VisionAllignment;
 import ca.fourthreethreefour.commands.debug.Logging;
 import ca.fourthreethreefour.shuffleboard.Settings;
 import ca.fourthreethreefour.teleop.drivetrain.Drive;
@@ -30,7 +31,7 @@ public class Teleop {
   private static final int armPIDCargoIntakeSetpoint = 10;
 
   // Creates and initializes various objects needed in teleop
-  public XboxController driver = new XboxController(Settings.DRIVER_CONTROLLER_PORT);
+  private XboxController driver = new XboxController(Settings.DRIVER_CONTROLLER_PORT);
   private Cargo cargo = new Cargo();
   public Encoders encoders = new Encoders();
   public Hatch hatch = new Hatch();
@@ -39,6 +40,7 @@ public class Teleop {
   public Drive drive = new Drive();
   public Ultrasonics ultrasonics = new Ultrasonics();
   private Vision vision = new Vision(this);
+  private VisionAllignment visionAllignment = new VisionAllignment(this.vision, this, this.driver);
 
   public static boolean cargoOuttake;
 
@@ -172,6 +174,14 @@ public class Teleop {
           arm.disable();
           armPIDOffset += encoders.armPotentiometer.get();
       }
+
+    if (driver.getStartButtonPressed()) {
+      visionAllignment.start();
+    }
+    
+    if (driver.getStartButtonReleased()) {
+      visionAllignment.cancel();
+    }
     //Vision Driver Assist
 
     //Vision Variables
