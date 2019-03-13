@@ -81,7 +81,10 @@ public class Vision {
 
     public void startVision() throws visionErrorException {
         VISION_ACTIVE_ENTRY_SHUFFLE.setBoolean(true);
+        //Enabled Relay for LED Ring
         ledRelay.set(Value.kForward);
+
+        //Attempts to ping RaspberryPi to verify connection
         if(!piOnline()){
             throw new visionErrorException("Could not verify Pi Online");
         }

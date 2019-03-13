@@ -138,15 +138,19 @@ public class Teleop {
 
     //Start Align DriverAssist
     if(driver.getStartButtonPressed()){
+      //Block Controller from Driving Robot
       drive.ignoreController = true;
+      //Set Alignment Variables
       visionActive = true;
       visionAligned = false;
 
       try {
+        //Start Vision Components, Get Alignment angle and start PID
         vision.startVision();
         vision.startAlignPID();
       } catch (visionErrorException e) {
         System.out.println(e.getMessage());
+        //Shake Controller on Error
         driver.setRumble(RumbleType.kLeftRumble, 1);
         driver.setRumble(RumbleType.kRightRumble, 1);
       }
@@ -156,15 +160,19 @@ public class Teleop {
     if(visionActive){
       try {
         if(!visionAligned) {
+          //Check to see if aligned
           visionAligned = vision.checkAlign();
         }
       } catch (visionTargetDetectionException e) {
+        //Shake Controller on Error
         driver.setRumble(RumbleType.kLeftRumble, 1);
         driver.setRumble(RumbleType.kRightRumble, 1);
       }
     }
 
-    //Stop Alignment
+    //Stop Alignment and Vision
+
+    //If any axis on controller passes threshold, disable vision alignment and return driver control.
     if(Math.abs(driver.getY(Hand.kLeft)) > 0.15 || Math.abs(driver.getY(Hand.kRight)) > 0.15 || Math.abs(driver.getX(Hand.kLeft)) > 0.15 || Math.abs(driver.getX(Hand.kRight)) > 0.15){
       vision.stopVision();
       driver.setRumble(RumbleType.kLeftRumble, 0);
