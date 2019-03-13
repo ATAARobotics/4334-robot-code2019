@@ -1,4 +1,6 @@
-## To activate vision components:
+## README
+
+Start vision components
 
 ```java
 Vision vision = new Vision
@@ -8,28 +10,24 @@ vision.startVision();
 To start lineup
 
 ```java
-Vision vision = new Vision
-vision.startPIDDrive();
+vision.startAlignPID();
 ```
 
 Turn off vision components
 
 ```java
-Vision vision = new Vision
 vision.stopVision();
 ```
 
 Check if PID is completed and automatically turn off PID loop if done
 
 ```java
-Vision vision = new Vision
 boolean complete = vision.checkAlign();
 ```
 
 Manually stop PID loop
 ```java
-Vision vision = new Vision
-vision.stopVisionPID();
+vision.stopAlignPID();
 ```
 
 ## Exceptions
