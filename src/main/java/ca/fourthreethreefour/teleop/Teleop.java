@@ -137,10 +137,12 @@ public class Teleop {
     //Vision Variables
     boolean visionAligned = false;
     double visionSpeed;
+    boolean visionActive = false;
 
     //Start Align DriverAssist
     if(driver.getStartButtonPressed()){
       drive.ignoreController = true;
+      visionActive = true;
       visionAligned = false;
 
       try {
@@ -154,7 +156,7 @@ public class Teleop {
     }
 
     //Continue Alignment
-    if(driver.getStartButton()){
+    if(visionActive){
       try {
         if(!visionAligned) {
           visionAligned = vision.alignDrive();
@@ -166,7 +168,7 @@ public class Teleop {
     }
 
     //Stop Alignment
-    if(driver.getStartButtonReleased()){
+    if(Math.abs(driver.getY(Hand.kLeft)) > 0.15 || Math.abs(driver.getY(Hand.kRight)) > 0.15 || Math.abs(driver.getX(Hand.kLeft)) > 0.15 || Math.abs(driver.getX(Hand.kRight)) > 0.15){
       vision.stopVision();
       driver.setRumble(RumbleType.kLeftRumble, 0);
       driver.setRumble(RumbleType.kRightRumble, 0);
