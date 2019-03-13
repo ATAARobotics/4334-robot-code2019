@@ -133,14 +133,17 @@ public class Teleop {
 
     //Vision Variables
     boolean visionAligned = false;
+    boolean visionDistance = false;
     double visionSpeed;
     boolean visionActive = false;
+    boolean visionDriveActive = false;
 
     //Start Align DriverAssist
     if(driver.getStartButtonPressed()){
       drive.ignoreController = true;
       visionActive = true;
       visionAligned = false;
+      visionDistance = false;
 
       try {
         vision.startVision();
@@ -157,6 +160,12 @@ public class Teleop {
       try {
         if(!visionAligned) {
           visionAligned = vision.checkAlign();
+        } else if(!visionDistance && !visionDriveActive){
+          //TODO: Adjust drive goal distance
+          vision.startDrivePID(10.0);
+          visionDriveActive = true;
+        } else if(visionDriveActive && !visionDistance){
+          visionDistance = vision.checkDistance();
         }
       } catch (visionTargetDetectionException e) {
         driver.setRumble(RumbleType.kLeftRumble, 1);

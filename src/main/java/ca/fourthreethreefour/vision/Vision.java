@@ -54,8 +54,8 @@ public class Vision {
 
     //Initialize VisionAssist PID Objects
     private PIDSubsystem visionAlignPID;
+    private PIDSubsystem visionDrivePID;
 
-    public boolean PIDEnabled = false;
 
     public Vision(Teleop teleop) {
         VISION_DRIVE_VALUE = table.getEntry("VISION_DRIVE_VALUE");
@@ -76,6 +76,27 @@ public class Vision {
         visionAlignPID.setAbsoluteTolerance(0.5);
         visionAlignPID.getPIDController().setContinuous(false);
         visionAlignPID.setOutputRange(-1,1);
+
+        //Configure Vision Drive PID
+        visionDrivePID =  new PIDSubsystem("DrivePID", 0.1,0,0) {
+            @Override
+            protected double returnPIDInput() {
+                return ultrasonics.getUltrasonicFrontValue();
+            }
+
+            @Override
+            protected void usePIDOutput(double output) {
+                teleop.ExtArcadeDrive(output,0);
+            }
+
+            @Override
+            protected void initDefaultCommand() {
+
+            }
+        };
+        visionDrivePID.setAbsoluteTolerance(0.5);
+        visionDrivePID.getPIDController().setContinuous(false);
+        visionDrivePID.setOutputRange(-1,1);
     }
 
 
@@ -99,12 +120,10 @@ public class Vision {
         angleGoal = encoders.getNavXAngle() + getPiRotation();
         visionAlignPID.setSetpoint(angleGoal);
         visionAlignPID.enable();
-        PIDEnabled = true;
     }
 
     public void stopAlignPID() {
         visionAlignPID.disable();
-        PIDEnabled = false;
     }
 
     public boolean checkAlign() throws visionTargetDetectionException {
@@ -118,6 +137,24 @@ public class Vision {
         } else {
             return (false);
         }
+    }
+
+    public boolean checkDistance(){
+        if(visionDrivePID.onTarget()) {
+            visionDrivePID.disable();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void startDrivePID(Double goalDistance){
+        visionDrivePID.setSetpoint(goalDistance);
+        visionAlignPID.enable();
+    }
+
+    public void stopDrivePID(){
+        visionDrivePID.disable();
     }
 
 
