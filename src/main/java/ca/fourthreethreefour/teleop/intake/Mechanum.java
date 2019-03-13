@@ -42,4 +42,8 @@ public class Mechanum extends Subsystem {
   public void mechanumRetract() {
     new SetSolenoid(mechanumSolenoid, Value.kReverse).set();
   }
+
+  public void mechanumExtend() {
+    new SetSolenoid(mechanumSolenoid, Value.kForward).set();
+  }
 }

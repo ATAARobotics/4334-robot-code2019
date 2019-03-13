@@ -9,9 +9,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Ultrasonics extends Subsystem {
 
     // Assigns all the DIO sensors to their respective objects (the number in brackets is the port # of what is connected where)
-    public Ultrasonic ultrasonicSensorFront = new Ultrasonic(6, 7);
-    // Ultrasonic ultrasonicSensorLeft = new Ultrasonic(2, 3);
-    public Ultrasonic ultrasonicSensorBack = new Ultrasonic(8, 9);
+    Ultrasonic ultrasonicSensorFrontLeft = new Ultrasonic(30, 29);
+    Ultrasonic ultrasonicSensorFrontRight = new Ultrasonic(28, 27);
+    Ultrasonic ultrasonicSensorBack = new Ultrasonic(26, 25);
     // Ultrasonic ultrasonicSensorRight = new Ultrasonic(6, 7);
 
   /** Constructor for initalizing
@@ -32,8 +32,8 @@ public class Ultrasonics extends Subsystem {
             {
                 // Pings the ultrasonic sensors
   
-                ultrasonicSensorFront.ping();
-                // ultrasonicSensorLeft.ping();
+                ultrasonicSensorFrontLeft.ping();
+                ultrasonicSensorFrontRight.ping();
                 ultrasonicSensorBack.ping();
                 // ultrasonicSensorRight.ping();
                 Timer.delay(.1);
@@ -45,8 +45,8 @@ public class Ultrasonics extends Subsystem {
 
     // Enables the ultrasonic sensors to calculate distances (need to be polled to give a reading)
     public void enable() {
-        ultrasonicSensorFront.setEnabled(true);
-        // ultrasonicSensorLeft.setEnabled(true);
+        ultrasonicSensorFrontLeft.setEnabled(true);
+        ultrasonicSensorFrontRight.setEnabled(true);
         ultrasonicSensorBack.setEnabled(true);
         // ultrasonicSensorRight.setEnabled(true);
     }
@@ -69,15 +69,19 @@ public class Ultrasonics extends Subsystem {
     public void printValues()
     {
         Logging.log("--------------------------------------------------------------------------");
-        Logging.log("Ultrasonic Front: " + String.valueOf((ultrasonicSensorFront.isRangeValid() == false) ? SmartDashboard.getNumber("Ultrasonic Front", 999.0) : ultrasonicSensorFront.getRangeInches()));
-        // Logging.log("Ultrasonic Left" + String.valueOf((ultrasonicSensorLeft.isRangeValid() == false) ? SmartDashboard.getNumber("Ultrasonic Left", 999.0) : ultrasonicSensorLeft.getRangeInches()));
+        Logging.log("Ultrasonic Front Left: " + String.valueOf((ultrasonicSensorFrontLeft.isRangeValid() == false) ? SmartDashboard.getNumber("Ultrasonic Front Left", 999.0) : ultrasonicSensorFrontLeft.getRangeInches()));
+        Logging.log("Ultrasonic Front Right" + String.valueOf((ultrasonicSensorFrontRight.isRangeValid() == false) ? SmartDashboard.getNumber("Ultrasonic Front Right", 999.0) : ultrasonicSensorFrontRight.getRangeInches()));
         Logging.log("Ultrasonic Back: " + String.valueOf((ultrasonicSensorBack.isRangeValid() == false) ? SmartDashboard.getNumber("Ultrasonic Back", 999.0) : ultrasonicSensorBack.getRangeInches()));
         // Logging.log("Ultrasonic Right"+ String.valueOf( (ultrasonicSensorRight.isRangeValid() == false) ? SmartDashboard.getNumber("Ultrasonic Right", 999.0) : ultrasonicSensorRight.getRangeInches()));
         Logging.log("--------------------------------------------------------------------------");
     }
 
-    public double getUltrasonicFrontValue() {
-        return ultrasonicSensorFront.isRangeValid() ? ultrasonicSensorFront.getRangeInches() : 999.0;
+    public double getUltrasonicFrontLeftValue() {
+        return ultrasonicSensorFrontLeft.isRangeValid() ? ultrasonicSensorFrontLeft.getRangeInches() : 999.0;
+    }
+
+    public double getUltrasonicFrontRightValue() {
+        return ultrasonicSensorFrontRight.isRangeValid() ? ultrasonicSensorFrontRight.getRangeInches() : 999.0;
     }
 
     public double getUltrasonicBackValue() {

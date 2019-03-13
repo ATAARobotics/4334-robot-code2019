@@ -36,7 +36,7 @@ public class UltrasonicsDrive extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    if (teleop.ultrasonics.getUltrasonicFrontValue() <= ultrasonicFinal) {
+    if (teleop.ultrasonics.getUltrasonicFrontLeftValue() <= ultrasonicFinal) {
       return true;
     } else {
       return false;
