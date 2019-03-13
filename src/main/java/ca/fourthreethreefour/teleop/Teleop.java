@@ -1,18 +1,21 @@
 package ca.fourthreethreefour.teleop;
 
+import ca.fourthreethreefour.commands.debug.Logging;
+import ca.fourthreethreefour.shuffleboard.Settings;
+import ca.fourthreethreefour.teleop.drivetrain.Drive;
 import ca.fourthreethreefour.teleop.intake.Arm;
 import ca.fourthreethreefour.teleop.intake.Cargo;
 import ca.fourthreethreefour.teleop.intake.Hatch;
 import ca.fourthreethreefour.teleop.intake.Mechanum;
 import ca.fourthreethreefour.teleop.systems.Encoders;
-import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.XboxController;
+import ca.fourthreethreefour.teleop.systems.Ultrasonics;
+import ca.fourthreethreefour.vision.Vision;
+import ca.fourthreethreefour.vision.exceptions.visionErrorException;
+import ca.fourthreethreefour.vision.exceptions.visionTargetDetectionException;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
-import ca.fourthreethreefour.commands.debug.Logging;
-import ca.fourthreethreefour.shuffleboard.Settings;
-import ca.fourthreethreefour.teleop.drivetrain.Drive;
-import ca.fourthreethreefour.teleop.systems.Ultrasonics;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+import edu.wpi.first.wpilibj.XboxController;
 
 public class Teleop {
 
@@ -26,8 +29,8 @@ public class Teleop {
   private static final int armPIDHatchIntakeSetpoint = 200;
   private static final int armPIDCargoIntakeSetpoint = 10;
 
-  //Creates and initializes various objects needed in teleop
-  private XboxController driver = new XboxController(Settings.DRIVER_CONTROLLER_PORT);
+  // Creates and initializes various objects needed in teleop
+  public XboxController driver = new XboxController(Settings.DRIVER_CONTROLLER_PORT);
   private Cargo cargo = new Cargo();
   public Encoders encoders = new Encoders();
   public Hatch hatch = new Hatch();
@@ -35,8 +38,7 @@ public class Teleop {
   public Arm arm = new Arm(encoders, cargo);
   public Drive drive = new Drive();
   public Ultrasonics ultrasonics = new Ultrasonics();
-  public PIDController armPIDLeft;
-  public PIDController armPIDRight;
+  private Vision vision = new Vision(this);
 
   public static boolean cargoOuttake;
 
@@ -44,8 +46,6 @@ public class Teleop {
     ultrasonics.enable();
     ultrasonics.ultrasonicPollingThread();
     encoders.potentiometerInit(armPIDOffset);
-    armPIDLeft = new PIDController(0.05, 0, 0, encoders.armPotentiometer, cargo.intakeRotateMotor1);
-    armPIDRight = new PIDController(0.05, 0, 0, encoders.armPotentiometer, cargo.intakeRotateMotor2);
   }
 
   /**
@@ -64,6 +64,9 @@ public class Teleop {
     hatch.hatchSolenoidIn();
     arm.setAbsoluteTolerance(armPIDAcceptableError);
     cargoOuttake = true;
+
+    //Configure PID Controller
+    vision.configVisionPID();
   }
   
 
@@ -169,6 +172,56 @@ public class Teleop {
           arm.disable();
           armPIDOffset += encoders.armPotentiometer.get();
       }
+    //Vision Driver Assist
+
+    //Vision Variables
+    // boolean visionAligned = false;
+    // double visionSpeed;
+
+    //Start Align DriverAssist
+    // if(driver.getStartButtonPressed()){
+
+    //   visionAligned = false;
+
+    //   // try {
+    //   //   vision.startVision();
+    //   //   vision.startAlignPID();
+    //   // } catch (visionErrorException e) {
+    //   //   System.out.println(e.getMessage());
+    //   //   driver.setRumble(RumbleType.kLeftRumble, 1);
+    //   //   driver.setRumble(RumbleType.kRightRumble, 1);
+    //   // }
+    // }
+
+    // //Continue Alignment
+    // if(driver.getStartButton()){
+    //   try {
+    //     if(visionAligned) {
+    //       //TODO Recalculate drive speed calculations
+    //       visionSpeed = ultrasonics.getUltrasonicFrontLeftValue()/10;
+    //       drive.ExtArcadeDrive(visionSpeed, 0);
+    //       if(visionSpeed == 0){
+    //         driver.setRumble(RumbleType.kLeftRumble, 0.5);
+    //         driver.setRumble(RumbleType.kRightRumble, 0.5);
+    //       }
+    //     } else {
+    //       visionAligned = vision.alignDrive();
+    //     }
+    //   } catch (visionTargetDetectionException e) {
+    //     driver.setRumble(RumbleType.kLeftRumble, 1);
+    //     driver.setRumble(RumbleType.kRightRumble, 1);
+    //   }
+    // }
+
+    // //Stop Alignment
+    // if(driver.getStartButtonReleased()){
+    //   vision.stopVision();
+    //   driver.setRumble(RumbleType.kLeftRumble, 0);
+    //   driver.setRumble(RumbleType.kRightRumble, 0);
+    //   if(!visionAligned) {
+    //     vision.stopAlignPID();
+    //   }
+    // }
 
     // ultrasonics.printValues();
     // System.out.println("Is enabled? " + arm.isEnabled());
@@ -196,7 +249,13 @@ public class Teleop {
     drive.ExtDrive(leftValue, rightValue);
   }
 
+  /**
+   * ArcadeDrive for external use
+   * @param speed value for both motors, ranges from 1 to -1
+   * @param angle value for motors, ranges from 1 to -1
+   */
   public void ExtArcadeDrive(double speed, double angle){
     drive.ExtArcadeDrive(speed, angle);
   }
+
 }
