@@ -63,6 +63,19 @@ public class Vision {
         VISION_ERROR_NOTARGET = table.getEntry("VISION_ERROR_NOTARGET");
         this.teleop = teleop;
         this.encoders = teleop.encoders;
+
+        //Configure Vision Align PID
+        visionAlignPID = new PIDSubsystem("AlignPID", -0.03, 0.0, 0.01) {
+            @Override
+            protected double returnPIDInput() {return encoders.getNavXAngle(); }
+            @Override
+            protected void usePIDOutput(double output) { teleop.ExtArcadeDrive(0, output); }
+            @Override
+            protected void initDefaultCommand() { }
+        };
+        visionAlignPID.setAbsoluteTolerance(0.5);
+        visionAlignPID.getPIDController().setContinuous(false);
+        visionAlignPID.setOutputRange(-1,1);
     }
 
 
@@ -131,23 +144,6 @@ public class Vision {
             reachable = false;
         }
         return(reachable);
-    }
-
-    //Configure PID Controllers
-    public void configVisionPID(){
-        //Config Align PID
-        visionAlignPID = new PIDSubsystem("AlignPID", -0.03, 0.0, 0.01) {
-            @Override
-            protected double returnPIDInput() {return encoders.getNavXAngle(); }
-            @Override
-            protected void usePIDOutput(double output) { teleop.ExtArcadeDrive(0, output); }
-            @Override
-            protected void initDefaultCommand() { }
-        };
-        visionAlignPID.setAbsoluteTolerance(0.5);
-        visionAlignPID.getPIDController().setContinuous(false);
-        visionAlignPID.setOutputRange(-1,1);
-
     }
 
 }
