@@ -11,18 +11,18 @@ import ca.fourthreethreefour.teleop.intake.Mechanum;
 import ca.fourthreethreefour.teleop.systems.Encoders;
 import ca.fourthreethreefour.teleop.systems.Ultrasonics;
 import ca.fourthreethreefour.vision.Vision;
-import ca.fourthreethreefour.vision.exceptions.visionErrorException;
-import ca.fourthreethreefour.vision.exceptions.visionTargetDetectionException;
+//import ca.fourthreethreefour.vision.exceptions.visionErrorException;
+//import ca.fourthreethreefour.vision.exceptions.visionTargetDetectionException;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+//import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.XboxController;
 
 public class Teleop {
 
-  // Initialize miscellaneous configuration values
-  private static int armPIDSetpoint = 90;
-  private static int armPIDScale = 1800;
+  //Initialize miscellaneous configuration values
+  //private static int armPIDSetpoint = 90;
+  //private static int armPIDScale = 1800;
   private static int armPIDOffset = -920; // Todo: Tune offset at competition
   private static final int armPIDAcceptableError = 2;
   private static final int armPIDHatchIntakeOuttakeSetpoint = 90;
@@ -30,18 +30,20 @@ public class Teleop {
   private static final int armPIDHatchIntakeSetpoint = 200;
   private static final int armPIDCargoIntakeSetpoint = 10;
 
-  // Creates and initializes various objects needed in teleop
+  //Creates and initializes various objects needed in teleop
   private XboxController driver = new XboxController(Settings.DRIVER_CONTROLLER_PORT);
   private Cargo cargo = new Cargo();
   public Encoders encoders = new Encoders();
   public Hatch hatch = new Hatch();
   private Mechanum mechanum = new Mechanum();
   public Arm arm = new Arm(encoders, cargo);
+  //private Arm armPIDLeft;
+  //private Arm armPIDRight;
   public Drive drive = new Drive();
   public Ultrasonics ultrasonics = new Ultrasonics();
   private Vision vision = new Vision(this);
   private VisionAllignment visionAllignment = new VisionAllignment(this.vision, this, this.driver);
-
+  
   public static boolean cargoOuttake;
 
   public void RobotInit() {
@@ -147,7 +149,7 @@ public class Teleop {
       arm.armRotate(0);
     }
 
-      // Up D-Pad - Sets the PID setpoint to hatch outtake and retracts the mecanum intake
+      //Up D-Pad - Sets the PID setpoint to hatch outtake and retracts the mecanum intake
         if (driver.getPOV() == 0) { // TODO make the setpoints shuffleboard stuff
           Logging.log("Shooter set point up");
           arm.setSetpoint(armPIDHatchIntakeOuttakeSetpoint);
@@ -200,9 +202,8 @@ public class Teleop {
     //   //   System.out.println(e.getMessage());
     //   //   driver.setRumble(RumbleType.kLeftRumble, 1);
     //   //   driver.setRumble(RumbleType.kRightRumble, 1);
-    //   // }
     // }
-
+    
     // //Continue Alignment
     // if(driver.getStartButton()){
     //   try {
@@ -213,10 +214,10 @@ public class Teleop {
     //       if(visionSpeed == 0){
     //         driver.setRumble(RumbleType.kLeftRumble, 0.5);
     //         driver.setRumble(RumbleType.kRightRumble, 0.5);
+    //      }
+    //    } else {
+    //        visionAligned = vision.alignDrive();
     //       }
-    //     } else {
-    //       visionAligned = vision.alignDrive();
-    //     }
     //   } catch (visionTargetDetectionException e) {
     //     driver.setRumble(RumbleType.kLeftRumble, 1);
     //     driver.setRumble(RumbleType.kRightRumble, 1);
@@ -245,7 +246,7 @@ public class Teleop {
     //   arm.setSetpoint(111);
     //   arm.enable();
     //   mechanum.mechanumRetract();
-    } else*/ 
+    } */
 
   }
 
