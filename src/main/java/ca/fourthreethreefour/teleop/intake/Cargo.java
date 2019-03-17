@@ -8,7 +8,7 @@
 package ca.fourthreethreefour.teleop.intake;
 
 import ca.fourthreethreefour.commands.debug.Logging;
-import ca.fourthreethreefour.shuffleboard.Settings;
+import ca.fourthreethreefour.settings.Settings;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 

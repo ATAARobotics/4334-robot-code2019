@@ -8,7 +8,7 @@
 package ca.fourthreethreefour;
 
 import ca.fourthreethreefour.autonomous.Auto;
-import ca.fourthreethreefour.shuffleboard.Settings;
+import ca.fourthreethreefour.settings.Settings;
 import ca.fourthreethreefour.teleop.Teleop;
 import edu.wpi.first.wpilibj.TimedRobot;
 
@@ -43,7 +43,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledPeriodic() {
-    shuffleboard.ShufflePeriodic();
+    shuffleboard.settingsPeriodic();
     // System.out.println(shuffleboard.EXAMPLE_PORT);
   }
 
