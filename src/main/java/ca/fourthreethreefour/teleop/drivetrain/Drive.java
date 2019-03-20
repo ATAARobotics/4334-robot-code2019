@@ -30,7 +30,7 @@ public class Drive extends Subsystem {
     public Value gearLow = Value.kReverse;
     public Value gearHigh = Value.kForward;
 
-    public Boolean ignoreController;
+    public Boolean ignoreController = false;
     
 
   @Override

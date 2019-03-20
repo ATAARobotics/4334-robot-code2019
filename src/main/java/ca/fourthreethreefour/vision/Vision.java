@@ -44,7 +44,7 @@ public class Vision {
     private Encoders encoders;
 
     // Initializes Ultrasonics Object
-    private Ultrasonics ultrasonics = new Ultrasonics();
+    //private Ultrasonics ultrasonics = new Ultrasonics();
 
     // Creates NetworkTable Items
     private NetworkTableEntry VISION_DRIVE_VALUE;
@@ -76,6 +76,7 @@ public class Vision {
         visionAlignPID.setAbsoluteTolerance(0.5);
         visionAlignPID.getPIDController().setContinuous(false);
         visionAlignPID.setOutputRange(-1,1);
+        visionAlignPID.disable();
     }
 
 
