@@ -19,15 +19,15 @@ Turn off vision components
 vision.stopVision();
 ```
 
+Manually stop PID loop
+```java
+vision.stopAlignPID();
+```
+
 Check if PID is completed and automatically turn off PID loop if done
 
 ```java
 boolean complete = vision.checkAlign();
-```
-
-Manually stop PID loop
-```java
-vision.stopAlignPID();
 ```
 
 ## Exceptions

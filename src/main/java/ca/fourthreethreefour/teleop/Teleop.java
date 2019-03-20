@@ -15,8 +15,6 @@ import ca.fourthreethreefour.shuffleboard.Settings;
 import ca.fourthreethreefour.teleop.drivetrain.Drive;
 import ca.fourthreethreefour.teleop.systems.Ultrasonics;
 import ca.fourthreethreefour.vision.Vision;
-import edu.wpi.first.wpilibj.command.PIDSubsystem;
-
 
 public class Teleop {
 
@@ -162,6 +160,9 @@ public class Teleop {
         if(!visionAligned) {
           //Check to see if aligned
           visionAligned = vision.checkAlign();
+        } else {
+          driver.setRumble(RumbleType.kLeftRumble, 0.5);
+          driver.setRumble(RumbleType.kRightRumble, 0.5);
         }
       } catch (visionTargetDetectionException e) {
         //Shake Controller on Error
