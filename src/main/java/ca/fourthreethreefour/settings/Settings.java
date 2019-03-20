@@ -1,14 +1,14 @@
 package ca.fourthreethreefour.settings;
 
 import java.io.File;
-import java.util.Map;
+//import java.util.Map;
 
 import ca.fourthreethreefour.teleop.Teleop;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+//import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
@@ -62,8 +62,8 @@ public class Settings {
     private ShuffleboardTab dashboardTab = Shuffleboard.getTab("Dashboard");
     private ShuffleboardTab outputTab = Shuffleboard.getTab("Output");
 
-    // NetworkTableEntry LOW_GEAR_TURN_THRESHOLD_ENTRY;
-    // static public double LOW_GEAR_TURN_THRESHOLD;
+    //NetworkTableEntry LOW_GEAR_TURN_THRESHOLD_ENTRY;
+    //static public double LOW_GEAR_TURN_THRESHOLD;
 
     static public NetworkTableEntry DRIVE_DIRECTION_ENTRY;
 
@@ -93,7 +93,7 @@ public class Settings {
         TURN_CURVE = settingsFile.getDoubleProperty("TURN_CURVE", 2.4);
         INTAKE_ROTATE_SPEED = settingsFile.getDoubleProperty("INTAKE_ROTATE_SPEED", 1);
         LOW_GEAR_THRESHOLD = settingsFile.getDoubleProperty("LOW_GEAR_THRESHOLD", 0.1);
-        // LOW_GEAR_TURN_THRESHOLD = LOW_GEAR_SPEED_THRESHOLD_ENTRY.getDouble(0.25);
+        //LOW_GEAR_TURN_THRESHOLD = LOW_GEAR_TURN_THRESHOLD_ENTRY.getDouble(0.25);
     }
 
     public void settingsPeriodic() {
