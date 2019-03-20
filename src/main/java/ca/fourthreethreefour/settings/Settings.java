@@ -29,24 +29,24 @@ public class Settings {
 
     static public int CARGO_BUTTON_PORT = settingsFile.getIntProperty("CARGO_BUTTON_PORT", 0);
 
-    static public int GEAR_SOLENOID_PORT_1 = settingsFile.getIntProperty("GEAR_SOLENOID_PORT_1", 2);
-    static public int GEAR_SOLENOID_PORT_2 = settingsFile.getIntProperty("GEAR_SOLENOID_PORT_2", 3);
+    static public int GEAR_SOLENOID_PORT_1 = settingsFile.getIntProperty("GEAR_SOLENOID_PORT_1", 1);
+    static public int GEAR_SOLENOID_PORT_2 = settingsFile.getIntProperty("GEAR_SOLENOID_PORT_2", 0);
 
     static public int FRONT_LEFT_MOTOR_PORT = settingsFile.getIntProperty("FRONT_LEFT_MOTOR_PORT", 0);
     static public int REAR_LEFT_MOTOR_PORT = settingsFile.getIntProperty("REAR_LEFT_MOTOR_PORT", 1);
     static public int FRONT_RIGHT_MOTOR_PORT = settingsFile.getIntProperty("FRONT_RIGHT_MOTOR_PORT", 2);
     static public int REAR_RIGHT_MOTOR_PORT = settingsFile.getIntProperty("REAR_RIGHT_MOTOR_PORT", 3);
 
-    static public int CARGO_OUTTAKE_LEFT_PORT = settingsFile.getIntProperty("CARGO_OUTTAKE_LEFT_PORT", 2);
-    static public int CARGO_OUTTAKE_RIGHT_PORT = settingsFile.getIntProperty("CARGO_OUTTAKE_RIGHT_PORT", 3);
-    static public int INTAKE_ROTATE_PORT_1 = settingsFile.getIntProperty("INTAKE_ROTATE_PORT_1", 0);
-    static public int INTAKE_ROTATE_PORT_2 = settingsFile.getIntProperty("INTAKE_ROTATE_PORT_2", 1);
+    static public int CARGO_OUTTAKE_LEFT_PORT = settingsFile.getIntProperty("CARGO_OUTTAKE_LEFT_PORT", 0);
+    static public int CARGO_OUTTAKE_RIGHT_PORT = settingsFile.getIntProperty("CARGO_OUTTAKE_RIGHT_PORT", 1);
+    static public int INTAKE_ROTATE_PORT_1 = settingsFile.getIntProperty("INTAKE_ROTATE_PORT_1", 2);
+    static public int INTAKE_ROTATE_PORT_2 = settingsFile.getIntProperty("INTAKE_ROTATE_PORT_2", 3);
 
-    static public int HATCH_SOLENOID_PORT_1 = settingsFile.getIntProperty("HATCH_SOLENOID_PORT_1", 0);
-    static public int HATCH_SOLENOID_PORT_2 = settingsFile.getIntProperty("HATCH_SOLENOID_PORT_2", 1);
+    static public int HATCH_SOLENOID_PORT_1 = settingsFile.getIntProperty("HATCH_SOLENOID_PORT_1", 2);
+    static public int HATCH_SOLENOID_PORT_2 = settingsFile.getIntProperty("HATCH_SOLENOID_PORT_2", 3);
 
     static public int MECHANUM_MOTOR_PORT = settingsFile.getIntProperty("MECHANUM_MOTOR_PORT", 4);
-    static public int MECHANUM_SOLENOID_PORT_1 = settingsFile.getIntProperty("MECHANUM_SOLENOID_PORT_1", 5);
+    static public int MECHANUM_SOLENOID_PORT_1 = settingsFile.getIntProperty("MECHANUM_SOLENOID_PORT_1", 7);
     static public int MECHANUM_SOLENOID_PORT_2 = settingsFile.getIntProperty("MECHANUM_SOLENOID_PORT_2", 6);
 
     static public boolean REVERSABLE_CONTROLS = settingsFile.getBooleanProperty("REVERSABLE_CONTROLS", false);
@@ -58,6 +58,8 @@ public class Settings {
     static public double TURN_CURVE = settingsFile.getDoubleProperty("TURN_CURVE", 2.4);
     static public double INTAKE_ROTATE_SPEED = settingsFile.getDoubleProperty("INTAKE_ROTATE_SPEED", 1);
     static public double LOW_GEAR_THRESHOLD = settingsFile.getDoubleProperty("LOW_GEAR_THRESHOLD", 0.1);
+
+    static public double TEST = settingsFile.getDoubleProperty("TEST", 0.5);
     // Example of ShuffleboardTab setup.
     private ShuffleboardTab dashboardTab = Shuffleboard.getTab("Dashboard");
     private ShuffleboardTab outputTab = Shuffleboard.getTab("Output");
@@ -93,7 +95,8 @@ public class Settings {
         TURN_CURVE = settingsFile.getDoubleProperty("TURN_CURVE", 2.4);
         INTAKE_ROTATE_SPEED = settingsFile.getDoubleProperty("INTAKE_ROTATE_SPEED", 1);
         LOW_GEAR_THRESHOLD = settingsFile.getDoubleProperty("LOW_GEAR_THRESHOLD", 0.1);
-        //LOW_GEAR_TURN_THRESHOLD = LOW_GEAR_TURN_THRESHOLD_ENTRY.getDouble(0.25);
+        TEST = settingsFile.getDoubleProperty("TEST", 0.5);
+        // LOW_GEAR_TURN_THRESHOLD = LOW_GEAR_SPEED_THRESHOLD_ENTRY.getDouble(0.25);
     }
 
     public void settingsPeriodic() {
@@ -104,6 +107,7 @@ public class Settings {
         }
         
         if (!settingsActive.equalsIgnoreCase(settingsFile.toString())) {
+            System.out.println("Reloading Settings");
             settingsValueUpdate();
             settingsActive = settingsFile.toString();
         }

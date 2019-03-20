@@ -19,7 +19,7 @@ public class Teleop {
   // Initialize miscellaneous configuration values
   private static int armPIDSetpoint = 90;
   private static int armPIDScale = 1800;
-  private static int armPIDOffset = -920; // Todo: Tune offset at competition
+  private static int armPIDOffset = -328; // Todo: Tune offset at competition
   private static final int armPIDAcceptableError = 2;
   private static final int armPIDHatchIntakeOuttakeSetpoint = 90;
   private static final int armPIDCargoOuttakeSetpoint = 110;

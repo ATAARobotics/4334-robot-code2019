@@ -43,6 +43,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledPeriodic() {
+    System.out.println(Settings.TEST);
     shuffleboard.settingsPeriodic();
     // System.out.println(shuffleboard.EXAMPLE_PORT);
   }
