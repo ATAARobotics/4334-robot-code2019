@@ -67,7 +67,7 @@ public class Vision {
         //Configure Vision Align PID
         visionAlignPID = new PIDSubsystem("AlignPID", -0.03, 0.0, 0.01) {
             @Override
-            protected double returnPIDInput() {return encoders.getNavXAngle(); }
+            protected double returnPIDInput() {return getPiRotation(); }
             @Override
             protected void usePIDOutput(double output) { teleop.ExtArcadeDrive(0, output); }
             @Override
@@ -100,7 +100,7 @@ public class Vision {
     //Alignment PID Commands
     private Double angleGoal;
     public void startAlignPID() {
-        angleGoal = encoders.getNavXAngle() + getPiRotation();
+        angleGoal = 0.0;
         visionAlignPID.setSetpoint(angleGoal);
         visionAlignPID.enable();
         PIDEnabled = true;
