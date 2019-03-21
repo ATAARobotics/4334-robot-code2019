@@ -7,6 +7,7 @@ import ca.fourthreethreefour.teleop.systems.Encoders;
 import ca.fourthreethreefour.vision.exceptions.visionErrorException;
 import ca.fourthreethreefour.vision.exceptions.visionTargetDetectionException;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
@@ -29,7 +30,7 @@ public class Teleop {
   private Mechanum mechanum = new Mechanum();
   public Drive drive = new Drive();
   private Ultrasonics ultrasonics = new Ultrasonics();
-  private Vision vision = new Vision(this);
+  public Vision vision = new Vision(this);
 
   public static boolean cargoOuttake;
 
@@ -183,6 +184,15 @@ public class Teleop {
       }
       drive.ignoreController = false;
     }
+    //Toggle Green Vision LED
+    if(driver.getStartButtonPressed()){
+      if(vision.ledRelay.get() == Relay.Value.kReverse){
+        vision.ledRelay.set(Relay.Value.kForward);
+      } else if (vision.ledRelay.get() == Relay.Value.kForward){
+        vision.ledRelay.set(Relay.Value.kReverse);
+      }
+    }
+
 
     // ultrasonics.printValues();
 
