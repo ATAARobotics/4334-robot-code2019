@@ -59,7 +59,6 @@ public class Settings {
     static public double INTAKE_ROTATE_SPEED = settingsFile.getDoubleProperty("INTAKE_ROTATE_SPEED", 1);
     static public double LOW_GEAR_THRESHOLD = settingsFile.getDoubleProperty("LOW_GEAR_THRESHOLD", 0.1);
 
-    static public double TEST = settingsFile.getDoubleProperty("TEST", 0.5);
     //Example of ShuffleboardTab setup.
     private ShuffleboardTab dashboardTab = Shuffleboard.getTab("Dashboard");
     private ShuffleboardTab outputTab = Shuffleboard.getTab("Output");
@@ -96,7 +95,6 @@ public class Settings {
         TURN_CURVE = settingsFile.getDoubleProperty("TURN_CURVE", 2.4);
         INTAKE_ROTATE_SPEED = settingsFile.getDoubleProperty("INTAKE_ROTATE_SPEED", 1);
         LOW_GEAR_THRESHOLD = settingsFile.getDoubleProperty("LOW_GEAR_THRESHOLD", 0.1);
-        TEST = settingsFile.getDoubleProperty("TEST", 0.5);
         //LOW_GEAR_TURN_THRESHOLD = LOW_GEAR_SPEED_THRESHOLD_ENTRY.getDouble(0.25);
     }
 
