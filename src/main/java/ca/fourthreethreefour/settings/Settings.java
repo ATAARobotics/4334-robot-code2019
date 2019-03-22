@@ -51,7 +51,12 @@ public class Settings {
 
     static public boolean REVERSABLE_CONTROLS = settingsFile.getBooleanProperty("REVERSABLE_CONTROLS", false);
 
-    static public double POTENTIOMETER_OFFSET = settingsFile.getDoubleProperty("POTENTIOMETER_OFFSET", -1520);
+    static public int ARM_POTENTIOMETER_OFFSET = settingsFile.getIntProperty("ARM_POTENTIOMETER_OFFSET", -328);
+    static public int ARM_PID_TOLERANCE = settingsFile.getIntProperty("ARM_PID_TOLERANCE", 2);
+    static public int ARM_PID_HATCH_SETPOINT = settingsFile.getIntProperty("ARM_PID_HATCH_SETPOINT", 90);
+    static public int ARM_PID_SHOOTING_SETPOINT = settingsFile.getIntProperty("ARM_PID_SHOOTING_SETPOINT", 110);
+    static public int ARM_PID_GROUND_SETPOINT = settingsFile.getIntProperty("ARM_PID_GROUND_SETPOINT", 200);
+    static public int ARM_PID_INTAKE_SETPOINT = settingsFile.getIntProperty("ARM_PID_INTAKE_SETPOINT", 10);
 
     static public double DRIVE_SPEED = settingsFile.getDoubleProperty("DRIVE_SPEED", 1);
     static public double TURN_SPEED = settingsFile.getDoubleProperty("TURN_SPEED", 1);
