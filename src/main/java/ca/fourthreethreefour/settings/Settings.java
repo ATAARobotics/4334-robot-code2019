@@ -60,11 +60,12 @@ public class Settings {
     static public double LOW_GEAR_THRESHOLD = settingsFile.getDoubleProperty("LOW_GEAR_THRESHOLD", 0.1);
 
     static public double TEST = settingsFile.getDoubleProperty("TEST", 0.5);
-    // Example of ShuffleboardTab setup.
+    //Example of ShuffleboardTab setup.
     private ShuffleboardTab dashboardTab = Shuffleboard.getTab("Dashboard");
     private ShuffleboardTab outputTab = Shuffleboard.getTab("Output");
 
     //NetworkTableEntry LOW_GEAR_TURN_THRESHOLD_ENTRY;
+    //NetworkTableEntry LOW_GEAR_SPEED_THRESHOLD_ENTRY;
     //static public double LOW_GEAR_TURN_THRESHOLD;
 
     static public NetworkTableEntry DRIVE_DIRECTION_ENTRY;
@@ -96,7 +97,7 @@ public class Settings {
         INTAKE_ROTATE_SPEED = settingsFile.getDoubleProperty("INTAKE_ROTATE_SPEED", 1);
         LOW_GEAR_THRESHOLD = settingsFile.getDoubleProperty("LOW_GEAR_THRESHOLD", 0.1);
         TEST = settingsFile.getDoubleProperty("TEST", 0.5);
-        // LOW_GEAR_TURN_THRESHOLD = LOW_GEAR_SPEED_THRESHOLD_ENTRY.getDouble(0.25);
+        //LOW_GEAR_TURN_THRESHOLD = LOW_GEAR_SPEED_THRESHOLD_ENTRY.getDouble(0.25);
     }
 
     public void settingsPeriodic() {
