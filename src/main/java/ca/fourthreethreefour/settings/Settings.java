@@ -27,11 +27,6 @@ public class Settings {
 
     static public int DRIVER_CONTROLLER_PORT = settingsFile.getIntProperty("DRIVER_CONTROLLER_PORT", 0);
 
-    static public int CARGO_BUTTON_PORT = settingsFile.getIntProperty("CARGO_BUTTON_PORT", 0);
-
-    static public int GEAR_SOLENOID_PORT_1 = settingsFile.getIntProperty("GEAR_SOLENOID_PORT_1", 1);
-    static public int GEAR_SOLENOID_PORT_2 = settingsFile.getIntProperty("GEAR_SOLENOID_PORT_2", 0);
-
     static public int FRONT_LEFT_MOTOR_PORT = settingsFile.getIntProperty("FRONT_LEFT_MOTOR_PORT", 0);
     static public int REAR_LEFT_MOTOR_PORT = settingsFile.getIntProperty("REAR_LEFT_MOTOR_PORT", 1);
     static public int FRONT_RIGHT_MOTOR_PORT = settingsFile.getIntProperty("FRONT_RIGHT_MOTOR_PORT", 2);
@@ -41,16 +36,25 @@ public class Settings {
     static public int CARGO_OUTTAKE_RIGHT_PORT = settingsFile.getIntProperty("CARGO_OUTTAKE_RIGHT_PORT", 1);
     static public int INTAKE_ROTATE_PORT_1 = settingsFile.getIntProperty("INTAKE_ROTATE_PORT_1", 2);
     static public int INTAKE_ROTATE_PORT_2 = settingsFile.getIntProperty("INTAKE_ROTATE_PORT_2", 3);
+    static public int MECHANUM_MOTOR_PORT = settingsFile.getIntProperty("MECHANUM_MOTOR_PORT", 4);
+
+    static public int CARGO_BUTTON_DIGITAL_PORT = settingsFile.getIntProperty("CARGO_BUTTON_DIGITAL_PORT", 0);
+    static public int ARM_INNER_LIMITSWITCH_DIGITAL_PORT = settingsFile.getIntProperty("ARM_INNER_LIMITSWITCH_DIGITAL_PORT", 2);
+
+    static public int ARM_POTENTIOMETER_ANALOG_PORT = settingsFile.getIntProperty("ARM_POTENTIOMETER_ANALOG_PORT", 0);
+
+    static public int GEAR_SOLENOID_PORT_1 = settingsFile.getIntProperty("GEAR_SOLENOID_PORT_1", 1);
+    static public int GEAR_SOLENOID_PORT_2 = settingsFile.getIntProperty("GEAR_SOLENOID_PORT_2", 0);
 
     static public int HATCH_SOLENOID_PORT_1 = settingsFile.getIntProperty("HATCH_SOLENOID_PORT_1", 2);
     static public int HATCH_SOLENOID_PORT_2 = settingsFile.getIntProperty("HATCH_SOLENOID_PORT_2", 3);
 
-    static public int MECHANUM_MOTOR_PORT = settingsFile.getIntProperty("MECHANUM_MOTOR_PORT", 4);
     static public int MECHANUM_SOLENOID_PORT_1 = settingsFile.getIntProperty("MECHANUM_SOLENOID_PORT_1", 7);
     static public int MECHANUM_SOLENOID_PORT_2 = settingsFile.getIntProperty("MECHANUM_SOLENOID_PORT_2", 6);
 
     static public boolean REVERSABLE_CONTROLS = settingsFile.getBooleanProperty("REVERSABLE_CONTROLS", false);
 
+    static public int ARM_POTENTIOMETER_RANGE = settingsFile.getIntProperty("ARM_POTENTIOMETER_RANGE", 1800);
     static public int ARM_POTENTIOMETER_OFFSET = settingsFile.getIntProperty("ARM_POTENTIOMETER_OFFSET", -328);
     static public int ARM_PID_TOLERANCE = settingsFile.getIntProperty("ARM_PID_TOLERANCE", 2);
     static public int ARM_PID_HATCH_SETPOINT = settingsFile.getIntProperty("ARM_PID_HATCH_SETPOINT", 90);
