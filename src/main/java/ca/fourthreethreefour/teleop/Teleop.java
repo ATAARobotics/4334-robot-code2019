@@ -132,7 +132,6 @@ public class Teleop {
 
     //Vision Variables
     boolean visionAligned = false;
-    double visionSpeed;
     boolean visionActive = false;
 
     //Start Align DriverAssist
@@ -194,7 +193,7 @@ public class Teleop {
     }
 
 
-    // ultrasonics.printValues();
+    //ultrasonics.printValues();
 
   }
 

@@ -1,6 +1,6 @@
 package ca.fourthreethreefour.vision;
 
-import ca.fourthreethreefour.teleop.systems.Ultrasonics;
+//import ca.fourthreethreefour.teleop.systems.Ultrasonics;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.Relay.Value;
 
 import java.io.IOException;
 import java.net.InetAddress;
-import java.net.UnknownHostException;
+//import java.net.UnknownHostException;
 
 import ca.fourthreethreefour.teleop.*;
 import ca.fourthreethreefour.vision.exceptions.visionErrorException;
@@ -37,11 +37,8 @@ public class Vision {
     // Creates object for LedRing Relay
     public Relay ledRelay = new Relay(2);
 
-    // Creates Teleop Object
-    private Teleop teleop;
-
-    // Creates Encoders Object
-    private Encoders encoders;
+    Teleop teleop;
+    Encoders encoders;
 
     // Initializes Ultrasonics Object
     //private Ultrasonics ultrasonics = new Ultrasonics();
@@ -117,7 +114,6 @@ public class Vision {
         }
         if (visionAlignPID.onTarget()) {
             visionAlignPID.disable();
-            visionAlignPID.free();
             return (true);
         } else {
             return (false);
@@ -131,7 +127,7 @@ public class Vision {
     }
 
     // Access Speed From NetworkTable
-    private double getPiSpeed() {
+    public double getPiSpeed() {
         return (VISION_SPEED_VALUE.getDouble(0.5));
     }
 
