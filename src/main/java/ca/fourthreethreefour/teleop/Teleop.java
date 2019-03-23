@@ -10,21 +10,19 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import ca.fourthreethreefour.commands.debug.Logging;
-import ca.fourthreethreefour.shuffleboard.Settings;
+import ca.fourthreethreefour.settings.Settings;
 import ca.fourthreethreefour.teleop.drivetrain.Drive;
 import ca.fourthreethreefour.teleop.systems.Ultrasonics;
 
 public class Teleop {
 
   // Initialize miscellaneous configuration values
-  private static int armPIDSetpoint = 90;
-  private static int armPIDScale = 1800;
-  private static int armPIDOffset = -920; // Todo: Tune offset at competition
-  private static final int armPIDAcceptableError = 2;
-  private static final int armPIDHatchIntakeOuttakeSetpoint = 90;
-  private static final int armPIDCargoOuttakeSetpoint = 110;
-  private static final int armPIDHatchIntakeSetpoint = 200;
-  private static final int armPIDCargoIntakeSetpoint = 10;
+  // private static int armPIDOffset = -328; // Todo: Tune offset at competition
+  // private static final int armPIDAcceptableError = 2;
+  // private static final int armPIDHatchIntakeOuttakeSetpoint = 90;
+  // private static final int armPIDCargoOuttakeSetpoint = 110;
+  // private static final int armPIDHatchIntakeSetpoint = 200;
+  // private static final int armPIDCargoIntakeSetpoint = 10;
 
   //Creates and initializes various objects needed in teleop
   private XboxController driver = new XboxController(Settings.DRIVER_CONTROLLER_PORT);
@@ -43,7 +41,7 @@ public class Teleop {
   public void RobotInit() {
     ultrasonics.enable();
     ultrasonics.ultrasonicPollingThread();
-    encoders.potentiometerInit(armPIDOffset);
+    encoders.potentiometerInit(Settings.ARM_POTENTIOMETER_OFFSET);
     armPIDLeft = new PIDController(0.05, 0, 0, encoders.armPotentiometer, cargo.intakeRotateMotor1);
     armPIDRight = new PIDController(0.05, 0, 0, encoders.armPotentiometer, cargo.intakeRotateMotor2);
   }
@@ -62,7 +60,7 @@ public class Teleop {
     drive.gearShiftSolenoid.set(drive.gearLow);
     mechanum.mechanumSolenoid.set(Value.kReverse);
     hatch.hatchSolenoidIn();
-    arm.setAbsoluteTolerance(armPIDAcceptableError);
+    arm.setAbsoluteTolerance(Settings.ARM_PID_TOLERANCE);
     cargoOuttake = true;
   }
   
@@ -75,7 +73,8 @@ public class Teleop {
 
     drive.drive(driver, cargoOuttake);
 
-    System.out.println(arm.returnPIDInput());
+    // System.out.println(arm.returnPIDInput());
+    encoders.printPotentiometer();
     // Logging.log("PID: " + arm.returnPIDInput());
     // double intakeSpeed = driver.getTriggerAxis(Hand.kRight) - driver.getTriggerAxis(Hand.kLeft);
     // if (Math.abs(intakeSpeed) > 0.05) {
@@ -98,7 +97,7 @@ public class Teleop {
       //           armPIDRight.enable();
       //           mechanum.mechanumRetract();
               Logging.log("Auto shoot setpoint");
-              arm.setSetpoint(armPIDCargoOuttakeSetpoint + 1);
+              arm.setSetpoint(Settings.ARM_PID_SHOOTING_SETPOINT + 1);
               arm.enable();
               mechanum.mechanumRetract();
             }
@@ -143,31 +142,31 @@ public class Teleop {
     }
 
       // Up D-Pad - Sets the PID setpoint to hatch outtake and retracts the mecanum intake
-        if (driver.getPOV() == 0) { // TODO make the setpoints shuffleboard stuff
+        if (driver.getPOV() == 0) {
           Logging.log("Shooter set point up");
-          arm.setSetpoint(armPIDHatchIntakeOuttakeSetpoint);
+          arm.setSetpoint(Settings.ARM_PID_HATCH_SETPOINT);
           arm.enable();
           mechanum.mechanumRetract();
         } else if (driver.getPOV() == 90) {  // Right D-Pad - Sets the PID setpoint to cargo outtake and retracts the mecanum intake
           Logging.log("Shooter set point right");
-          arm.setSetpoint(armPIDCargoOuttakeSetpoint);
+          arm.setSetpoint(Settings.ARM_PID_SHOOTING_SETPOINT);
           arm.enable();
           mechanum.mechanumRetract();
         } else if (driver.getPOV() == 180) {  // Down D-Pad - Sets the PID setpoint to hatch ground and retracts the mecanum intake
           Logging.log("Shooter set point down");
-          arm.setSetpoint(armPIDHatchIntakeSetpoint);
+          arm.setSetpoint(Settings.ARM_PID_GROUND_SETPOINT);
           arm.enable();
           mechanum.mechanumRetract();
         } else if (driver.getPOV() == 270 && encoders.armInnerLimitSwitch.get()) {  // Left D-Pad - Sets the PID setpoint to cargo intake from the mecanum intake
           Logging.log("Shooter set point left");
-          arm.setSetpoint(armPIDCargoIntakeSetpoint);
+          arm.setSetpoint(Settings.ARM_PID_INTAKE_SETPOINT);
           arm.enable();
           mechanum.mechanumExtend();
         } else if (arm.onTarget()  && arm.isEnabled()) {
           arm.disable();
-        } else if (!encoders.armInnerLimitSwitch.get() && arm.getSetpoint() != armPIDCargoOuttakeSetpoint + 1 && arm.isEnabled()) {
+        } else if (!encoders.armInnerLimitSwitch.get() && arm.getSetpoint() != Settings.ARM_PID_SHOOTING_SETPOINT + 1 && arm.isEnabled()) {
           arm.disable();
-          armPIDOffset += encoders.armPotentiometer.get();
+          Settings.ARM_POTENTIOMETER_OFFSET += encoders.armPotentiometer.get();
       }
 
     // ultrasonics.printValues();

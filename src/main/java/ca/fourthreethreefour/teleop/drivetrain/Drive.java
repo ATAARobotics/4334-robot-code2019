@@ -3,7 +3,7 @@ package ca.fourthreethreefour.teleop.drivetrain;
 import ca.fourthreethreefour.commands.ReverseSolenoid;
 import ca.fourthreethreefour.commands.SetSolenoid;
 import ca.fourthreethreefour.commands.debug.Logging;
-import ca.fourthreethreefour.shuffleboard.Settings;
+import ca.fourthreethreefour.settings.Settings;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;

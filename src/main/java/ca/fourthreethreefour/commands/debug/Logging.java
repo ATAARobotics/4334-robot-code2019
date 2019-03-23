@@ -1,6 +1,6 @@
 package ca.fourthreethreefour.commands.debug;
 
-import ca.fourthreethreefour.shuffleboard.Settings;
+import ca.fourthreethreefour.settings.Settings;
 import edu.wpi.first.networktables.NetworkTableEntry;
 
 public class Logging {
