@@ -43,8 +43,8 @@ public class Settings {
 
     static public int ARM_POTENTIOMETER_ANALOG_PORT = settingsFile.getIntProperty("ARM_POTENTIOMETER_ANALOG_PORT", 0);
 
-    static public int GEAR_SOLENOID_PORT_1 = settingsFile.getIntProperty("GEAR_SOLENOID_PORT_1", 1);
-    static public int GEAR_SOLENOID_PORT_2 = settingsFile.getIntProperty("GEAR_SOLENOID_PORT_2", 0);
+    static public int GEAR_SOLENOID_PORT_1 = settingsFile.getIntProperty("GEAR_SOLENOID_PORT_1", 0);
+    static public int GEAR_SOLENOID_PORT_2 = settingsFile.getIntProperty("GEAR_SOLENOID_PORT_2", 1);
 
     static public int HATCH_SOLENOID_PORT_1 = settingsFile.getIntProperty("HATCH_SOLENOID_PORT_1", 2);
     static public int HATCH_SOLENOID_PORT_2 = settingsFile.getIntProperty("HATCH_SOLENOID_PORT_2", 3);
@@ -59,7 +59,7 @@ public class Settings {
     static public int ARM_PID_TOLERANCE = settingsFile.getIntProperty("ARM_PID_TOLERANCE", 2);
     static public int ARM_PID_HATCH_SETPOINT = settingsFile.getIntProperty("ARM_PID_HATCH_SETPOINT", 90);
     static public int ARM_PID_SHOOTING_SETPOINT = settingsFile.getIntProperty("ARM_PID_SHOOTING_SETPOINT", 110);
-    static public int ARM_PID_GROUND_SETPOINT = settingsFile.getIntProperty("ARM_PID_GROUND_SETPOINT", 200);
+    static public int ARM_PID_GROUND_SETPOINT = settingsFile.getIntProperty("ARM_PID_GROUND_SETPOINT", 160);
     static public int ARM_PID_INTAKE_SETPOINT = settingsFile.getIntProperty("ARM_PID_INTAKE_SETPOINT", 10);
 
     static public double DRIVE_SPEED = settingsFile.getDoubleProperty("DRIVE_SPEED", 1);

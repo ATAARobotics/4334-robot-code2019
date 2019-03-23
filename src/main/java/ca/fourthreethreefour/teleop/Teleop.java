@@ -73,7 +73,8 @@ public class Teleop {
 
     drive.drive(driver, cargoOuttake);
 
-    System.out.println(arm.returnPIDInput());
+    // System.out.println(arm.returnPIDInput());
+    encoders.printPotentiometer();
     // Logging.log("PID: " + arm.returnPIDInput());
     // double intakeSpeed = driver.getTriggerAxis(Hand.kRight) - driver.getTriggerAxis(Hand.kLeft);
     // if (Math.abs(intakeSpeed) > 0.05) {
