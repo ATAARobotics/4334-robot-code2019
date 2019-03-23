@@ -69,8 +69,8 @@ public class Settings {
     static public double LOW_GEAR_THRESHOLD = settingsFile.getDoubleProperty("LOW_GEAR_THRESHOLD", 0.1);
 
     //Example of ShuffleboardTab setup.
-    private ShuffleboardTab dashboardTab = Shuffleboard.getTab("Dashboard");
-    private ShuffleboardTab outputTab = Shuffleboard.getTab("Output");
+    // private ShuffleboardTab dashboardTab = Shuffleboard.getTab("Dashboard");
+    // private ShuffleboardTab outputTab = Shuffleboard.getTab("Output");
 
     //NetworkTableEntry LOW_GEAR_TURN_THRESHOLD_ENTRY;
     //NetworkTableEntry LOW_GEAR_SPEED_THRESHOLD_ENTRY;
@@ -87,10 +87,10 @@ public class Settings {
 
         camera1.setResolution(320, 240);
         camera1.setFPS(30);
-            dashboardTab.add(camera1);
+            // dashboardTab.add(camera1);
             //dashboardTab.add(teleop.drive.driveTrain);
 
-        DRIVE_DIRECTION_ENTRY = dashboardTab.addPersistent("Drive Direction", true).getEntry();
+        // DRIVE_DIRECTION_ENTRY = dashboardTab.addPersistent("Drive Direction", true).getEntry();
 
     }
 

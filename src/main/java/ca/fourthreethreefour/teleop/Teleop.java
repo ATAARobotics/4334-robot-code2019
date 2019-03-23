@@ -131,7 +131,7 @@ public class Teleop {
     if (driver.getStickButtonReleased(Hand.kLeft) && Settings.REVERSABLE_CONTROLS) {
       cargoOuttake =  !cargoOuttake;
     }
-    Logging.put(Settings.DRIVE_DIRECTION_ENTRY, cargoOuttake);
+    // Logging.put(Settings.DRIVE_DIRECTION_ENTRY, cargoOuttake);
 
     if (driver.getAButton()) {
       hatch.hatchSolenoidOut();
