@@ -10,6 +10,7 @@ package ca.fourthreethreefour;
 import ca.fourthreethreefour.autonomous.Auto;
 import ca.fourthreethreefour.settings.Settings;
 import ca.fourthreethreefour.teleop.Teleop;
+import ca.fourthreethreefour.teleop.systems.Encoders;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 /**
@@ -23,14 +24,19 @@ public class Robot extends TimedRobot {
   Auto auto = new Auto();
   Settings shuffleboard = new Settings();
   Teleop teleop;
+  Encoders encoders;
+
   /**
-   * This function is run when the robot is first started up and should be
-   * used for any initialization code.
+   * This function is run when the robot is first started up and should be used
+   * for any initialization code.
    */
   @Override
   public void robotInit() {
     shuffleboard.ShuffleInit(teleop);
     this.teleop = new Teleop();
+    this.encoders = teleop.encoders;
+    encoders.initalizeNavX();
+
     teleop.RobotInit();
   }
 
@@ -80,6 +86,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     teleop.TeleopPeriodic();
+    // System.out.println("NavX: " + encoders.getNavXAngle());
   }
 
   /**

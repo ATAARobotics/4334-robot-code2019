@@ -79,4 +79,16 @@ public class Ultrasonics extends Subsystem {
     protected void initDefaultCommand() {
   
     }
+
+    public double getUltrasonicFrontLeftValue() {
+        return ultrasonicSensorFrontLeft.isRangeValid() ? ultrasonicSensorFrontLeft.getRangeInches() : 999.0;
+    }
+
+    public double getUltrasonicFrontRightValue() {
+        return ultrasonicSensorFrontRight.isRangeValid() ? ultrasonicSensorFrontRight.getRangeInches() : 999.0;
+    }
+
+    public double getUltrasonicBackValue() {
+        return ultrasonicSensorBack.isRangeValid() ? ultrasonicSensorBack.getRangeInches() : 999.0;
+    }
 }

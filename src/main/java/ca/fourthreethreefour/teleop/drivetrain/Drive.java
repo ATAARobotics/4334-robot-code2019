@@ -2,7 +2,6 @@ package ca.fourthreethreefour.teleop.drivetrain;
 
 import ca.fourthreethreefour.commands.ReverseSolenoid;
 import ca.fourthreethreefour.commands.SetSolenoid;
-import ca.fourthreethreefour.commands.debug.Logging;
 import ca.fourthreethreefour.settings.Settings;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -27,6 +26,8 @@ public class Drive extends Subsystem {
     public DifferentialDrive driveTrain = new DifferentialDrive(leftSpeedControllerGroup, rightSpeedControllerGroup);
     public Value gearLow = Value.kReverse;
     public Value gearHigh = Value.kForward;
+
+    public Boolean ignoreController = false;
     
 
   @Override
@@ -47,17 +48,13 @@ public class Drive extends Subsystem {
     speed = speed * Settings.DRIVE_SPEED;
     speed = cargoOuttake ? speed : -speed;
     speed = speed >= 0 ? speed*speed : -(speed*speed);
-    turn = turn >= 0 ? Math.pow(turn, Settings.TURN_CURVE) * Settings.TURN_SPEED : -Math.pow(Math.abs(turn), Settings.TURN_CURVE) * Settings.TURN_SPEED;
-    Logging.log("Speed: " + speed + " Turn: " + turn);
-    driveTrain.arcadeDrive(speed, turn);
-    // if (Math.abs(speed) < Settings.LOW_GEAR_THRESHOLD) {
-      // new SetSolenoid(gearShiftSolenoid, gearLow).set();
-    // }
-    // if (Math.abs(controllerTurn) >= Settings.LOW_GEAR_THRESHOLD) {
-      // new SetSolenoid(gearShiftSolenoid, gearLow);
-    // } else if (Math.abs(controllerSpeed) > Settings.LOW_GEAR_THRESHOLD && Math.abs(controllerTurn) < Settings.LOW_GEAR_THRESHOLD) {
-      // new SetSolenoid(gearShiftSolenoid, gearHigh);
-    // }
+    turn = turn >= 0 ? Math.pow(turn, Settings.TURN_CURVE) : -Math.pow(Math.abs(turn), Settings.TURN_CURVE);
+    // System.out.println("----------------");
+    // System.out.println("Speed: " + speed + " Turn: " + turn);
+    // System.out.println("----------------");
+    if(!ignoreController){
+        driveTrain.arcadeDrive(speed, turn);
+    }
   }
 
   /**
@@ -68,6 +65,10 @@ public class Drive extends Subsystem {
    */
   public void ExtDrive(double leftDrive, double rightDrive) {
     driveTrain.tankDrive(leftDrive, rightDrive);
+  }
+
+  public void ExtArcadeDrive(double speed, double angle){
+    driveTrain.arcadeDrive(speed, angle);
   }
 
   /**
