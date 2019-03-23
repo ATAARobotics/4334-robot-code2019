@@ -41,7 +41,7 @@ public class Settings {
     static public int CARGO_BUTTON_DIGITAL_PORT = settingsFile.getIntProperty("CARGO_BUTTON_DIGITAL_PORT", 0);
     static public int ARM_INNER_LIMITSWITCH_DIGITAL_PORT = settingsFile.getIntProperty("ARM_INNER_LIMITSWITCH_DIGITAL_PORT", 2);
 
-    static public int ARM_POTENTIOMETER_ANALOG_PORT = settingsFile.getIntProperty("ARM_POTENTIOMETER_ANALOG_PORT", 0);
+    static public int ARM_POTENTIOMETER_ANALOG_PORT = settingsFile.getIntProperty("ARM_POTENTIOMETER_ANALOG_PORT", 1);
 
     static public int GEAR_SOLENOID_PORT_1 = settingsFile.getIntProperty("GEAR_SOLENOID_PORT_1", 0);
     static public int GEAR_SOLENOID_PORT_2 = settingsFile.getIntProperty("GEAR_SOLENOID_PORT_2", 1);

@@ -234,6 +234,8 @@ public class Teleop {
         vision.ledRelay.set(Relay.Value.kForward);
       } else if (vision.ledRelay.get() == Relay.Value.kForward){
         vision.ledRelay.set(Relay.Value.kReverse);
+      } else {
+        vision.ledRelay.set(Relay.Value.kReverse);
       }
     }
 

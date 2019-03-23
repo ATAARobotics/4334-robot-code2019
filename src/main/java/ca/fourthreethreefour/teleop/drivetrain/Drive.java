@@ -49,6 +49,7 @@ public class Drive extends Subsystem {
     speed = cargoOuttake ? speed : -speed;
     speed = speed >= 0 ? speed*speed : -(speed*speed);
     turn = turn >= 0 ? Math.pow(turn, Settings.TURN_CURVE) : -Math.pow(Math.abs(turn), Settings.TURN_CURVE);
+    turn = turn * Settings.TURN_SPEED;
     // System.out.println("----------------");
     // System.out.println("Speed: " + speed + " Turn: " + turn);
     // System.out.println("----------------");
