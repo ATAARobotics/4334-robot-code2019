@@ -44,7 +44,7 @@ public class Teleop {
   public void RobotInit() {
     ultrasonics.enable();
     ultrasonics.ultrasonicPollingThread();
-    encoders.potentiometerInit(Settings.ARM_POTENTIOMETER_OFFSET);
+    encoders.potentiometerInit();
   }
 
   /**
@@ -178,7 +178,7 @@ public class Teleop {
           arm.disable();
         } else if (!encoders.armInnerLimitSwitch.get() && arm.getSetpoint() != Settings.ARM_PID_SHOOTING_SETPOINT + 1 && arm.isEnabled()) {
           arm.disable();
-          Settings.ARM_POTENTIOMETER_OFFSET += encoders.armPotentiometer.get();
+          Settings.ARM_POTENTIOMETER_OFFSET += encoders.potentiometerGet();
       }
     //Vision Driver Assist
 

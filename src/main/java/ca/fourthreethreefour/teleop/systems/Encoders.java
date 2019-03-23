@@ -17,14 +17,18 @@ public class Encoders {
     public DigitalInput cargoButton = new DigitalInput(Settings.CARGO_BUTTON_DIGITAL_PORT);
     public DigitalInput armInnerLimitSwitch = new DigitalInput(Settings.ARM_INNER_LIMITSWITCH_DIGITAL_PORT);
 
-    public Potentiometer armPotentiometer;
+    private Potentiometer armPotentiometer;
 
-    public void potentiometerInit(double potentiometerOffset) {
-        armPotentiometer = new AnalogPotentiometer(Settings.ARM_POTENTIOMETER_ANALOG_PORT, Settings.ARM_POTENTIOMETER_RANGE, potentiometerOffset);
+    public void potentiometerInit() {
+        armPotentiometer = new AnalogPotentiometer(Settings.ARM_POTENTIOMETER_ANALOG_PORT, Settings.ARM_POTENTIOMETER_RANGE);
+    }
+
+    public double potentiometerGet() {
+        return armPotentiometer.get() + Settings.ARM_POTENTIOMETER_OFFSET;
     }
 
     public void printPotentiometer() {
-        Logging.log("Potentiometer value" + armPotentiometer.get());
+        Logging.log("Potentiometer value" + potentiometerGet());
     }
 
     public AHRS navX;
