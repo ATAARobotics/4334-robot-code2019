@@ -86,7 +86,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     teleop.TeleopPeriodic();
-    System.out.println("NavX: " + encoders.getNavXAngle());
+    // System.out.println("NavX: " + encoders.getNavXAngle());
   }
 
   /**

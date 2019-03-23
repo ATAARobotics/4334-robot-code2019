@@ -8,6 +8,7 @@ import ca.fourthreethreefour.vision.exceptions.visionErrorException;
 import ca.fourthreethreefour.vision.exceptions.visionTargetDetectionException;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
@@ -61,6 +62,17 @@ public class Teleop {
    * @return void
    */
   public void TeleopPeriodic() {
+
+    //If any axis on controller passes threshold, disable vision alignment and return driver control.
+    if(Math.abs(driver.getY(Hand.kLeft)) > 0.15 || Math.abs(driver.getY(Hand.kRight)) > 0.15 || Math.abs(driver.getX(Hand.kLeft)) > 0.15 || Math.abs(driver.getX(Hand.kRight)) > 0.15){
+      vision.stopVision();
+      driver.setRumble(RumbleType.kLeftRumble, 0);
+      driver.setRumble(RumbleType.kRightRumble, 0);
+      if(vision.isEnabled()) {
+        vision.stopAlignPID();
+       }
+      drive.ignoreController = false;
+    }
 
     drive.drive(driver, cargoOuttake);
 
@@ -133,20 +145,18 @@ public class Teleop {
     //Vision Variables
     boolean visionAligned = false;
     double visionSpeed;
-    boolean visionActive = false;
+    // boolean visionActive = false;
 
     //Start Align DriverAssist
     if(driver.getBackButtonPressed()){
       //Block Controller from Driving Robot
       drive.ignoreController = true;
       //Set Alignment Variables
-      visionActive = true;
       visionAligned = false;
 
       try {
         //Start Vision Components, Get Alignment angle and start PID
         vision.startVision();
-        vision.startAlignPID();
       } catch (visionErrorException e) {
         System.out.println(e.getMessage());
         //Shake Controller on Error
@@ -156,7 +166,8 @@ public class Teleop {
     }
 
     //Continue Alignment
-    if(visionActive){
+    if(vision.visionActive){
+      vision.startAlignPID();
       try {
         if(!visionAligned) {
           //Check to see if aligned
@@ -167,6 +178,8 @@ public class Teleop {
         }
       } catch (visionTargetDetectionException e) {
         //Shake Controller on Error
+        System.out.println(e.getMessage());
+        
         driver.setRumble(RumbleType.kLeftRumble, 1);
         driver.setRumble(RumbleType.kRightRumble, 1);
       }
@@ -174,16 +187,7 @@ public class Teleop {
 
     //Stop Alignment and Vision
 
-    //If any axis on controller passes threshold, disable vision alignment and return driver control.
-    if(Math.abs(driver.getY(Hand.kLeft)) > 0.15 || Math.abs(driver.getY(Hand.kRight)) > 0.15 || Math.abs(driver.getX(Hand.kLeft)) > 0.15 || Math.abs(driver.getX(Hand.kRight)) > 0.15){
-      vision.stopVision();
-      driver.setRumble(RumbleType.kLeftRumble, 0);
-      driver.setRumble(RumbleType.kRightRumble, 0);
-      if(!visionAligned) {
-        vision.stopAlignPID();
-      }
-      drive.ignoreController = false;
-    }
+    
     //Toggle Green Vision LED
     if(driver.getStartButtonPressed()){
       if(vision.ledRelay.get() == Relay.Value.kReverse){

@@ -56,6 +56,8 @@ public class Vision {
     private PIDSubsystem visionAlignPID;
 
     public boolean PIDEnabled = false;
+    boolean isEnabled;
+    public boolean visionActive = false;
 
     public Vision(Teleop teleop) {
         VISION_DRIVE_VALUE = table.getEntry("VISION_DRIVE_VALUE");
@@ -67,11 +69,29 @@ public class Vision {
         //Configure Vision Align PID
         visionAlignPID = new PIDSubsystem("AlignPID", -0.03, 0.0, 0.01) {
             @Override
-            protected double returnPIDInput() {return encoders.getNavXAngle(); }
+            protected double returnPIDInput() {
+                return encoders.getNavXAngle(); 
+            }
             @Override
-            protected void usePIDOutput(double output) { teleop.ExtArcadeDrive(0, output); }
+            protected void usePIDOutput(double output) { teleop.ExtArcadeDrive(
+                0, output); 
+            }
             @Override
-            protected void initDefaultCommand() { }
+            protected void initDefaultCommand() {
+
+            }
+            @Override
+            public void enable() {
+                super.enable();
+                isEnabled = true;
+            }
+
+            @Override
+            public void disable() {
+                super.disable();
+                isEnabled = false;
+            }
+
         };
         visionAlignPID.setAbsoluteTolerance(0.5);
         visionAlignPID.getPIDController().setContinuous(false);
@@ -83,17 +103,24 @@ public class Vision {
     public void startVision() throws visionErrorException {
         VISION_ACTIVE_ENTRY_SHUFFLE.setBoolean(true);
         //Enabled Relay for LED Ring
-        ledRelay.set(Value.kForward);
+        ledRelay.set(Value.kReverse);
 
         //Attempts to ping RaspberryPi to verify connection
         if(!piOnline()){
             throw new visionErrorException("Could not verify Pi Online");
+        } else {
+            visionActive = true;
         }
     }
 
     public void stopVision() {
         VISION_ACTIVE_ENTRY_SHUFFLE.setBoolean(false);
-        ledRelay.set(Value.kReverse);
+        ledRelay.set(Value.kForward);
+        visionActive = false;
+    }
+
+    public boolean isEnabled() {
+        return isEnabled;
     }
 
 

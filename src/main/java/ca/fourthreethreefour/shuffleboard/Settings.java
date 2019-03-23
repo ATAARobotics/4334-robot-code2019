@@ -84,11 +84,11 @@ public class Settings {
      * needs to be updated at initialization.
      */
     public void ShuffleInit(Teleop teleop) {
-        UsbCamera camera1 = CameraServer.getInstance().startAutomaticCapture("Microsoft LifeCam HD-3000 (Image Analysis)", 0);
+        // UsbCamera camera1 = CameraServer.getInstance().startAutomaticCapture("Microsoft LifeCam HD-3000 (Image Analysis)", 0);
 
-        camera1.setResolution(320, 240);
-        camera1.setFPS(30);
-            dashboardTab.add(camera1);
+        // camera1.setResolution(320, 240);
+        // camera1.setFPS(30);
+            // dashboardTab.add(camera1);
             //dashboardTab.add(teleop.drive.driveTrain);
 
         DRIVE_DIRECTION_ENTRY = dashboardTab.addPersistent("Drive Direction", true).getEntry();
