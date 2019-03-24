@@ -63,13 +63,13 @@ public class Settings {
     static public int ARM_PID_INTAKE_SETPOINT = settingsFile.getIntProperty("ARM_PID_INTAKE_SETPOINT", 10);
 
     static public double DRIVE_SPEED = settingsFile.getDoubleProperty("DRIVE_SPEED", 1);
-    static public double CAM_SPEED = settingsFile.getDoubleProperty("TURN_SPEED", 0.6);
+    static public double CAM_SPEED = settingsFile.getDoubleProperty("TURN_SPEED", 0.8);
     static public double TURN_BASE = settingsFile.getDoubleProperty("TURN_BASE", 0.7);
     static public double TURN_EXPONENT = settingsFile.getDoubleProperty("TURN_EXPONENT", 4);
     static public double INTAKE_ROTATE_SPEED = settingsFile.getDoubleProperty("INTAKE_ROTATE_SPEED", 1);
     static public double LOW_GEAR_THRESHOLD = settingsFile.getDoubleProperty("LOW_GEAR_THRESHOLD", 0.1);
 
-    static public boolean CAM_TURN = settingsFile.getBooleanProperty("CAM", false);
+    static public boolean CAM_TURN = settingsFile.getBooleanProperty("CAM", true);
 
     //Example of ShuffleboardTab setup.
     // private ShuffleboardTab dashboardTab = Shuffleboard.getTab("Dashboard");
@@ -86,10 +86,10 @@ public class Settings {
      * needs to be updated at initialization.
      */
     public void ShuffleInit() {
-        UsbCamera camera1 = CameraServer.getInstance().startAutomaticCapture("Microsoft LifeCam HD-3000", 0);
+        // UsbCamera camera1 = CameraServer.getInstance().startAutomaticCapture("Microsoft LifeCam HD-3000", 0);
 
-        camera1.setResolution(320, 240);
-        camera1.setFPS(30);
+        // camera1.setResolution(320, 240);
+        // camera1.setFPS(30);
             // dashboardTab.add(camera1);
             //dashboardTab.add(teleop.drive.driveTrain);
 
@@ -103,7 +103,7 @@ public class Settings {
     public void settingsValueUpdate() {
         LOGGING_ENABLED = settingsFile.getBooleanProperty("LOGGING_ENABLED", false);
         DRIVE_SPEED = settingsFile.getDoubleProperty("DRIVE_SPEED", 1);
-        CAM_SPEED = settingsFile.getDoubleProperty("TURN_SPEED", 0.6); // Custom speed for Cam.
+        CAM_SPEED = settingsFile.getDoubleProperty("TURN_SPEED", 0.8); // Custom speed for Cam.
         TURN_BASE = settingsFile.getDoubleProperty("TURN_BASE", 0.7);
         TURN_EXPONENT = settingsFile.getDoubleProperty("TURN_EXPONENT", 4);
         INTAKE_ROTATE_SPEED = settingsFile.getDoubleProperty("INTAKE_ROTATE_SPEED", 1);
@@ -111,7 +111,7 @@ public class Settings {
 
         ARM_POTENTIOMETER_OFFSET = settingsFile.getIntProperty("ARM_POTENTIOMETER_OFFSET", -328);
 
-        CAM_TURN = settingsFile.getBooleanProperty("CAM", false);
+        CAM_TURN = settingsFile.getBooleanProperty("CAM", true);
         //LOW_GEAR_TURN_THRESHOLD = LOW_GEAR_SPEED_THRESHOLD_ENTRY.getDouble(0.25);
     }
 

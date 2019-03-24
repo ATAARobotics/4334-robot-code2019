@@ -56,7 +56,7 @@ public class Drive extends Subsystem {
     } else {
       turn = turn >= 0 ? Math.max(Math.pow(turn, Settings.TURN_EXPONENT), turn*Settings.TURN_BASE) : Math.min(-Math.pow(Math.abs(turn), Settings.TURN_EXPONENT), turn*Settings.TURN_BASE);
     }
-      // System.out.println("----------------");
+    // System.out.println("----------------");
     // System.out.println("Speed: " + speed + " Turn: " + turn);
     // System.out.println("----------------");
     if(!ignoreController){

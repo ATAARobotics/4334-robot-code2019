@@ -14,6 +14,7 @@ import ca.fourthreethreefour.vision.Vision;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.XboxController;
 
@@ -174,7 +175,7 @@ public class Teleop {
           arm.disable();
         } else if (!encoders.armInnerLimitSwitch.get() && arm.getSetpoint() != Settings.ARM_PID_SHOOTING_SETPOINT + 1 && arm.isEnabled()) {
           arm.disable();
-          Settings.ARM_POTENTIOMETER_OFFSET += encoders.potentiometerGet();
+          // Settings.ARM_POTENTIOMETER_OFFSET += encoders.potentiometerGet();
       }
 
     //Toggle Green Vision LED
@@ -188,7 +189,7 @@ public class Teleop {
       }
     }
 
-    if (driver.getStartButtonPressed()) {
+    if (driver.getBackButtonPressed()) {
       visionAllignment.start();
     }
     
@@ -252,6 +253,8 @@ public class Teleop {
     //   arm.enable();
     //   mechanum.mechanumRetract();
     } */
+
+    Scheduler.getInstance().run();
 
   }
 
