@@ -39,7 +39,7 @@ public class Teleop {
   public Drive drive = new Drive();
   public Ultrasonics ultrasonics = new Ultrasonics();
   private Vision vision = new Vision(this);
-  private VisionAllignment visionAllignment = new VisionAllignment(this.vision, this, this.driver);
+  private VisionAllignment visionAllignment = new VisionAllignment(this.vision, this, this.driver, this.drive);
   
   public static boolean cargoOuttake;
 
@@ -76,13 +76,7 @@ public class Teleop {
 
     //If any axis on controller passes threshold, disable vision alignment and return driver control.
     if(Math.abs(driver.getY(Hand.kLeft)) > 0.15 || Math.abs(driver.getY(Hand.kRight)) > 0.15 || Math.abs(driver.getX(Hand.kLeft)) > 0.15 || Math.abs(driver.getX(Hand.kRight)) > 0.15){
-      vision.stopVision();
-      driver.setRumble(RumbleType.kLeftRumble, 0);
-      driver.setRumble(RumbleType.kRightRumble, 0);
-      if(vision.isEnabled()) {
-        vision.stopAlignPID();
-       }
-      drive.ignoreController = false;
+      visionAllignment.cancel();
     }
 
     drive.drive(driver, cargoOuttake);
@@ -198,9 +192,6 @@ public class Teleop {
       visionAllignment.start();
     }
     
-    if (driver.getStartButtonReleased()) {
-      visionAllignment.cancel();
-    }
     //Vision Driver Assist
 
     // //Vision Variables

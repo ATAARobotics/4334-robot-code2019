@@ -70,8 +70,8 @@ public class Vision {
                 return encoders.getNavXAngle(); 
             }
             @Override
-            protected void usePIDOutput(double output) { teleop.ExtArcadeDrive(
-                0, output); 
+            protected void usePIDOutput(double output) { 
+                teleop.ExtArcadeDrive(0, output); 
             }
             @Override
             protected void initDefaultCommand() {

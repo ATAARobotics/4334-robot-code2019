@@ -7,7 +7,7 @@
 
 package ca.fourthreethreefour.autonomous.commands;
 
-import ca.fourthreethreefour.shuffleboard.Settings;
+import ca.fourthreethreefour.settings.Settings;
 import ca.fourthreethreefour.teleop.Teleop;
 import edu.wpi.first.wpilibj.command.Command;
 
