@@ -83,7 +83,8 @@ public class Vision {
     public void startVision() throws visionErrorException {
         VISION_ACTIVE_ENTRY_SHUFFLE.setBoolean(true);
         //Enabled Relay for LED Ring
-        ledRelay.set(Value.kForward);
+        ledRelay.set(Value.kOn);
+        ledRelay.set(Value.kReverse);
 
         //Attempts to ping RaspberryPi to verify connection
         if(!piOnline()){
@@ -93,7 +94,7 @@ public class Vision {
 
     public void stopVision() {
         VISION_ACTIVE_ENTRY_SHUFFLE.setBoolean(false);
-        ledRelay.set(Value.kReverse);
+        ledRelay.set(Value.kOff);
     }
 
 

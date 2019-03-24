@@ -187,8 +187,9 @@ public class Teleop {
     //Toggle Green Vision LED
     if(driver.getStartButtonPressed()){
       if(vision.ledRelay.get() == Relay.Value.kReverse){
-        vision.ledRelay.set(Relay.Value.kForward);
-      } else if (vision.ledRelay.get() == Relay.Value.kForward){
+        vision.ledRelay.set(Relay.Value.kOff);
+      } else if (vision.ledRelay.get() == Relay.Value.kOff){
+        vision.ledRelay.set(Relay.Value.kOn);
         vision.ledRelay.set(Relay.Value.kReverse);
       }
     }
