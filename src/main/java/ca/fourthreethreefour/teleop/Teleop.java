@@ -62,6 +62,19 @@ public class Teleop {
    */
   public void TeleopPeriodic() {
 
+    //Stop Alignment and Vision
+
+    //If any axis on controller passes threshold, disable vision alignment and return driver control.
+    if(Math.abs(driver.getY(Hand.kLeft)) > 0.05 || Math.abs(driver.getY(Hand.kRight)) > 0.05 || Math.abs(driver.getX(Hand.kLeft)) > 0.05 || Math.abs(driver.getX(Hand.kRight)) > 0.05){
+      vision.stopVision();
+      driver.setRumble(RumbleType.kLeftRumble, 0);
+      driver.setRumble(RumbleType.kRightRumble, 0);
+      if(!vision.isEnabled()) {
+        vision.stopAlignPID();
+      }
+      drive.ignoreController = false;
+    }
+
     drive.drive(driver, cargoOuttake);
 
     // double intakeSpeed = driver.getTriggerAxis(Hand.kRight) - driver.getTriggerAxis(Hand.kLeft);
@@ -133,14 +146,13 @@ public class Teleop {
     //Vision Variables
     boolean visionAligned = false;
     double visionSpeed;
-    boolean visionActive = false;
 
     //Start Align DriverAssist
     if(driver.getBackButtonPressed()){
       //Block Controller from Driving Robot
       drive.ignoreController = true;
       //Set Alignment Variables
-      visionActive = true;
+      vision.visionActive = true;
       visionAligned = false;
 
       try {
@@ -156,7 +168,7 @@ public class Teleop {
     }
 
     //Continue Alignment
-    if(visionActive){
+    if(vision.visionActive){
       try {
         if(!visionAligned) {
           //Check to see if aligned
@@ -172,18 +184,6 @@ public class Teleop {
       }
     }
 
-    //Stop Alignment and Vision
-
-    //If any axis on controller passes threshold, disable vision alignment and return driver control.
-    if(Math.abs(driver.getY(Hand.kLeft)) > 0.15 || Math.abs(driver.getY(Hand.kRight)) > 0.15 || Math.abs(driver.getX(Hand.kLeft)) > 0.15 || Math.abs(driver.getX(Hand.kRight)) > 0.15){
-      vision.stopVision();
-      driver.setRumble(RumbleType.kLeftRumble, 0);
-      driver.setRumble(RumbleType.kRightRumble, 0);
-      if(!visionAligned) {
-        vision.stopAlignPID();
-      }
-      drive.ignoreController = false;
-    }
     //Toggle Green Vision LED
     if(driver.getStartButtonPressed()){
       if(vision.ledRelay.get() == Relay.Value.kReverse){
