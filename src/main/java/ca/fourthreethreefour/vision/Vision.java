@@ -141,7 +141,6 @@ public class Vision {
         }
         if (visionAlignPID.onTarget()) {
             visionAlignPID.disable();
-            visionAlignPID.free();
             return (true);
         } else {
             return (false);

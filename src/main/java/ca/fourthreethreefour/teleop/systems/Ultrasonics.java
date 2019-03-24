@@ -75,10 +75,6 @@ public class Ultrasonics extends Subsystem {
         // Logging.log("Ultrasonic Right"+ String.valueOf( (ultrasonicSensorRight.isRangeValid() == false) ? SmartDashboard.getNumber("Ultrasonic Right", 999.0) : ultrasonicSensorRight.getRangeInches()));
         Logging.log("--------------------------------------------------------------------------");
     }
-    @Override
-    protected void initDefaultCommand() {
-  
-    }
 
     public double getUltrasonicFrontLeftValue() {
         return ultrasonicSensorFrontLeft.isRangeValid() ? ultrasonicSensorFrontLeft.getRangeInches() : 999.0;
@@ -90,5 +86,10 @@ public class Ultrasonics extends Subsystem {
 
     public double getUltrasonicBackValue() {
         return ultrasonicSensorBack.isRangeValid() ? ultrasonicSensorBack.getRangeInches() : 999.0;
+    }
+
+    @Override
+    protected void initDefaultCommand() {
+  
     }
 }

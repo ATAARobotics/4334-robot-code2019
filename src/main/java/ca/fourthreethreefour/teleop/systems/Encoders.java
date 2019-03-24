@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 
+
+
 public class Encoders {
 
     // public static double potentiometerOffset = -1445;

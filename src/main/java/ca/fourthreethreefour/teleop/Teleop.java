@@ -1,5 +1,6 @@
 package ca.fourthreethreefour.teleop;
 
+import ca.fourthreethreefour.autonomous.commands.VisionAllignment;
 import ca.fourthreethreefour.commands.debug.Logging;
 import ca.fourthreethreefour.settings.Settings;
 import ca.fourthreethreefour.teleop.drivetrain.Drive;
@@ -10,8 +11,6 @@ import ca.fourthreethreefour.teleop.intake.Mechanum;
 import ca.fourthreethreefour.teleop.systems.Encoders;
 import ca.fourthreethreefour.teleop.systems.Ultrasonics;
 import ca.fourthreethreefour.vision.Vision;
-import ca.fourthreethreefour.vision.exceptions.visionErrorException;
-import ca.fourthreethreefour.vision.exceptions.visionTargetDetectionException;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
@@ -32,13 +31,16 @@ public class Teleop {
   private XboxController driver = new XboxController(Settings.DRIVER_CONTROLLER_PORT);
   private Cargo cargo = new Cargo();
   public Encoders encoders = new Encoders();
-  private Hatch hatch = new Hatch();
+  public Hatch hatch = new Hatch();
   private Mechanum mechanum = new Mechanum();
   public Arm arm = new Arm(encoders, cargo);
+  // private Arm armPIDLeft;
+  // private Arm armPIDRight;
   public Drive drive = new Drive();
-  private Ultrasonics ultrasonics = new Ultrasonics();
-  public Vision vision = new Vision(this);
-
+  public Ultrasonics ultrasonics = new Ultrasonics();
+  private Vision vision = new Vision(this);
+  private VisionAllignment visionAllignment = new VisionAllignment(this.vision, this, this.driver);
+  
   public static boolean cargoOuttake;
 
   public void RobotInit() {
@@ -180,54 +182,7 @@ public class Teleop {
           arm.disable();
           Settings.ARM_POTENTIOMETER_OFFSET += encoders.potentiometerGet();
       }
-    //Vision Driver Assist
 
-    //Vision Variables
-    boolean visionAligned = false;
-    double visionSpeed;
-    // boolean visionActive = false;
-
-    //Start Align DriverAssist
-    if(driver.getBackButtonPressed()){
-      //Block Controller from Driving Robot
-      drive.ignoreController = true;
-      //Set Alignment Variables
-      visionAligned = false;
-
-      try {
-        //Start Vision Components, Get Alignment angle and start PID
-        vision.startVision();
-      } catch (visionErrorException e) {
-        System.out.println(e.getMessage());
-        //Shake Controller on Error
-        driver.setRumble(RumbleType.kLeftRumble, 1);
-        driver.setRumble(RumbleType.kRightRumble, 1);
-      }
-    }
-
-    //Continue Alignment
-    if(vision.visionActive){
-      vision.startAlignPID();
-      try {
-        if(!visionAligned) {
-          //Check to see if aligned
-          visionAligned = vision.checkAlign();
-        } else {
-          driver.setRumble(RumbleType.kLeftRumble, 0.5);
-          driver.setRumble(RumbleType.kRightRumble, 0.5);
-        }
-      } catch (visionTargetDetectionException e) {
-        //Shake Controller on Error
-        System.out.println(e.getMessage());
-        
-        driver.setRumble(RumbleType.kLeftRumble, 1);
-        driver.setRumble(RumbleType.kRightRumble, 1);
-      }
-    }
-
-    //Stop Alignment and Vision
-
-    
     //Toggle Green Vision LED
     if(driver.getStartButtonPressed()){
       if(vision.ledRelay.get() == Relay.Value.kReverse){
@@ -239,6 +194,59 @@ public class Teleop {
       }
     }
 
+    if (driver.getStartButtonPressed()) {
+      visionAllignment.start();
+    }
+    
+    if (driver.getStartButtonReleased()) {
+      visionAllignment.cancel();
+    }
+    //Vision Driver Assist
+
+    // //Vision Variables
+    // boolean visionAligned = false;
+    // double visionSpeed;
+    // // boolean visionActive = false;
+
+    // //Start Align DriverAssist
+    // if(driver.getBackButtonPressed()){
+    //   //Block Controller from Driving Robot
+    //   drive.ignoreController = true;
+    //   //Set Alignment Variables
+    //   visionAligned = false;
+
+    //   try {
+    //     //Start Vision Components, Get Alignment angle and start PID
+    //     vision.startVision();
+    //   } catch (visionErrorException e) {
+    //     System.out.println(e.getMessage());
+    //     //Shake Controller on Error
+    //     driver.setRumble(RumbleType.kLeftRumble, 1);
+    //     driver.setRumble(RumbleType.kRightRumble, 1);
+    //   }
+    // }
+
+    // //Continue Alignment
+    // if(vision.visionActive){
+    //   vision.startAlignPID();
+    //   try {
+    //     if(!visionAligned) {
+    //       //Check to see if aligned
+    //       visionAligned = vision.checkAlign();
+    //     } else {
+    //       driver.setRumble(RumbleType.kLeftRumble, 0.5);
+    //       driver.setRumble(RumbleType.kRightRumble, 0.5);
+    //     }
+    //   } catch (visionTargetDetectionException e) {
+    //     //Shake Controller on Error
+    //     System.out.println(e.getMessage());
+        
+    //     driver.setRumble(RumbleType.kLeftRumble, 1);
+    //     driver.setRumble(RumbleType.kRightRumble, 1);
+    //   }
+    // }
+
+    // //Stop Alignment and Vision
 
     // ultrasonics.printValues();
     // System.out.println("Is enabled? " + arm.isEnabled());
@@ -252,7 +260,7 @@ public class Teleop {
     //   arm.setSetpoint(111);
     //   arm.enable();
     //   mechanum.mechanumRetract();
-    } else*/ 
+    } */
 
   }
 
