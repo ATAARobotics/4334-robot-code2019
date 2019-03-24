@@ -48,8 +48,13 @@ public class Drive extends Subsystem {
     speed = speed * Settings.DRIVE_SPEED;
     speed = cargoOuttake ? speed : -speed;
     speed = speed >= 0 ? speed*speed : -(speed*speed);
-    turn = turn >= 0 ? Math.max(Math.pow(turn, Settings.TURN_CURVE), turn*Settings.TURN_SPEED) : Math.min(-Math.pow(Math.abs(turn), Settings.TURN_CURVE), turn*Settings.TURN_SPEED);
-    // System.out.println("----------------");
+
+    if (Settings.CAM_TURN) {
+      turn = turn * Settings.CAM_SPEED;
+    } else {
+      turn = turn >= 0 ? Math.max(Math.pow(turn, Settings.TURN_EXPONENT), turn*Settings.TURN_BASE) : Math.min(-Math.pow(Math.abs(turn), Settings.TURN_EXPONENT), turn*Settings.TURN_BASE);
+    }
+      // System.out.println("----------------");
     // System.out.println("Speed: " + speed + " Turn: " + turn);
     // System.out.println("----------------");
     if(!ignoreController){

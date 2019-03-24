@@ -12,6 +12,7 @@ import ca.fourthreethreefour.settings.Settings;
 import ca.fourthreethreefour.teleop.Teleop;
 import ca.fourthreethreefour.teleop.systems.Encoders;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -32,12 +33,17 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    shuffleboard.ShuffleInit(teleop);
+    shuffleboard.ShuffleInit();
+    Timer.delay(0.1);
     this.teleop = new Teleop();
     this.encoders = teleop.encoders;
     encoders.initalizeNavX();
 
     teleop.RobotInit();
+    
+    System.out.println(Settings.HATCH_SOLENOID_PORT_1);
+    System.out.println(Settings.HATCH_SOLENOID_PORT_2);
+    System.out.println("-------");
   }
 
   @Override

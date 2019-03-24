@@ -43,11 +43,11 @@ public class Settings {
 
     static public int ARM_POTENTIOMETER_ANALOG_PORT = settingsFile.getIntProperty("ARM_POTENTIOMETER_ANALOG_PORT", 1);
 
-    static public int GEAR_SOLENOID_PORT_1 = settingsFile.getIntProperty("GEAR_SOLENOID_PORT_1", 0);
-    static public int GEAR_SOLENOID_PORT_2 = settingsFile.getIntProperty("GEAR_SOLENOID_PORT_2", 1);
+    static public int GEAR_SOLENOID_PORT_1 = settingsFile.getIntProperty("GEAR_SOLENOID_PORT_1", 1);
+    static public int GEAR_SOLENOID_PORT_2 = settingsFile.getIntProperty("GEAR_SOLENOID_PORT_2", 0);
 
-    static public int HATCH_SOLENOID_PORT_1 = settingsFile.getIntProperty("HATCH_SOLENOID_PORT_1", 3);
-    static public int HATCH_SOLENOID_PORT_2 = settingsFile.getIntProperty("HATCH_SOLENOID_PORT_2", 2);
+    static public int HATCH_SOLENOID_PORT_1 = settingsFile.getIntProperty("HATCH_SOLENOID_PORT_1", 2);
+    static public int HATCH_SOLENOID_PORT_2 = settingsFile.getIntProperty("HATCH_SOLENOID_PORT_2", 3);
 
     static public int MECHANUM_SOLENOID_PORT_1 = settingsFile.getIntProperty("MECHANUM_SOLENOID_PORT_1", 7);
     static public int MECHANUM_SOLENOID_PORT_2 = settingsFile.getIntProperty("MECHANUM_SOLENOID_PORT_2", 6);
@@ -63,10 +63,13 @@ public class Settings {
     static public int ARM_PID_INTAKE_SETPOINT = settingsFile.getIntProperty("ARM_PID_INTAKE_SETPOINT", 10);
 
     static public double DRIVE_SPEED = settingsFile.getDoubleProperty("DRIVE_SPEED", 1);
-    static public double TURN_SPEED = settingsFile.getDoubleProperty("TURN_SPEED", 1);
-    static public double TURN_CURVE = settingsFile.getDoubleProperty("TURN_CURVE", 2.4);
+    static public double CAM_SPEED = settingsFile.getDoubleProperty("TURN_SPEED", 0.6);
+    static public double TURN_BASE = settingsFile.getDoubleProperty("TURN_BASE", 0.7);
+    static public double TURN_EXPONENT = settingsFile.getDoubleProperty("TURN_EXPONENT", 4);
     static public double INTAKE_ROTATE_SPEED = settingsFile.getDoubleProperty("INTAKE_ROTATE_SPEED", 1);
     static public double LOW_GEAR_THRESHOLD = settingsFile.getDoubleProperty("LOW_GEAR_THRESHOLD", 0.1);
+
+    static public boolean CAM_TURN = settingsFile.getBooleanProperty("CAM", false);
 
     //Example of ShuffleboardTab setup.
     // private ShuffleboardTab dashboardTab = Shuffleboard.getTab("Dashboard");
@@ -82,7 +85,7 @@ public class Settings {
      * Creates the specified objects for shuffleboard, and updates the variables that only
      * needs to be updated at initialization.
      */
-    public void ShuffleInit(Teleop teleop) {
+    public void ShuffleInit() {
         UsbCamera camera1 = CameraServer.getInstance().startAutomaticCapture("Microsoft LifeCam HD-3000", 0);
 
         camera1.setResolution(320, 240);
@@ -100,12 +103,15 @@ public class Settings {
     public void settingsValueUpdate() {
         LOGGING_ENABLED = settingsFile.getBooleanProperty("LOGGING_ENABLED", false);
         DRIVE_SPEED = settingsFile.getDoubleProperty("DRIVE_SPEED", 1);
-        TURN_SPEED = settingsFile.getDoubleProperty("TURN_SPEED", 1);
-        TURN_CURVE = settingsFile.getDoubleProperty("TURN_CURVE", 2.4);
+        CAM_SPEED = settingsFile.getDoubleProperty("TURN_SPEED", 0.6); // Custom speed for Cam.
+        TURN_BASE = settingsFile.getDoubleProperty("TURN_BASE", 0.7);
+        TURN_EXPONENT = settingsFile.getDoubleProperty("TURN_EXPONENT", 4);
         INTAKE_ROTATE_SPEED = settingsFile.getDoubleProperty("INTAKE_ROTATE_SPEED", 1);
         LOW_GEAR_THRESHOLD = settingsFile.getDoubleProperty("LOW_GEAR_THRESHOLD", 0.1);
 
         ARM_POTENTIOMETER_OFFSET = settingsFile.getIntProperty("ARM_POTENTIOMETER_OFFSET", -328);
+
+        CAM_TURN = settingsFile.getBooleanProperty("CAM", false);
         //LOW_GEAR_TURN_THRESHOLD = LOW_GEAR_SPEED_THRESHOLD_ENTRY.getDouble(0.25);
     }
 
