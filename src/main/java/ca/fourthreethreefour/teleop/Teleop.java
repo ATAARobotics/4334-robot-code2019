@@ -69,7 +69,7 @@ public class Teleop {
       vision.stopVision();
       driver.setRumble(RumbleType.kLeftRumble, 0);
       driver.setRumble(RumbleType.kRightRumble, 0);
-      if(!vision.isEnabled()) {
+      if(!vision.isAlignEnabled()) {
         vision.stopAlignPID();
       }
       drive.ignoreController = false;

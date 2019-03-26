@@ -1,6 +1,5 @@
 package ca.fourthreethreefour.vision;
 
-import ca.fourthreethreefour.teleop.systems.Ultrasonics;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -12,7 +11,6 @@ import edu.wpi.first.wpilibj.Relay.Value;
 
 import java.io.IOException;
 import java.net.InetAddress;
-import java.net.UnknownHostException;
 
 import ca.fourthreethreefour.teleop.*;
 import ca.fourthreethreefour.vision.exceptions.visionErrorException;
@@ -56,8 +54,8 @@ public class Vision {
     private PIDSubsystem visionAlignPID;
     private PIDSubsystem visionMovePID;
 
-    public boolean PIDEnabled = false;
-    boolean isEnabled;
+    private boolean isAlignEnabled;
+    private boolean isMoveEnabled;
     public boolean visionActive = false;
 
     public Vision(Teleop teleop) {
@@ -86,7 +84,7 @@ public class Vision {
                 //Enabled PID
                 super.enable();
                 //Set enabled variable to true
-                isEnabled = true;
+                isMoveEnabled = true;
             }
 
             @Override
@@ -94,7 +92,7 @@ public class Vision {
                 //Disable PID
                 super.disable();
                 //Set enabled variable to false
-                isEnabled = false;
+                isMoveEnabled = false;
             }
         };
 
@@ -120,7 +118,7 @@ public class Vision {
                 //Enables PID
                 super.enable();
                 //Set enabled variable to true
-                isEnabled = true;
+                isAlignEnabled = true;
             }
 
             @Override
@@ -128,7 +126,7 @@ public class Vision {
                 //Disables PID
                 super.disable();
                 //Set enabled variable to false
-                isEnabled = false;
+                isAlignEnabled = false;
             }
         };
 
@@ -171,20 +169,32 @@ public class Vision {
         //Sets the PID controller setpoint
         visionAlignPID.setSetpoint(angleGoal);
 
-        //Enables the PID controller
+        //Enables Rotation Movement PID controller
         visionAlignPID.enable();
 
-        PIDEnabled = true;
     }
 
     public void stopAlignPID() {
-        //Disables the PID Controller
+        //Disables Rotation Movement PID Controller
         visionAlignPID.disable();
-        PIDEnabled = false;
     }
 
-    public boolean isEnabled(){
-        return isEnabled;
+    public void startMovePID(){
+        //Enabled Horizontal Movement PID Controller
+        visionMovePID.enable();
+    }
+
+    public void stopMovePID(){
+        //Disables Horizontal Movement PID Controller
+        visionMovePID.disable();
+    }
+
+    public boolean isAlignEnabled(){
+        return isAlignEnabled;
+    }
+
+    public boolean isMoveEnabled(){
+        return isMoveEnabled;
     }
 
     public boolean checkAlign() throws visionTargetDetectionException {
