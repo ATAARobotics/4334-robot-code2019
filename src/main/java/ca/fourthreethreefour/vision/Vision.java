@@ -54,6 +54,7 @@ public class Vision {
 
     //Initialize VisionAssist PID Objects
     private PIDSubsystem visionAlignPID;
+    private PIDSubsystem visionMovePID;
 
     public boolean PIDEnabled = false;
     boolean isEnabled;
@@ -101,6 +102,40 @@ public class Vision {
         visionAlignPID.setAbsoluteTolerance(0.5);
         visionAlignPID.getPIDController().setContinuous(false);
         visionAlignPID.setOutputRange(-1,1);
+        visionAlignPID.disable();
+
+        //Configure Vision Move PID
+        visionMovePID = new PIDSubsystem("MovePID", 0.01, 0.0, 0.0) {
+            @Override
+            protected double returnPIDInput() { return encoders.getNavXAngle(); }
+
+            @Override
+            protected void usePIDOutput(double output) { }
+
+            @Override
+            protected void initDefaultCommand() { }
+
+            @Override
+            public void enable(){
+                //Enables PID
+                super.enable();
+                //Set enabled variable to true
+                isEnabled = true;
+            }
+
+            @Override
+            public void disable(){
+                //Disables PID
+                super.disable();
+                //Set enabled variable to false
+                isEnabled = false;
+            }
+        };
+
+        //Configures then disables the PID Controller
+        visionMovePID.setAbsoluteTolerance(0.5);
+        visionMovePID.getPIDController().setContinuous(false);
+        visionMovePID.setOutputRange(-1,1);
         visionAlignPID.disable();
     }
 
