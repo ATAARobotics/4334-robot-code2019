@@ -2,8 +2,10 @@ package ca.fourthreethreefour.teleop.systems;
 
 import com.kauailabs.navx.frc.AHRS;
 import ca.fourthreethreefour.shuffleboard.Settings;
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 import edu.wpi.first.wpilibj.DriverStation;
 
 
@@ -12,6 +14,10 @@ public class Encoders {
     
     public DigitalInput cargoButton = new DigitalInput(Settings.CARGO_BUTTON_PORT);
     public DigitalInput armInnerLimitSwitch = new DigitalInput(2);
+    public Potentiometer hatchPotentiometer =  new AnalogPotentiometer(4); // TODO Update ports, scale, and offset
+    public DigitalInput hatchHalleffectLeft = new DigitalInput(3); // TODO Update ports
+    public DigitalInput hatchHalleffectRight = new DigitalInput(4); // TODO Update ports
+
 
     public AHRS navX;
 

@@ -11,6 +11,8 @@ import ca.fourthreethreefour.commands.ReverseSolenoid;
 import ca.fourthreethreefour.commands.SetSolenoid;
 import ca.fourthreethreefour.shuffleboard.Settings;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -22,6 +24,7 @@ public class Hatch extends Subsystem {
   //Creates a double solenoid object and sets it
   //to its respective ports on the robot
   public DoubleSolenoid hatchKnockoffSolenoid = new DoubleSolenoid(Settings.HATCH_SOLENOID_PORT_1, Settings.HATCH_SOLENOID_PORT_2);
+  public VictorSP hatchAllignMotor = new VictorSP(5); // TODO Update ports
 
   @Override
   public void initDefaultCommand() {
@@ -39,5 +42,14 @@ public class Hatch extends Subsystem {
 
   public void hatchShift() {
     new ReverseSolenoid(hatchKnockoffSolenoid, Value.kReverse).reverse();
+  }
+
+  public void hatchAllignShift(double speed) {
+    hatchAllignMotor.set(speed);
+  }
+
+  //Stops the motors
+  public void stop() {
+    hatchAllignMotor.set(0);
   }
 }
