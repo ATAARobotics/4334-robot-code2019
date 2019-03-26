@@ -57,10 +57,15 @@ public class Vision {
     public boolean visionActive = false;
 
     public Vision(Teleop teleop) {
+        //Create Shuffle Board Objects
         VISION_DRIVE_VALUE = table.getEntry("VISION_DRIVE_VALUE");
         VISION_SPEED_VALUE = table.getEntry("VISION_SPEED_VALUE");
         VISION_ERROR_NOTARGET = table.getEntry("VISION_ERROR_NOTARGET");
+
+        //Sets Teleop Object
         this.teleop = teleop;
+
+        //Sets Encoders Object
         this.encoders = teleop.encoders;
 
         //Configure Vision Align PID
@@ -77,19 +82,25 @@ public class Vision {
             protected void initDefaultCommand() {
 
             }
+
             @Override
             public void enable() {
+                //Enabled PID
                 super.enable();
+                //Set enabled variable to true
                 isEnabled = true;
             }
 
             @Override
             public void disable() {
+                //Disable PID
                 super.disable();
+                //Set enabled variable to false
                 isEnabled = false;
             }
-
         };
+
+        //Configures then disables the PID Controller
         visionAlignPID.setAbsoluteTolerance(0.5);
         visionAlignPID.getPIDController().setContinuous(false);
         visionAlignPID.setOutputRange(-1,1);
@@ -100,10 +111,12 @@ public class Vision {
     public void startVision() throws visionErrorException {
         VISION_ACTIVE_ENTRY_SHUFFLE.setBoolean(true);
         //Enabled Relay for LED Ring
-        ledRelay.set(Value.kForward);
+        ledRelay.set(Value.kOn);
+        ledRelay.set(Value.kReverse);
 
         //Attempts to ping RaspberryPi to verify connection
         if(!piOnline()){
+            //Throw exception if Pi is offline
             throw new visionErrorException("Could not verify Pi Online");
         } else {
             visionActive = true;
@@ -112,38 +125,47 @@ public class Vision {
 
     public void stopVision() {
         VISION_ACTIVE_ENTRY_SHUFFLE.setBoolean(false);
-        ledRelay.set(Value.kReverse);
+        ledRelay.set(Value.kOff);
         visionActive = false;
-    }
-
-    public boolean isEnabled() {
-        return isEnabled;
     }
 
 
     //Alignment PID Commands
     private Double angleGoal;
     public void startAlignPID() {
+        //Calculates the goal NAVX angle
         angleGoal = encoders.getNavXAngle() + getPiRotation();
+
+        //Sets the PID controller setpoint
         visionAlignPID.setSetpoint(angleGoal);
+
+        //Enables the PID controller
         visionAlignPID.enable();
+
         PIDEnabled = true;
     }
 
     public void stopAlignPID() {
+        //Disables the PID Controller
         visionAlignPID.disable();
         PIDEnabled = false;
     }
 
+    public boolean isEnabled(){
+        return isEnabled;
+    }
+
     public boolean checkAlign() throws visionTargetDetectionException {
         if (VISION_ERROR_NOTARGET.getBoolean(true)) {
+            //Throws exception if unable to detect at least two targets
             throw new visionTargetDetectionException("Unable to locate more than 1 target");
         }
         if (visionAlignPID.onTarget()) {
+            //Disable the PID controller
             visionAlignPID.disable();
-            return (true);
+            return true;
         } else {
-            return (false);
+            return false;
         }
     }
 
@@ -162,6 +184,7 @@ public class Vision {
     public boolean piOnline() {
         InetAddress address;
         boolean reachable;
+        //Try to ping the RaspberryPi
         try {
             address = InetAddress.getByName("frcvision.local");
             reachable = address.isReachable(1500);
