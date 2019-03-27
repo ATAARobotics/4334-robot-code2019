@@ -77,15 +77,15 @@ public class Ultrasonics extends Subsystem {
     }
 
     public double getUltrasonicFrontLeftValue() {
-        return ultrasonicSensorFrontLeft.isRangeValid() ? ultrasonicSensorFrontLeft.getRangeMM()/1000 : 999.0;
+        return ultrasonicSensorFrontLeft.isRangeValid() ? ultrasonicSensorFrontLeft.getRangeMM()/1000 : 99999.0;
     }
 
     public double getUltrasonicFrontRightValue() {
-        return ultrasonicSensorFrontRight.isRangeValid() ? ultrasonicSensorFrontRight.getRangeMM()/1000 : 999.0;
+        return ultrasonicSensorFrontRight.isRangeValid() ? ultrasonicSensorFrontRight.getRangeMM()/1000 : 99999.0;
     }
 
     public double getUltrasonicBackValue() {
-        return ultrasonicSensorBack.isRangeValid() ? ultrasonicSensorBack.getRangeMM()/1000 : 999.0;
+        return ultrasonicSensorBack.isRangeValid() ? ultrasonicSensorBack.getRangeMM()/1000 : 99999.0;
     }
 
     @Override

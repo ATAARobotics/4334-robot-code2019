@@ -69,6 +69,8 @@ public class Settings {
     static public double INTAKE_ROTATE_SPEED = settingsFile.getDoubleProperty("INTAKE_ROTATE_SPEED", 1);
     static public double LOW_GEAR_THRESHOLD = settingsFile.getDoubleProperty("LOW_GEAR_THRESHOLD", 0.1);
 
+    static public double BALL_VELOCITY_METERS_PER_SECOND = settingsFile.getDoubleProperty("BALL_VELOCITY_METERS_PER_SECOND", 43.34);
+
     static public boolean CAM_TURN = settingsFile.getBooleanProperty("CAM", true);
 
     //Example of ShuffleboardTab setup.
@@ -111,6 +113,8 @@ public class Settings {
 
         ARM_POTENTIOMETER_OFFSET = settingsFile.getIntProperty("ARM_POTENTIOMETER_OFFSET", -328);
 
+        BALL_VELOCITY_METERS_PER_SECOND = settingsFile.getDoubleProperty("BALL_VELOCITY_METERS_PER_SECOND", 43.34);
+        
         CAM_TURN = settingsFile.getBooleanProperty("CAM", true);
         //LOW_GEAR_TURN_THRESHOLD = LOW_GEAR_SPEED_THRESHOLD_ENTRY.getDouble(0.25);
     }
