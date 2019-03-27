@@ -13,8 +13,8 @@ import edu.wpi.first.wpilibj.DriverStation;
 
 public class Encoders {
 
-    public int hatchPotentiometerOffset = 0; //TODO: Set Potentiometer Offset
-    public int hatchPotentiometerRange = 1; //TODO: Set Potentiometer Range
+    public int hatchPotentiometerOffset = -30; //TODO: Set Potentiometer Offset
+    public int hatchPotentiometerRange = 60; //TODO: Set Potentiometer Range
 
 
     // public static double potentiometerOffset = -1445;
