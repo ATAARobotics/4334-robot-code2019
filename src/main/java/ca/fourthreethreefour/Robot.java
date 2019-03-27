@@ -46,6 +46,10 @@ public class Robot extends TimedRobot {
     teleop.RobotInit();
   }
 
+  @Override
+  public void disabledInit() {
+    teleop.arm.disable();
+  }
   /**
    * This function is called periodically while disabled.
    */
@@ -61,6 +65,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     auto.AutoInit(); // Runs everything set in the .AutoInit() function.
+    teleop.TeleopInit();
   }
 
   /**
@@ -69,6 +74,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     auto.AutoPeriodic(); // Runs everything set in the .AutoPeriodic() function.
+    teleop.TeleopPeriodic();
   }
 
   /**
@@ -86,7 +92,6 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     teleop.TeleopPeriodic();
-    System.out.println("NavX: " + encoders.getNavXAngle());
   }
 
   /**
