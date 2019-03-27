@@ -11,10 +11,13 @@ import edu.wpi.first.wpilibj.DriverStation;
 
 
 public class Encoders {
+
+    public int hatchPotentiometerOffset = 0;
+    public int hatchPotentiometerRange = 0;
     
     public DigitalInput cargoButton = new DigitalInput(Settings.CARGO_BUTTON_PORT);
     public DigitalInput armInnerLimitSwitch = new DigitalInput(2);
-    public Potentiometer hatchPotentiometer =  new AnalogPotentiometer(4); // TODO Update ports, scale, and offset
+    public Potentiometer hatchPotentiometer =  new AnalogPotentiometer(4, hatchPotentiometerRange, hatchPotentiometerOffset); // TODO Update ports, scale, and offset
     public DigitalInput hatchHalleffectLeft = new DigitalInput(3); // TODO Update ports
     public DigitalInput hatchHalleffectRight = new DigitalInput(4); // TODO Update ports
 
@@ -40,4 +43,5 @@ public class Encoders {
     public double getNavXAngle() {
         return navX.getAngle();
     }
+
 }
