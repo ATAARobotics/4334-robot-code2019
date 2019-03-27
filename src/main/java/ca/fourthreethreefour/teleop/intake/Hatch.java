@@ -102,16 +102,6 @@ public class Hatch extends Subsystem {
     hatchAlignMotor.set(0);
   }
 
-  public void startMovePID(){
-    //Enabled Horizontal Movement PID Controller
-    hatchAlignPID.enable();
-  }
-
-  public void stopMovePID(){
-    //Disables Horizontal Movement PID Controller
-    hatchAlignPID.disable();
-  }
-
   public boolean isMoveEnabled(){
     return isMoveEnabled;
   }
