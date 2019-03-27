@@ -1,5 +1,6 @@
 package ca.fourthreethreefour.vision;
 
+import ca.fourthreethreefour.teleop.intake.Hatch;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -41,6 +42,9 @@ public class Vision {
     // Creates Encoders Object
     private Encoders encoders;
 
+    // Creates Hatch Object
+    private Hatch hatch;
+
     // Initializes Ultrasonics Object
     //private Ultrasonics ultrasonics = new Ultrasonics();
 
@@ -52,10 +56,7 @@ public class Vision {
 
     //Initialize VisionAssist PID Objects
     private PIDSubsystem visionAlignPID;
-    private PIDSubsystem visionMovePID;
-
-    private boolean isAlignEnabled;
-    private boolean isMoveEnabled;
+    public boolean isAlignEnabled;
     public boolean visionActive = false;
 
     public Vision(Teleop teleop) {
@@ -69,6 +70,9 @@ public class Vision {
 
         //Sets Encoders Object
         this.encoders = teleop.encoders;
+
+        //Sets Hatch Object
+        this.hatch = teleop.hatch;
 
         //Configure Vision Align PID
         visionAlignPID = new PIDSubsystem("AlignPID", -0.03, 0.0, 0.01) {
@@ -84,7 +88,7 @@ public class Vision {
                 //Enabled PID
                 super.enable();
                 //Set enabled variable to true
-                isMoveEnabled = true;
+                isAlignEnabled = true;
             }
 
             @Override
@@ -92,7 +96,7 @@ public class Vision {
                 //Disable PID
                 super.disable();
                 //Set enabled variable to false
-                isMoveEnabled = false;
+                isAlignEnabled = false;
             }
         };
 
@@ -102,39 +106,6 @@ public class Vision {
         visionAlignPID.setOutputRange(-1,1);
         visionAlignPID.disable();
 
-        //Configure Vision Move PID
-        visionMovePID = new PIDSubsystem("MovePID", 0.01, 0.0, 0.0) {
-            @Override
-            protected double returnPIDInput() { return encoders.getNavXAngle(); }
-
-            @Override
-            protected void usePIDOutput(double output) { }
-
-            @Override
-            protected void initDefaultCommand() { }
-
-            @Override
-            public void enable(){
-                //Enables PID
-                super.enable();
-                //Set enabled variable to true
-                isAlignEnabled = true;
-            }
-
-            @Override
-            public void disable(){
-                //Disables PID
-                super.disable();
-                //Set enabled variable to false
-                isAlignEnabled = false;
-            }
-        };
-
-        //Configures then disables the PID Controller
-        visionMovePID.setAbsoluteTolerance(0.5);
-        visionMovePID.getPIDController().setContinuous(false);
-        visionMovePID.setOutputRange(-1,1);
-        visionAlignPID.disable();
     }
 
 
@@ -179,22 +150,9 @@ public class Vision {
         visionAlignPID.disable();
     }
 
-    public void startMovePID(){
-        //Enabled Horizontal Movement PID Controller
-        visionMovePID.enable();
-    }
-
-    public void stopMovePID(){
-        //Disables Horizontal Movement PID Controller
-        visionMovePID.disable();
-    }
 
     public boolean isAlignEnabled(){
         return isAlignEnabled;
-    }
-
-    public boolean isMoveEnabled(){
-        return isMoveEnabled;
     }
 
     public boolean checkAlign() throws visionTargetDetectionException {
@@ -213,7 +171,7 @@ public class Vision {
 
 
     // Access Rotation From NetworkTable
-    private double getPiRotation() {
+    public double getPiRotation() {
         return (VISION_DRIVE_VALUE.getDouble(0));
     }
 

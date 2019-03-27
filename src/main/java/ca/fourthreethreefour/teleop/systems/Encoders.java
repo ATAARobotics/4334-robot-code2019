@@ -13,17 +13,18 @@ import edu.wpi.first.wpilibj.DriverStation;
 
 public class Encoders {
 
-    public int hatchPotentiometerOffset = 0;
-    public int hatchPotentiometerRange = 0;
+    public int hatchPotentiometerOffset = 0; //TODO: Set Potentiometer Offset
+    public int hatchPotentiometerRange = 1; //TODO: Set Potentiometer Range
 
 
     // public static double potentiometerOffset = -1445;
 
-    public DigitalInput cargoButton = new DigitalInput(Settings.CARGO_BUTTON_PORT);
-    public DigitalInput armInnerLimitSwitch = new DigitalInput(2);
-    public Potentiometer hatchPotentiometer =  new AnalogPotentiometer(4, hatchPotentiometerRange, hatchPotentiometerOffset); // TODO Update ports, scale, and offset
-    public DigitalInput hatchHalleffectLeft = new DigitalInput(3); // TODO Update ports
-    public DigitalInput hatchHalleffectRight = new DigitalInput(4); // TODO Update ports
+    //public DigitalInput cargoButton = new DigitalInput(Settings.CARGO_BUTTON_PORT);
+    public DigitalInput cargoButton = new DigitalInput(4);
+    public DigitalInput armInnerLimitSwitch = new DigitalInput(3);
+    public Potentiometer hatchPotentiometer =  new AnalogPotentiometer(4, hatchPotentiometerRange, hatchPotentiometerOffset);
+    public DigitalInput hatchHallEffectLeft = new DigitalInput(0);
+    public DigitalInput hatchHallEffectRight = new DigitalInput(1);
 
 
     public Potentiometer armPotentiometer;

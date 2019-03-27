@@ -35,7 +35,7 @@ public class Teleop {
   private XboxController driver = new XboxController(Settings.DRIVER_CONTROLLER_PORT);
   private Cargo cargo = new Cargo();
   public Encoders encoders = new Encoders();
-  private Hatch hatch = new Hatch();
+  public Hatch hatch = new Hatch(encoders);
   private Mechanum mechanum = new Mechanum();
   public Arm arm = new Arm(encoders, cargo);
   public Drive drive = new Drive();
@@ -82,12 +82,15 @@ public class Teleop {
     //Stop Alignment and Vision
 
     //If any axis on controller passes threshold, disable vision alignment and return driver control.
-    if(Math.abs(driver.getY(Hand.kLeft)) > 0.05 || Math.abs(driver.getY(Hand.kRight)) > 0.05 || Math.abs(driver.getX(Hand.kLeft)) > 0.05 || Math.abs(driver.getX(Hand.kRight)) > 0.05){
+    if(Math.abs(driver.getY(Hand.kLeft)) > 0.05 || Math.abs(driver.getY(Hand.kRight)) > 0.05 || Math.abs(driver.getX(Hand.kLeft)) > 0.05 || Math.abs(driver.getX(Hand.kRight)) > 0.05 || driver.getXButton() || driver.getYButton()){
       vision.stopVision();
       driver.setRumble(RumbleType.kLeftRumble, 0);
       driver.setRumble(RumbleType.kRightRumble, 0);
-      if(!vision.isAlignEnabled()) {
+      if(vision.isAlignEnabled()) {
         vision.stopAlignPID();
+      }
+      if(hatch.isMoveEnabled()){
+        hatch.hatchAlignPID.disable();
       }
       drive.ignoreController = false;
     }
@@ -185,7 +188,29 @@ public class Teleop {
         } else if (!encoders.armInnerLimitSwitch.get() && arm.getSetpoint() != armPIDCargoOuttakeSetpoint + 1 && arm.isEnabled()) {
           arm.disable();
           armPIDOffset += encoders.armPotentiometer.get();
-      }
+        }
+
+    //Hatch Side Movement
+    if(driver.getYButton() && encoders.hatchHallEffectRight.get()){
+      //Move Right
+      hatch.hatchAlignMotor.set(0.01);
+    } else if(driver.getXButton() && encoders.hatchHallEffectLeft.get()){
+      //Move Left
+      hatch.hatchAlignMotor.set(-0.01);
+    } else {
+      //Stop Motor
+      hatch.hatchAlignMotor.set(0);
+    }
+
+    if(!encoders.hatchHallEffectRight.get()){
+      System.out.println("Right HallEffect");
+    }
+
+    if(!encoders.hatchHallEffectLeft.get()){
+      System.out.println("Left HallEffect");
+    }
+
+
 
     //Vision Driver Assist
 
@@ -205,6 +230,8 @@ public class Teleop {
         //Start Vision Components, Get Alignment angle and start PID
         vision.startVision();
         vision.startAlignPID();
+        hatch.hatchAlignPID.setSetpoint(vision.getPiRotation());
+        hatch.hatchAlignPID.enable();
       } catch (visionErrorException e) {
         System.out.println(e.getMessage());
         //Shake Controller on Error
@@ -238,6 +265,14 @@ public class Teleop {
         vision.ledRelay.set(Relay.Value.kOn);
         vision.ledRelay.set(Relay.Value.kReverse);
       }
+    }
+
+    if(encoders.hatchHallEffectRight.get() || encoders.hatchHallEffectLeft.get()){
+      hatch.hatchAlignPID.disable();
+    }
+
+    if(hatch.isMoveEnabled() && hatch.hatchAlignPID.onTarget()){
+      hatch.hatchAlignPID.disable();
     }
 
 
