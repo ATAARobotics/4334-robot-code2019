@@ -72,6 +72,8 @@ public class Settings {
     static public double LOW_GEAR_THRESHOLD = settingsFile.getDoubleProperty("LOW_GEAR_THRESHOLD", 0.1);
 
     static public double BALL_VELOCITY_METERS_PER_SECOND = settingsFile.getDoubleProperty("BALL_VELOCITY_METERS_PER_SECOND", 43.34);
+    static public double ROCKET_EQUATION_CORRECTION = settingsFile.getDoubleProperty("ROCKET_EQUATION_CORRECTION", 0);
+    static public double SHIP_EQUATION_CORRECTION = settingsFile.getDoubleProperty("SHIP_EQUATION_CORRECTION", 0);
 
     static public boolean CAM_TURN = settingsFile.getBooleanProperty("CAM", true);
 
@@ -116,6 +118,8 @@ public class Settings {
         ARM_POTENTIOMETER_OFFSET = settingsFile.getIntProperty("ARM_POTENTIOMETER_OFFSET", -328);
 
         BALL_VELOCITY_METERS_PER_SECOND = settingsFile.getDoubleProperty("BALL_VELOCITY_METERS_PER_SECOND", 43.34);
+        ROCKET_EQUATION_CORRECTION = settingsFile.getDoubleProperty("ROCKET_EQUATION_CORRECTION", 0);
+        SHIP_EQUATION_CORRECTION = settingsFile.getDoubleProperty("SHIP_EQUATION_CORRECTION", 0);
         
         CAM_TURN = settingsFile.getBooleanProperty("CAM", true);
         //LOW_GEAR_TURN_THRESHOLD = LOW_GEAR_SPEED_THRESHOLD_ENTRY.getDouble(0.25);

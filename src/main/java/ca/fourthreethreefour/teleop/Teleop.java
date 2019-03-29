@@ -1,5 +1,6 @@
 package ca.fourthreethreefour.teleop;
 
+import ca.fourthreethreefour.autonomous.commands.ShootingAimShip;
 import ca.fourthreethreefour.autonomous.commands.VisionAllignment;
 import ca.fourthreethreefour.commands.debug.Logging;
 import ca.fourthreethreefour.settings.Settings;
@@ -41,6 +42,7 @@ public class Teleop {
   public Ultrasonics ultrasonics = new Ultrasonics();
   private Vision vision = new Vision(this);
   private VisionAllignment visionAllignment = new VisionAllignment(this.vision, this, this.driver, this.drive);
+  private ShootingAimShip shootingAlign = new ShootingAimShip(this, this.ultrasonics, this.arm);
   
   public static boolean cargoOuttake;
 
@@ -96,8 +98,10 @@ public class Teleop {
       cargo.cargoOuttake(driver.getTriggerAxis(Hand.kLeft));
       mechanum.mechanumRoller(-driver.getTriggerAxis(Hand.kLeft));
     } else if (driver.getTriggerAxis(Hand.kRight) > 0.05 /* && encoders.cargoButton.get() */) {
-      cargo.cargoTransfer(driver.getTriggerAxis(Hand.kRight));
-      mechanum.mechanumRoller(driver.getTriggerAxis(Hand.kRight));
+      if (encoders.cargoButton.get()) {
+        cargo.cargoTransfer(driver.getTriggerAxis(Hand.kRight));
+        mechanum.mechanumRoller(driver.getTriggerAxis(Hand.kRight));
+      }
       if (!encoders.cargoButton.get()) {
       //           armPIDSetpoint = armPIDCargoOuttakeSetpoint + 1;
       //           armPIDLeft.setSetpoint(armPIDSetpoint);
@@ -106,6 +110,9 @@ public class Teleop {
       //           armPIDRight.enable();
       //           mechanum.mechanumRetract();
               Logging.log("Auto shoot setpoint");
+              if (shootingAlign.isRunning()) {
+                shootingAlign.cancel();
+              }
               arm.setSetpoint(Settings.ARM_PID_SHOOTING_SETPOINT + 1);
               arm.enable();
               mechanum.mechanumRetract();
@@ -139,6 +146,14 @@ public class Teleop {
     if (driver.getBButtonReleased()) {
       mechanum.mechanumShift();
     }
+
+    // if (driver.getXButton()) {
+    //   hatch.hatchSet(0.2);
+    // } else if (driver.getYButton()) {
+    //   hatch.hatchSet(-0.2);
+    // } else {
+    //   hatch.hatchSet(0);
+    // }
     
     if (driver.getBumper(Hand.kLeft)) {
         arm.armRotate(1);
@@ -153,27 +168,43 @@ public class Teleop {
       // Up D-Pad - Sets the PID setpoint to hatch outtake and retracts the mecanum intake
         if (driver.getPOV() == 0) {
           Logging.log("Shooter set point up");
+          if (shootingAlign.isRunning()) {
+            shootingAlign.cancel();
+          }
           arm.setSetpoint(Settings.ARM_PID_HATCH_SETPOINT);
           arm.enable();
           mechanum.mechanumRetract();
         } else if (driver.getPOV() == 90) {  // Right D-Pad - Sets the PID setpoint to cargo outtake and retracts the mecanum intake
           Logging.log("Shooter set point right");
-          arm.setSetpoint(Settings.ARM_PID_SHOOTING_SETPOINT);
-          arm.enable();
+          shootingAlign.start();
+          // arm.setSetpoint(Settings.ARM_PID_SHOOTING_SETPOINT);
+          // arm.enable();
           mechanum.mechanumRetract();
         } else if (driver.getPOV() == 180) {  // Down D-Pad - Sets the PID setpoint to hatch ground and retracts the mecanum intake
           Logging.log("Shooter set point down");
+          if (shootingAlign.isRunning()) {
+            shootingAlign.cancel();
+          }
           arm.setSetpoint(Settings.ARM_PID_GROUND_SETPOINT);
           arm.enable();
           mechanum.mechanumRetract();
         } else if (driver.getPOV() == 270 && encoders.armInnerLimitSwitch.get()) {  // Left D-Pad - Sets the PID setpoint to cargo intake from the mecanum intake
           Logging.log("Shooter set point left");
+          if (shootingAlign.isRunning()) {
+            shootingAlign.cancel();
+          }
           arm.setSetpoint(Settings.ARM_PID_INTAKE_SETPOINT);
           arm.enable();
           mechanum.mechanumExtend();
         } else if (arm.onTarget()  && arm.isEnabled()) {
+          if (shootingAlign.isRunning()) {
+            shootingAlign.cancel();
+          }
           arm.disable();
         } else if (!encoders.armInnerLimitSwitch.get() && arm.getSetpoint() != Settings.ARM_PID_SHOOTING_SETPOINT + 1 && arm.isEnabled()) {
+          if (shootingAlign.isRunning()) {
+            shootingAlign.cancel();
+          }
           arm.disable();
           // Settings.ARM_POTENTIOMETER_OFFSET += encoders.potentiometerGet();
       }

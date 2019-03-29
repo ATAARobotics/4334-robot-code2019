@@ -8,6 +8,7 @@
 package ca.fourthreethreefour.autonomous.commands;
 
 import ca.fourthreethreefour.autonomous.Equations;
+import ca.fourthreethreefour.settings.Settings;
 import ca.fourthreethreefour.teleop.Teleop;
 import ca.fourthreethreefour.teleop.intake.Arm;
 //import ca.fourthreethreefour.teleop.systems.Encoders;
@@ -15,13 +16,13 @@ import ca.fourthreethreefour.teleop.systems.Ultrasonics;
 //import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ShootingAlign extends Command {
+public class ShootingAimShip extends Command {
 
   Teleop teleop;
   Ultrasonics ultrasonics;
   Arm arm;
 
-  public ShootingAlign(Teleop teleop, Ultrasonics ultrasonics, Arm arm) {
+  public ShootingAimShip(Teleop teleop, Ultrasonics ultrasonics, Arm arm) {
     this.teleop = teleop;
     this.ultrasonics = ultrasonics;
     this.arm = arm;
@@ -34,10 +35,12 @@ public class ShootingAlign extends Command {
   protected void initialize() {
     double distance = (ultrasonics.getUltrasonicFrontLeftValue() + ultrasonics.getUltrasonicFrontRightValue())/2;
     if (distance < 3 && distance >= 0) {
-      arm.setSetpoint(180 - new Equations().shootFormula(distance));
+      arm.setSetpoint(180 - new Equations().shootShipFormula(distance) + Settings.SHIP_EQUATION_CORRECTION);
+      // System.out.println(distance);
+      // System.out.println(180 - new Equations().shootShipFormula(distance));
     } else {
+      arm.setSetpoint(Settings.ARM_PID_SHOOTING_SETPOINT);
       System.out.println("Shooting Align Canceled. Distance off");
-      this.end();
     }
   }
 
