@@ -13,7 +13,7 @@ import ca.fourthreethreefour.teleop.systems.Ultrasonics;
 import ca.fourthreethreefour.vision.Vision;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+//import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.XboxController;

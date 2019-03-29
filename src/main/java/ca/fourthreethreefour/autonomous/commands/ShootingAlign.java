@@ -10,9 +10,9 @@ package ca.fourthreethreefour.autonomous.commands;
 import ca.fourthreethreefour.autonomous.Equations;
 import ca.fourthreethreefour.teleop.Teleop;
 import ca.fourthreethreefour.teleop.intake.Arm;
-import ca.fourthreethreefour.teleop.systems.Encoders;
+//import ca.fourthreethreefour.teleop.systems.Encoders;
 import ca.fourthreethreefour.teleop.systems.Ultrasonics;
-import edu.wpi.first.wpilibj.Ultrasonic;
+//import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class ShootingAlign extends Command {

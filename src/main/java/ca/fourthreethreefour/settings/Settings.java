@@ -3,14 +3,14 @@ package ca.fourthreethreefour.settings;
 import java.io.File;
 //import java.util.Map;
 
-import ca.fourthreethreefour.teleop.Teleop;
-import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.cameraserver.CameraServer;
+//import ca.fourthreethreefour.teleop.Teleop;
+//import edu.wpi.cscore.UsbCamera;
+//import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.Timer;
 //import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+//import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+//import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 /**
  * Settings class that contains all shuffleboard required code so it's all in a 
@@ -19,6 +19,8 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
  * @author Cool Kornak
  */
 public class Settings {
+
+    //Teleop teleop;
 
 	static SettingsFile settingsFile = new SettingsFile(new File("/settings.txt"));
 	String settingsActive = settingsFile.toString();
@@ -74,8 +76,8 @@ public class Settings {
     static public boolean CAM_TURN = settingsFile.getBooleanProperty("CAM", true);
 
     //Example of ShuffleboardTab setup.
-    // private ShuffleboardTab dashboardTab = Shuffleboard.getTab("Dashboard");
-    // private ShuffleboardTab outputTab = Shuffleboard.getTab("Output");
+    //private ShuffleboardTab dashboardTab = Shuffleboard.getTab("Dashboard");
+    //private ShuffleboardTab outputTab = Shuffleboard.getTab("Output");
 
     //NetworkTableEntry LOW_GEAR_TURN_THRESHOLD_ENTRY;
     //NetworkTableEntry LOW_GEAR_SPEED_THRESHOLD_ENTRY;
@@ -88,14 +90,14 @@ public class Settings {
      * needs to be updated at initialization.
      */
     public void ShuffleInit() {
-        // UsbCamera camera1 = CameraServer.getInstance().startAutomaticCapture("Microsoft LifeCam HD-3000", 0);
+        //UsbCamera camera1 = CameraServer.getInstance().startAutomaticCapture("Microsoft LifeCam HD-3000", 0);
 
-        // camera1.setResolution(320, 240);
-        // camera1.setFPS(30);
-            // dashboardTab.add(camera1);
+        //camera1.setResolution(320, 240);
+        //camera1.setFPS(30);
+            //dashboardTab.add(camera1);
             //dashboardTab.add(teleop.drive.driveTrain);
 
-        // DRIVE_DIRECTION_ENTRY = dashboardTab.addPersistent("Drive Direction", true).getEntry();
+        //DRIVE_DIRECTION_ENTRY = dashboardTab.addPersistent("Drive Direction", true).getEntry();
 
     }
 
