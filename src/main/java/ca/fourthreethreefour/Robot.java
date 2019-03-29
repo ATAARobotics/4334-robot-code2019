@@ -9,14 +9,8 @@ package ca.fourthreethreefour;
 
 import ca.fourthreethreefour.autonomous.Auto;
 import ca.fourthreethreefour.teleop.Teleop;
-import ca.fourthreethreefour.vision.Vision;
-import ca.fourthreethreefour.vision.exceptions.visionErrorException;
-import ca.fourthreethreefour.vision.exceptions.visionTargetDetectionException;
 import ca.fourthreethreefour.shuffleboard.Settings;
-import ca.fourthreethreefour.teleop.Teleop;
 import ca.fourthreethreefour.teleop.systems.Encoders;
-import ca.fourthreethreefour.teleop.systems.Ultrasonics;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 /**

@@ -37,13 +37,13 @@ public class Vision {
     public Relay ledRelay = new Relay(2);
 
     // Creates Teleop Object
-    private Teleop teleop;
+    public Teleop teleop;
 
     // Creates Encoders Object
     private Encoders encoders;
 
     // Creates Hatch Object
-    private Hatch hatch;
+    public Hatch hatch;
 
     // Initializes Ultrasonics Object
     //private Ultrasonics ultrasonics = new Ultrasonics();

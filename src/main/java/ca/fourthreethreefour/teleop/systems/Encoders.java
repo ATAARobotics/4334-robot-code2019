@@ -2,7 +2,7 @@ package ca.fourthreethreefour.teleop.systems;
 
 import com.kauailabs.navx.frc.AHRS;
 import ca.fourthreethreefour.commands.debug.Logging;
-import ca.fourthreethreefour.shuffleboard.Settings;
+//import ca.fourthreethreefour.shuffleboard.Settings;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
@@ -13,8 +13,8 @@ import edu.wpi.first.wpilibj.DriverStation;
 
 public class Encoders {
 
-    public int hatchPotentiometerOffset = -30; //TODO: Set Potentiometer Offset
-    public int hatchPotentiometerRange = 60; //TODO: Set Potentiometer Range
+    public int hatchPotentiometerOffset = -30;
+    public int hatchPotentiometerRange = 60;
 
 
     // public static double potentiometerOffset = -1445;

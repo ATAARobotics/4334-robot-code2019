@@ -10,7 +10,6 @@ package ca.fourthreethreefour.teleop.intake;
 import ca.fourthreethreefour.commands.ReverseSolenoid;
 import ca.fourthreethreefour.commands.SetSolenoid;
 import ca.fourthreethreefour.shuffleboard.Settings;
-import ca.fourthreethreefour.teleop.*;
 import ca.fourthreethreefour.teleop.systems.Encoders;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.VictorSP;
@@ -25,7 +24,7 @@ public class Hatch extends Subsystem {
 
   public PIDSubsystem hatchAlignPID;
   private Boolean isMoveEnabled;
-  private Encoders encoders;
+  public Encoders encoders;
 
   public Hatch(Encoders encoders){
 
