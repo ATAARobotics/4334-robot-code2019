@@ -60,6 +60,7 @@ public class Settings {
 
     static public int ARM_POTENTIOMETER_RANGE = settingsFile.getIntProperty("ARM_POTENTIOMETER_RANGE", 1800);
     static public int ARM_POTENTIOMETER_OFFSET = settingsFile.getIntProperty("ARM_POTENTIOMETER_OFFSET", -328);
+    static public int HATCH_POTENTIOMETER_OFFSET = settingsFile.getIntProperty("HATCH_POTENTIOMETER_OFFSET", 0);
     static public int ARM_PID_TOLERANCE = settingsFile.getIntProperty("ARM_PID_TOLERANCE", 2);
     static public int ARM_PID_HATCH_SETPOINT = settingsFile.getIntProperty("ARM_PID_HATCH_SETPOINT", 90);
     static public int ARM_PID_SHOOTING_SETPOINT = settingsFile.getIntProperty("ARM_PID_SHOOTING_SETPOINT", 110);
@@ -118,6 +119,7 @@ public class Settings {
         LOW_GEAR_THRESHOLD = settingsFile.getDoubleProperty("LOW_GEAR_THRESHOLD", 0.1);
 
         ARM_POTENTIOMETER_OFFSET = settingsFile.getIntProperty("ARM_POTENTIOMETER_OFFSET", -328);
+        HATCH_POTENTIOMETER_OFFSET = settingsFile.getIntProperty("HATCH_POTENTIOMETER_OFFSET", 0);
 
         BALL_VELOCITY_METERS_PER_SECOND = settingsFile.getDoubleProperty("BALL_VELOCITY_METERS_PER_SECOND", 43.34);
         ROCKET_EQUATION_CORRECTION = settingsFile.getDoubleProperty("ROCKET_EQUATION_CORRECTION", 0);
