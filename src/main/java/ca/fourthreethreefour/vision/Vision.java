@@ -32,7 +32,7 @@ public class Vision {
             .getEntry();
 
     // Creates object for LedRing Relay
-    public Relay ledRelay = new Relay(0);
+    public Relay ledRelay = new Relay(2);
 
     // Creates Teleop Object
     private Teleop teleop;
@@ -50,7 +50,7 @@ public class Vision {
     NetworkTable table = inst.getTable("datatable");
 
     //Initialize VisionAssist PID Objects
-    private PIDSubsystem visionAlignPID;
+    public PIDSubsystem visionAlignPID;
 
     public boolean PIDEnabled = false;
     boolean isEnabled;
@@ -112,7 +112,7 @@ public class Vision {
         VISION_ACTIVE_ENTRY_SHUFFLE.setBoolean(true);
         //Enabled Relay for LED Ring
         ledRelay.set(Value.kOn);
-        ledRelay.set(Value.kReverse);
+        ledRelay.set(Value.kForward);
 
         //Attempts to ping RaspberryPi to verify connection
         if(!piOnline()){

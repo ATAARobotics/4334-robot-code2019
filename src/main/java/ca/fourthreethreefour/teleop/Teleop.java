@@ -50,8 +50,8 @@ public class Teleop {
   // private Arm armPIDRight;
   public Drive drive = new Drive();
   public Ultrasonics ultrasonics = new Ultrasonics();
-  private Vision vision = new Vision(this);
-  private VisionAllignment visionAllignment = new VisionAllignment(this.vision, this, this.driver, this.drive);
+  public Vision vision = new Vision(this);
+  public VisionAllignment visionAllignment = new VisionAllignment(this.vision, this, this.driver, this.drive);
   private ShootingAimShip shootingAlign = new ShootingAimShip(this, this.ultrasonics, this.arm);
   
   public static boolean cargoOuttake;
