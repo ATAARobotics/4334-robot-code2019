@@ -24,7 +24,7 @@ public class Encoders {
 
     // public static double potentiometerOffset = -1445;
     private double hatchPotentiometerOffset = -5.6;
-    private int hatchPotentiometerScale = 60; //Todo: Tune scale
+    private int hatchPotentiometerScale = 6000; //Todo: Tune scale
 
     public DigitalInput cargoButton = new DigitalInput(Settings.CARGO_BUTTON_DIGITAL_PORT);
     public DigitalInput armInnerLimitSwitch = new DigitalInput(Settings.ARM_INNER_LIMITSWITCH_DIGITAL_PORT);
@@ -45,16 +45,14 @@ public class Encoders {
     }
 
     public double hatchPotentiometerGet() {
-        return hatchPotentiometer.get() + hatchPotentiometerOffset;
+        return hatchPotentiometer.get() + Settings.HATCH_POTENTIOMETER_OFFSET;
     }
 
-    public void printArmPotentiometer() {
-        Logging.log("Arm Potentiometer Value" + armPotentiometerGet());
+    public void printPotentiometer() {
+        // Logging.log("Arm Potentiometer Value" + armPotentiometerGet() + "   Hatch Potentiometer Value" + hatchPotentiometerGet());
+        Logging.logf("Arm Potentiometer Value: %4.2f Hatch Potentiometer Value: %.2f", armPotentiometerGet(), hatchPotentiometerGet());
     }
 
-    public void printHatchPotentiometer() {
-        Logging.log("Hatch Potentiometer Value" + hatchPotentiometerGet());
-    }
 
     public AHRS navX;
 
