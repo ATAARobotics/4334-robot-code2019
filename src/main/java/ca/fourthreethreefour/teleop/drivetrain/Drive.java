@@ -5,13 +5,15 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import ca.fourthreethreefour.commands.ReverseSolenoid;
 import ca.fourthreethreefour.commands.SetSolenoid;
 import ca.fourthreethreefour.settings.Settings;
+import ca.fourthreethreefour.commands.debug.Logging;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 public class Drive extends Subsystem {
 
@@ -30,7 +32,7 @@ public class Drive extends Subsystem {
     public Value gearHigh = Value.kForward;
 
     public Boolean ignoreController = false;
-    
+
 
   @Override
   public void initDefaultCommand() {
@@ -44,7 +46,10 @@ public class Drive extends Subsystem {
    * @return void
    */
   public void drive(XboxController controller, boolean cargoOuttake) {
-    
+    // //Calls the arcadeDrive class in teleop
+    // double leftSpeed = controller.getRawAxis(1) - controller.getRawAxis(4);
+    // double rightSpeed = controller.getRawAxis(1) + controller.getRawAxis(4);
+    // driveTrain.tankDrive(leftSpeed, rightSpeed);
     double speed = Math.abs(controller.getY(Hand.kLeft)) > 0.05 ? controller.getY(Hand.kLeft) : 0,
       turn = Math.abs(controller.getX(Hand.kRight)) > 0.05 ? -controller.getX(Hand.kRight) : 0;
     speed = speed * Settings.DRIVE_SPEED;
