@@ -1,15 +1,14 @@
 package ca.fourthreethreefour.settings;
 
 import java.io.File;
-//import java.util.Map;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 //import ca.fourthreethreefour.teleop.Teleop;
-//import edu.wpi.cscore.UsbCamera;
-//import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.Timer;
+//import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+//import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 /**
  * Settings class that contains all shuffleboard required code so it's all in a 
@@ -96,9 +95,9 @@ public class Settings {
 
     static public NetworkTableEntry DRIVE_DIRECTION_ENTRY;
     
-    // static private ShuffleboardTab dynamicSettingsTab = Shuffleboard.getTab("Competition");
-    // static public NetworkTableEntry HALL_EFFECT_LEFT = dynamicSettingsTab.addPersistent("Hall Effect Left", false).getEntry();
-    // static public NetworkTableEntry HALL_EFFECT_RIGHT = dynamicSettingsTab.addPersistent("Hall Effect Right", false).getEntry();
+    //static private ShuffleboardTab dynamicSettingsTab = Shuffleboard.getTab("Competition");
+    //static public NetworkTableEntry HALL_EFFECT_LEFT = dynamicSettingsTab.addPersistent("Hall Effect Left", false).getEntry();
+    //static public NetworkTableEntry HALL_EFFECT_RIGHT = dynamicSettingsTab.addPersistent("Hall Effect Right", false).getEntry();
 
     /**
      * Creates the specified objects for shuffleboard, and updates the variables that only

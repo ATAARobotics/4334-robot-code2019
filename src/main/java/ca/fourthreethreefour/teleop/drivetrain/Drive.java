@@ -18,7 +18,7 @@ public class Drive extends Subsystem {
   // Creates and initializes solenoid and motor objects and
   // assigns them to their respective ports on the robot
   public DoubleSolenoid gearShiftSolenoid = new DoubleSolenoid(Settings.GEAR_SOLENOID_PORT_1,
-      Settings.GEAR_SOLENOID_PORT_2); // may need to add another solenoid, there is two gearboxes after all.
+      Settings.GEAR_SOLENOID_PORT_2);
   private WPI_TalonSRX rearLeftMotor = new WPI_TalonSRX(Settings.REAR_LEFT_MOTOR_PORT);
   private WPI_TalonSRX frontLeftMotor = new WPI_TalonSRX(Settings.FRONT_LEFT_MOTOR_PORT);
   private WPI_TalonSRX rearRightMotor = new WPI_TalonSRX(Settings.REAR_RIGHT_MOTOR_PORT);
