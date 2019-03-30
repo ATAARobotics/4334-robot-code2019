@@ -58,6 +58,8 @@ public class Teleop {
   
   public static boolean cargoOuttake;
 
+  public double middleSetpointHatch = 31;
+
   public void RobotInit() {
     ultrasonics.enable();
     ultrasonics.ultrasonicPollingThread();
@@ -97,8 +99,7 @@ public class Teleop {
     drive.drive(driver, cargoOuttake);
 
     // System.out.println(arm.returnPIDInput());
-    encoders.printArmPotentiometer();
-    encoders.printHatchPotentiometer();
+    encoders.printPotentiometer();
     // Logging.log("PID: " + arm.returnPIDInput());
     // double intakeSpeed = driver.getTriggerAxis(Hand.kRight) - driver.getTriggerAxis(Hand.kLeft);
     // if (Math.abs(intakeSpeed) > 0.05) {
@@ -108,13 +109,13 @@ public class Teleop {
     // };
 
     if (driver.getTriggerAxis(Hand.kLeft) > 0.05) {
-      cargo.cargoOuttake(driver.getTriggerAxis(Hand.kLeft));
+      cargo.cargoOuttake(driver.getTriggerAxis(Hand.kLeft)*Settings.INTAKE_ROTATE_SPEED);
       mechanum.mechanumRoller(-driver.getTriggerAxis(Hand.kLeft));
     } else if (driver.getTriggerAxis(Hand.kRight) > 0.05 /* && encoders.cargoButton.get() */) {
-      if (encoders.cargoButton.get()) {
+      // if (encoders.cargoButton.get()) {
         cargo.cargoTransfer(driver.getTriggerAxis(Hand.kRight));
         mechanum.mechanumRoller(driver.getTriggerAxis(Hand.kRight));
-      }
+      // }
       if (!encoders.cargoButton.get()) {
       //           armPIDSetpoint = armPIDCargoOuttakeSetpoint + 1;
       //           armPIDLeft.setSetpoint(armPIDSetpoint);
@@ -160,9 +161,15 @@ public class Teleop {
       mechanum.mechanumShift();
     }
 
-    if (encoders.armPotentiometerGet() < 87) {
-      // sideWinder.setSetpoint(setpoint);
-      // sideWinder.enable();
+    if (!encoders.hatchHallEffectRight.get()) {
+      Settings.HATCH_POTENTIOMETER_OFFSET -= encoders.hatchPotentiometerGet();
+      middleSetpointHatch = encoders.hatchPotentiometerGet() + 29;
+
+    }
+
+    if ((encoders.armPotentiometerGet() < 90) || (driver.getPOV() == 270)) {
+      sideWinder.setSetpoint(middleSetpointHatch);
+      sideWinder.enable();
     } else if (driver.getXButton() && encoders.hatchHallEffectRight.get()) {
       if (sideWinder.isEnabled()) {
         sideWinder.disable();
@@ -237,7 +244,11 @@ public class Teleop {
             shootingAlign.cancel();
           }
           arm.disable();
-          // Settings.ARM_POTENTIOMETER_OFFSET += encoders.potentiometerGet();
+      }
+
+      if (!encoders.armInnerLimitSwitch.get()) {
+        Settings.ARM_POTENTIOMETER_OFFSET -= (encoders.armPotentiometerGet() - 13);
+        System.out.println("BUTTON HIT");
       }
 
     //Toggle Green Vision LED

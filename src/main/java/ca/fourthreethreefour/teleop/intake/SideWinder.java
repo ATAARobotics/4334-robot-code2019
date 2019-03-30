@@ -25,7 +25,7 @@ public class SideWinder extends PIDSubsystem {
 
   public SideWinder(Encoders encoders, Hatch hatch) {
     // Intert a subsystem name and PID values here
-    super("SideWinder", 0.01, 0, 0);
+    super("SideWinder", 0.017, 0, 0);
     this.encoders = encoders;
     this.hatch = hatch;
     // Use these to get going:
@@ -37,8 +37,7 @@ public class SideWinder extends PIDSubsystem {
   @Override
   public void initDefaultCommand() {
     super.setAbsoluteTolerance(0.0);
-    super.setOutputRange(-0.2, 0.2);
-    super.setInputRange(-30, 30);
+    // super.setOutputRange(-0.5, 0.5);
   }
 
   @Override
@@ -79,6 +78,14 @@ public class SideWinder extends PIDSubsystem {
   protected void usePIDOutput(double output) {
     // Use output to drive your system, like a motor
     // e.g. yourMotor.set(output);
-    hatch.hatchSet(output);
+
+    // To ensure that if its moving one direction that direction' sensor isn't pressed yet
+    if (encoders.hatchHallEffectLeft.get() && output >= 0) {
+      hatch.hatchSet(-output);
+    } else if (encoders.hatchHallEffectRight.get() && output <= 0) {
+      hatch.hatchSet(-output);
+    } else {
+      hatch.hatchSet(0);
+    }
   }
 }
