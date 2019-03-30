@@ -8,6 +8,7 @@
 package ca.fourthreethreefour.autonomous.commands;
 
 import ca.fourthreethreefour.autonomous.Equations;
+import ca.fourthreethreefour.commands.debug.Logging;
 import ca.fourthreethreefour.settings.Settings;
 import ca.fourthreethreefour.teleop.Teleop;
 import ca.fourthreethreefour.teleop.intake.Arm;
@@ -38,7 +39,7 @@ public class ShootingAimRocket extends Command {
       arm.setSetpoint(180 - new Equations().shootRocketFormula(distance) + Settings.ROCKET_EQUATION_CORRECTION);
     } else {
       arm.setSetpoint(Settings.ARM_PID_SHOOTING_SETPOINT);
-      System.out.println("Shooting Align Canceled. Distance off");
+      Logging.log("Shooting Align Canceled. Distance off");
     }
   }
 

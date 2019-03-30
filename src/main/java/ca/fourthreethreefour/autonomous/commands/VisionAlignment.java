@@ -16,14 +16,14 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class VisionAllignment extends Command {
+public class VisionAlignment extends Command {
   Vision vision;
   Teleop teleop;
   GenericHID driver;
   Drive drive;
   boolean visionAligned = false;
 
-  public VisionAllignment(Vision vision, Teleop teleop, GenericHID driver, Drive drive) {
+  public VisionAlignment(Vision vision, Teleop teleop, GenericHID driver, Drive drive) {
     this.vision = vision;
     this.teleop = teleop;
     this.driver = driver;
