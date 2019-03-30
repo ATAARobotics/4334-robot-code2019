@@ -1,7 +1,7 @@
 package ca.fourthreethreefour.teleop;
 
 import ca.fourthreethreefour.autonomous.commands.ShootingAimShip;
-import ca.fourthreethreefour.autonomous.commands.VisionAllignment;
+import ca.fourthreethreefour.autonomous.commands.VisionAlignment;
 import ca.fourthreethreefour.commands.debug.Logging;
 import ca.fourthreethreefour.settings.Settings;
 import ca.fourthreethreefour.teleop.drivetrain.Drive;
@@ -51,7 +51,7 @@ public class Teleop {
   public Drive drive = new Drive();
   public Ultrasonics ultrasonics = new Ultrasonics();
   public Vision vision = new Vision(this);
-  public VisionAllignment visionAllignment = new VisionAllignment(this.vision, this, this.driver, this.drive);
+  public VisionAlignment visionAllignment = new VisionAlignment(this.vision, this, this.driver, this.drive);
   private ShootingAimShip shootingAlign = new ShootingAimShip(this, this.ultrasonics, this.arm);
   
   public static boolean cargoOuttake;
