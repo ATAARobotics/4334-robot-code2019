@@ -3,6 +3,8 @@ package ca.fourthreethreefour.settings;
 import java.io.File;
 //import java.util.Map;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
 //import ca.fourthreethreefour.teleop.Teleop;
 //import edu.wpi.cscore.UsbCamera;
 //import edu.wpi.first.cameraserver.CameraServer;
@@ -92,10 +94,10 @@ public class Settings {
      * needs to be updated at initialization.
      */
     public void ShuffleInit() {
-        //UsbCamera camera1 = CameraServer.getInstance().startAutomaticCapture("Microsoft LifeCam HD-3000", 0);
+        UsbCamera camera1 = CameraServer.getInstance().startAutomaticCapture("Microsoft LifeCam HD-3000", 0);
 
-        //camera1.setResolution(320, 240);
-        //camera1.setFPS(30);
+        camera1.setResolution(320, 240);
+        camera1.setFPS(30);
             //dashboardTab.add(camera1);
             //dashboardTab.add(teleop.drive.driveTrain);
 
@@ -120,7 +122,7 @@ public class Settings {
         BALL_VELOCITY_METERS_PER_SECOND = settingsFile.getDoubleProperty("BALL_VELOCITY_METERS_PER_SECOND", 43.34);
         ROCKET_EQUATION_CORRECTION = settingsFile.getDoubleProperty("ROCKET_EQUATION_CORRECTION", 0);
         SHIP_EQUATION_CORRECTION = settingsFile.getDoubleProperty("SHIP_EQUATION_CORRECTION", 0);
-        
+
         CAM_TURN = settingsFile.getBooleanProperty("CAM", true);
         //LOW_GEAR_TURN_THRESHOLD = LOW_GEAR_SPEED_THRESHOLD_ENTRY.getDouble(0.25);
     }
