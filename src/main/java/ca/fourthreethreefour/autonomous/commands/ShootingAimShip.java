@@ -7,7 +7,7 @@
 
 package ca.fourthreethreefour.autonomous.commands;
 
-import ca.fourthreethreefour.autonomous.Equations;
+//import ca.fourthreethreefour.autonomous.Equations;
 import ca.fourthreethreefour.commands.debug.Logging;
 import ca.fourthreethreefour.settings.Settings;
 import ca.fourthreethreefour.teleop.Teleop;
@@ -41,7 +41,7 @@ public class ShootingAimShip extends Command {
       // System.out.println(180 - new Equations().shootShipFormula(distance));
     // } else {
       arm.setSetpoint(Settings.ARM_PID_SHOOTING_SETPOINT);
-      Logging.log("Shooting Align Canceled. Distance off");
+      Logging.log("Shooting Align Cancelled. Distance off");
     // }
   }
 
