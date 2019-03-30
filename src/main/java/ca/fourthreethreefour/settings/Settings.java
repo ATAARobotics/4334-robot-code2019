@@ -36,19 +36,22 @@ public class Settings {
     static public int FRONT_RIGHT_MOTOR_PORT = settingsFile.getIntProperty("FRONT_RIGHT_MOTOR_PORT", 2);
     static public int REAR_RIGHT_MOTOR_PORT = settingsFile.getIntProperty("REAR_RIGHT_MOTOR_PORT", 3);
 
-    static public int CARGO_OUTTAKE_LEFT_PORT = settingsFile.getIntProperty("CARGO_OUTTAKE_LEFT_PORT", 0);
-    static public int CARGO_OUTTAKE_RIGHT_PORT = settingsFile.getIntProperty("CARGO_OUTTAKE_RIGHT_PORT", 1);
+    static public int CARGO_OUTTAKE_LEFT_PORT = settingsFile.getIntProperty("CARGO_OUTTAKE_LEFT_PORT", 1);
+    static public int CARGO_OUTTAKE_RIGHT_PORT = settingsFile.getIntProperty("CARGO_OUTTAKE_RIGHT_PORT", 0);
     static public int INTAKE_ROTATE_PORT_1 = settingsFile.getIntProperty("INTAKE_ROTATE_PORT_1", 2);
     static public int INTAKE_ROTATE_PORT_2 = settingsFile.getIntProperty("INTAKE_ROTATE_PORT_2", 3);
     static public int MECHANUM_MOTOR_PORT = settingsFile.getIntProperty("MECHANUM_MOTOR_PORT", 4);
 
-    static public int CARGO_BUTTON_DIGITAL_PORT = settingsFile.getIntProperty("CARGO_BUTTON_DIGITAL_PORT", 0);
-    static public int ARM_INNER_LIMITSWITCH_DIGITAL_PORT = settingsFile.getIntProperty("ARM_INNER_LIMITSWITCH_DIGITAL_PORT", 2);
+    static public int CARGO_BUTTON_DIGITAL_PORT = settingsFile.getIntProperty("CARGO_BUTTON_DIGITAL_PORT", 3);
+    static public int ARM_INNER_LIMITSWITCH_DIGITAL_PORT = settingsFile.getIntProperty("ARM_INNER_LIMITSWITCH_DIGITAL_PORT", 5);
+    static public int HALL_EFFECT_LEFT_DIGITAL_PORT = settingsFile.getIntProperty("HALL_EFFECT_LEFT_DIGITAL_PORT", 0);
+    static public int HALL_EFFECT_RIGHT_DIGITAL_PORT = settingsFile.getIntProperty("HALL_EFFECT_RIGHT_DIGITAL_PORT", 1);
 
     static public int ARM_POTENTIOMETER_ANALOG_PORT = settingsFile.getIntProperty("ARM_POTENTIOMETER_ANALOG_PORT", 1);
+    static public int HATCH_POTENTIOMETER_ANALOG_PORT = settingsFile.getIntProperty("HATCH_POTENTIOMETER_ANALOG_PORT", 2);
 
-    static public int GEAR_SOLENOID_PORT_1 = settingsFile.getIntProperty("GEAR_SOLENOID_PORT_1", 1);
-    static public int GEAR_SOLENOID_PORT_2 = settingsFile.getIntProperty("GEAR_SOLENOID_PORT_2", 0);
+    static public int GEAR_SOLENOID_PORT_1 = settingsFile.getIntProperty("GEAR_SOLENOID_PORT_1", 0);
+    static public int GEAR_SOLENOID_PORT_2 = settingsFile.getIntProperty("GEAR_SOLENOID_PORT_2", 1);
 
     static public int HATCH_SOLENOID_PORT_1 = settingsFile.getIntProperty("HATCH_SOLENOID_PORT_1", 2);
     static public int HATCH_SOLENOID_PORT_2 = settingsFile.getIntProperty("HATCH_SOLENOID_PORT_2", 3);
@@ -59,19 +62,25 @@ public class Settings {
     static public boolean REVERSABLE_CONTROLS = settingsFile.getBooleanProperty("REVERSABLE_CONTROLS", false);
 
     static public int ARM_POTENTIOMETER_RANGE = settingsFile.getIntProperty("ARM_POTENTIOMETER_RANGE", 1800);
-    static public int ARM_POTENTIOMETER_OFFSET = settingsFile.getIntProperty("ARM_POTENTIOMETER_OFFSET", -328);
-    static public int HATCH_POTENTIOMETER_OFFSET = settingsFile.getIntProperty("HATCH_POTENTIOMETER_OFFSET", 0);
+    static public int ARM_POTENTIOMETER_OFFSET = settingsFile.getIntProperty("ARM_POTENTIOMETER_OFFSET", -642);
+    static public int ARM_POTENTIOMETER_BASE = settingsFile.getIntProperty("ARM_POTENTIOMETER_BASE", 13);
     static public int ARM_PID_TOLERANCE = settingsFile.getIntProperty("ARM_PID_TOLERANCE", 2);
     static public int ARM_PID_HATCH_SETPOINT = settingsFile.getIntProperty("ARM_PID_HATCH_SETPOINT", 90);
     static public int ARM_PID_SHOOTING_SETPOINT = settingsFile.getIntProperty("ARM_PID_SHOOTING_SETPOINT", 110);
-    static public int ARM_PID_GROUND_SETPOINT = settingsFile.getIntProperty("ARM_PID_GROUND_SETPOINT", 160);
+    static public int ARM_PID_GROUND_SETPOINT = settingsFile.getIntProperty("ARM_PID_GROUND_SETPOINT", 155);
     static public int ARM_PID_INTAKE_SETPOINT = settingsFile.getIntProperty("ARM_PID_INTAKE_SETPOINT", 10);
+
+    static public int HATCH_ARM_PID_THRESHOLD = settingsFile.getIntProperty("HATCH_ARM_PID_THRESHOLD", 89);
+
+    static public int HATCH_POTENTIOMETER_RANGE = settingsFile.getIntProperty("HATCH_POTENTIOMETER_RANGE", 600);
+    static public int HATCH_POTENTIOMETER_OFFSET = settingsFile.getIntProperty("HATCH_POTENTIOMETER_OFFSET", -544);
+    static public int HATCH_PID_MIDDLE_SETPOINT = settingsFile.getIntProperty("HATCH_PID_MIDDLE_SETPOINT", 29);
 
     static public double DRIVE_SPEED = settingsFile.getDoubleProperty("DRIVE_SPEED", 1);
     static public double CAM_SPEED = settingsFile.getDoubleProperty("TURN_SPEED", 0.8);
     static public double TURN_BASE = settingsFile.getDoubleProperty("TURN_BASE", 0.7);
     static public double TURN_EXPONENT = settingsFile.getDoubleProperty("TURN_EXPONENT", 4);
-    static public double INTAKE_ROTATE_SPEED = settingsFile.getDoubleProperty("INTAKE_ROTATE_SPEED", 1);
+    static public double INTAKE_ROTATE_SPEED = settingsFile.getDoubleProperty("INTAKE_ROTATE_SPEED", 0.6);
     static public double LOW_GEAR_THRESHOLD = settingsFile.getDoubleProperty("LOW_GEAR_THRESHOLD", 0.1);
 
     static public double BALL_VELOCITY_METERS_PER_SECOND = settingsFile.getDoubleProperty("BALL_VELOCITY_METERS_PER_SECOND", 43.34);
@@ -115,11 +124,11 @@ public class Settings {
         CAM_SPEED = settingsFile.getDoubleProperty("TURN_SPEED", 0.8); // Custom speed for Cam.
         TURN_BASE = settingsFile.getDoubleProperty("TURN_BASE", 0.7);
         TURN_EXPONENT = settingsFile.getDoubleProperty("TURN_EXPONENT", 4);
-        INTAKE_ROTATE_SPEED = settingsFile.getDoubleProperty("INTAKE_ROTATE_SPEED", 1);
+        INTAKE_ROTATE_SPEED = settingsFile.getDoubleProperty("INTAKE_ROTATE_SPEED", 0.6);
         LOW_GEAR_THRESHOLD = settingsFile.getDoubleProperty("LOW_GEAR_THRESHOLD", 0.1);
 
-        ARM_POTENTIOMETER_OFFSET = settingsFile.getIntProperty("ARM_POTENTIOMETER_OFFSET", -328);
-        HATCH_POTENTIOMETER_OFFSET = settingsFile.getIntProperty("HATCH_POTENTIOMETER_OFFSET", 0);
+        ARM_POTENTIOMETER_OFFSET = settingsFile.getIntProperty("ARM_POTENTIOMETER_OFFSET", -642);
+        HATCH_POTENTIOMETER_OFFSET = settingsFile.getIntProperty("HATCH_POTENTIOMETER_OFFSET", -544);
 
         BALL_VELOCITY_METERS_PER_SECOND = settingsFile.getDoubleProperty("BALL_VELOCITY_METERS_PER_SECOND", 43.34);
         ROCKET_EQUATION_CORRECTION = settingsFile.getDoubleProperty("ROCKET_EQUATION_CORRECTION", 0);

@@ -58,7 +58,7 @@ public class Teleop {
   
   public static boolean cargoOuttake;
 
-  public double middleSetpointHatch = 31;
+  public double middleSetpointHatch = Settings.HATCH_PID_MIDDLE_SETPOINT;
 
   public void RobotInit() {
     ultrasonics.enable();
@@ -163,11 +163,11 @@ public class Teleop {
 
     if (!encoders.hatchHallEffectRight.get()) {
       Settings.HATCH_POTENTIOMETER_OFFSET -= encoders.hatchPotentiometerGet();
-      middleSetpointHatch = encoders.hatchPotentiometerGet() + 29;
+      middleSetpointHatch = encoders.hatchPotentiometerGet() + Settings.HATCH_PID_MIDDLE_SETPOINT;
 
     }
 
-    if ((encoders.armPotentiometerGet() < 90) || (driver.getPOV() == 270)) {
+    if ((encoders.armPotentiometerGet() < Settings.HATCH_ARM_PID_THRESHOLD) || (driver.getPOV() == 270)) {
       sideWinder.setSetpoint(middleSetpointHatch);
       sideWinder.enable();
     } else if (driver.getXButton() && encoders.hatchHallEffectRight.get()) {
@@ -180,10 +180,7 @@ public class Teleop {
         sideWinder.disable();
       }
       hatch.hatchSet(-0.2);
-    } else {
-      if (sideWinder.isEnabled()) {
-        sideWinder.disable();
-      }
+    } else if (!sideWinder.isEnabled()) {
       hatch.hatchSet(0);
     }
     
@@ -247,7 +244,7 @@ public class Teleop {
       }
 
       if (!encoders.armInnerLimitSwitch.get()) {
-        Settings.ARM_POTENTIOMETER_OFFSET -= (encoders.armPotentiometerGet() - 13);
+        Settings.ARM_POTENTIOMETER_OFFSET -= (encoders.armPotentiometerGet() - Settings.ARM_POTENTIOMETER_BASE);
         System.out.println("BUTTON HIT");
       }
 
