@@ -11,25 +11,18 @@ import ca.fourthreethreefour.teleop.intake.Hatch;
 import ca.fourthreethreefour.teleop.intake.Mechanum;
 import ca.fourthreethreefour.teleop.intake.SideWinder;
 import ca.fourthreethreefour.teleop.systems.Encoders;
-import ca.fourthreethreefour.vision.exceptions.visionErrorException;
-import ca.fourthreethreefour.vision.exceptions.visionTargetDetectionException;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
-import edu.wpi.first.wpilibj.Relay;
-import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
-import ca.fourthreethreefour.commands.debug.Logging;
-import ca.fourthreethreefour.teleop.drivetrain.Drive;
 import ca.fourthreethreefour.teleop.systems.Ultrasonics;
 import ca.fourthreethreefour.vision.Vision;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+//import ca.fourthreethreefour.vision.exceptions.visionErrorException;
+//import ca.fourthreethreefour.vision.exceptions.visionTargetDetectionException;
+import edu.wpi.first.wpilibj.Relay;
+//import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.XboxController;
 //import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.Relay;
-import edu.wpi.first.wpilibj.XboxController;
 
 public class Teleop {
 
