@@ -8,6 +8,7 @@
 package ca.fourthreethreefour.autonomous.commands;
 
 import ca.fourthreethreefour.autonomous.Equations;
+import ca.fourthreethreefour.commands.debug.Logging;
 import ca.fourthreethreefour.settings.Settings;
 import ca.fourthreethreefour.teleop.Teleop;
 import ca.fourthreethreefour.teleop.intake.Arm;
@@ -34,14 +35,14 @@ public class ShootingAimShip extends Command {
   @Override
   protected void initialize() {
     double distance = (ultrasonics.getUltrasonicFrontLeftValue() + ultrasonics.getUltrasonicFrontRightValue())/2;
-    if (distance < 3 && distance >= 0) {
+    // if (distance < 3 && distance >= 0) {
       // arm.setSetpoint(180 - new Equations().shootShipFormula(distance) + Settings.SHIP_EQUATION_CORRECTION);
       // System.out.println(distance);
       // System.out.println(180 - new Equations().shootShipFormula(distance));
-    } else {
+    // } else {
       arm.setSetpoint(Settings.ARM_PID_SHOOTING_SETPOINT);
-      System.out.println("Shooting Align Canceled. Distance off");
-    }
+      Logging.log("Shooting Align Canceled. Distance off");
+    // }
   }
 
   // Called repeatedly when this Command is scheduled to run
