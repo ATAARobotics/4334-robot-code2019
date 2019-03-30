@@ -10,9 +10,11 @@ import edu.wpi.first.cameraserver.CameraServer;
 //import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 //import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 //import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 //import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 /**
  * Settings class that contains all shuffleboard required code so it's all in a 
@@ -98,6 +100,10 @@ public class Settings {
     //static public double LOW_GEAR_TURN_THRESHOLD;
 
     static public NetworkTableEntry DRIVE_DIRECTION_ENTRY;
+    
+    // static private ShuffleboardTab dynamicSettingsTab = Shuffleboard.getTab("Competition");
+    // static public NetworkTableEntry HALL_EFFECT_LEFT = dynamicSettingsTab.addPersistent("Hall Effect Left", false).getEntry();
+    // static public NetworkTableEntry HALL_EFFECT_RIGHT = dynamicSettingsTab.addPersistent("Hall Effect Right", false).getEntry();
 
     /**
      * Creates the specified objects for shuffleboard, and updates the variables that only
@@ -129,6 +135,8 @@ public class Settings {
 
         ARM_POTENTIOMETER_OFFSET = settingsFile.getIntProperty("ARM_POTENTIOMETER_OFFSET", -642);
         HATCH_POTENTIOMETER_OFFSET = settingsFile.getIntProperty("HATCH_POTENTIOMETER_OFFSET", -544);
+
+        HATCH_ARM_PID_THRESHOLD = settingsFile.getIntProperty("HATCH_ARM_PID_THRESHOLD", 89);
 
         BALL_VELOCITY_METERS_PER_SECOND = settingsFile.getDoubleProperty("BALL_VELOCITY_METERS_PER_SECOND", 43.34);
         ROCKET_EQUATION_CORRECTION = settingsFile.getDoubleProperty("ROCKET_EQUATION_CORRECTION", 0);
