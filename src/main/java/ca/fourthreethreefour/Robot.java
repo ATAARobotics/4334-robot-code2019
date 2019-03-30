@@ -58,6 +58,7 @@ public class Robot extends TimedRobot {
   public void disabledInit() {
     teleop.arm.disable();
     teleop.vision.visionAlignPID.disable();
+    teleop.sideWinder.disable();
   }
   
   /**

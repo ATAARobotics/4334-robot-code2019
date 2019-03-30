@@ -13,43 +13,32 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
 /**
  * Add your docs here.
  */
-public class Arm extends PIDSubsystem {
-
-  Encoders encoders;
-  Cargo arm;
-  boolean isEnabled;
-  double setpoint;
-
+public class SideWinder extends PIDSubsystem {
   /**
    * Add your docs here.
    */
-  public Arm(Encoders encoders, Cargo cargo) {
-    // Insert a subsystem name and PID values here
-    super("ArmRotate", 0.05, 0, 0);
+
+  boolean isEnabled;
+  double setpoint;
+  Encoders encoders;
+  Hatch hatch;
+
+  public SideWinder(Encoders encoders, Hatch hatch) {
+    // Intert a subsystem name and PID values here
+    super("SideWinder", 0.01, 0, 0);
     this.encoders = encoders;
-    this.arm = cargo;
+    this.hatch = hatch;
     // Use these to get going:
     // setSetpoint() - Sets where the PID controller should move the system
     // to
     // enable() - Enables the PID controller.
   }
 
-  public void setP(int p) {
-    super.getPIDController().setP(p);
-  }
-
-  public void setI(int i) {
-    super.getPIDController().setI(i);
-  }
-
-  public void setD(int d) {
-    super.getPIDController().setD(d);
-  }
-
   @Override
   public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
+    super.setAbsoluteTolerance(0.0);
+    super.setOutputRange(-0.2, 0.2);
+    super.setInputRange(-30, 30);
   }
 
   @Override
@@ -57,7 +46,7 @@ public class Arm extends PIDSubsystem {
     super.enable();
     isEnabled = true;
   }
-
+  
   @Override
   public void disable() {
     super.disable();
@@ -79,23 +68,17 @@ public class Arm extends PIDSubsystem {
   }
 
   @Override
-  public double returnPIDInput() {
+  protected double returnPIDInput() {
     // Return your input value for the PID loop
     // e.g. a sensor, like a potentiometer:
     // yourPot.getAverageVoltage() / kYourMaxVoltage;
-    return encoders.armPotentiometerGet();
+    return encoders.hatchPotentiometerGet();
   }
 
   @Override
   protected void usePIDOutput(double output) {
     // Use output to drive your system, like a motor
     // e.g. yourMotor.set(output);
-    this.armRotate(output);
+    hatch.hatchSet(output);
   }
-
-  public void armRotate(double output) {
-    arm.intakeRotate(output);
-  }
-
-
 }

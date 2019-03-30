@@ -23,6 +23,8 @@ import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 public class Encoders {
 
     // public static double potentiometerOffset = -1445;
+    private double hatchPotentiometerOffset = -5.6;
+    private int hatchPotentiometerScale = 60; //Todo: Tune scale
 
     public DigitalInput cargoButton = new DigitalInput(Settings.CARGO_BUTTON_DIGITAL_PORT);
     public DigitalInput armInnerLimitSwitch = new DigitalInput(Settings.ARM_INNER_LIMITSWITCH_DIGITAL_PORT);
@@ -31,17 +33,27 @@ public class Encoders {
     public DigitalInput hatchHallEffectRight = new DigitalInput(1);
 
     private Potentiometer armPotentiometer;
+    private Potentiometer hatchPotentiometer;
 
     public void potentiometerInit() {
         armPotentiometer = new AnalogPotentiometer(Settings.ARM_POTENTIOMETER_ANALOG_PORT, Settings.ARM_POTENTIOMETER_RANGE);
+        hatchPotentiometer = new AnalogPotentiometer(4, hatchPotentiometerScale);
     }
 
-    public double potentiometerGet() {
+    public double armPotentiometerGet() {
         return armPotentiometer.get() + Settings.ARM_POTENTIOMETER_OFFSET;
     }
 
-    public void printPotentiometer() {
-        Logging.log("Potentiometer value" + potentiometerGet());
+    public double hatchPotentiometerGet() {
+        return hatchPotentiometer.get() + hatchPotentiometerOffset;
+    }
+
+    public void printArmPotentiometer() {
+        Logging.log("Arm Potentiometer Value" + armPotentiometerGet());
+    }
+
+    public void printHatchPotentiometer() {
+        Logging.log("Hatch Potentiometer Value" + hatchPotentiometerGet());
     }
 
     public AHRS navX;

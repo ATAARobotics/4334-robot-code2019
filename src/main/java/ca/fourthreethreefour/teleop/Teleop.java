@@ -9,6 +9,7 @@ import ca.fourthreethreefour.teleop.intake.Arm;
 import ca.fourthreethreefour.teleop.intake.Cargo;
 import ca.fourthreethreefour.teleop.intake.Hatch;
 import ca.fourthreethreefour.teleop.intake.Mechanum;
+import ca.fourthreethreefour.teleop.intake.SideWinder;
 import ca.fourthreethreefour.teleop.systems.Encoders;
 import ca.fourthreethreefour.vision.exceptions.visionErrorException;
 import ca.fourthreethreefour.vision.exceptions.visionTargetDetectionException;
@@ -46,6 +47,7 @@ public class Teleop {
   public Hatch hatch = new Hatch();
   private Mechanum mechanum = new Mechanum();
   public Arm arm = new Arm(encoders, cargo);
+  public SideWinder sideWinder = new SideWinder(encoders, hatch);
   // private Arm armPIDLeft;
   // private Arm armPIDRight;
   public Drive drive = new Drive();
@@ -95,7 +97,8 @@ public class Teleop {
     drive.drive(driver, cargoOuttake);
 
     // System.out.println(arm.returnPIDInput());
-    encoders.printPotentiometer();
+    encoders.printArmPotentiometer();
+    encoders.printHatchPotentiometer();
     // Logging.log("PID: " + arm.returnPIDInput());
     // double intakeSpeed = driver.getTriggerAxis(Hand.kRight) - driver.getTriggerAxis(Hand.kLeft);
     // if (Math.abs(intakeSpeed) > 0.05) {
@@ -157,11 +160,23 @@ public class Teleop {
       mechanum.mechanumShift();
     }
 
-    if (driver.getXButton() && encoders.hatchHallEffectRight.get()) {
+    if (encoders.armPotentiometerGet() < 87) {
+      // sideWinder.setSetpoint(setpoint);
+      // sideWinder.enable();
+    } else if (driver.getXButton() && encoders.hatchHallEffectRight.get()) {
+      if (sideWinder.isEnabled()) {
+        sideWinder.disable();
+      }
       hatch.hatchSet(0.2);
     } else if (driver.getYButton() && encoders.hatchHallEffectLeft.get()) {
+      if (sideWinder.isEnabled()) {
+        sideWinder.disable();
+      }
       hatch.hatchSet(-0.2);
     } else {
+      if (sideWinder.isEnabled()) {
+        sideWinder.disable();
+      }
       hatch.hatchSet(0);
     }
     
