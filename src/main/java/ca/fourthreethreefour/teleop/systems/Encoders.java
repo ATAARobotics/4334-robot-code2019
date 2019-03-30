@@ -7,7 +7,10 @@ import ca.fourthreethreefour.settings.Settings;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 
 
@@ -18,6 +21,9 @@ public class Encoders {
 
     public DigitalInput cargoButton = new DigitalInput(Settings.CARGO_BUTTON_DIGITAL_PORT);
     public DigitalInput armInnerLimitSwitch = new DigitalInput(Settings.ARM_INNER_LIMITSWITCH_DIGITAL_PORT);
+    public Servo test = new Servo(7);
+    public DigitalInput hatchHallEffectLeft = new DigitalInput(0);
+    public DigitalInput hatchHallEffectRight = new DigitalInput(1);
 
     private Potentiometer armPotentiometer;
 

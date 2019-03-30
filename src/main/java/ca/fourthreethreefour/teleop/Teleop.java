@@ -147,17 +147,23 @@ public class Teleop {
       mechanum.mechanumShift();
     }
 
-    // if (driver.getXButton()) {
-    //   hatch.hatchSet(0.2);
-    // } else if (driver.getYButton()) {
-    //   hatch.hatchSet(-0.2);
-    // } else {
-    //   hatch.hatchSet(0);
-    // }
+    if (driver.getXButton() && encoders.hatchHallEffectRight.get()) {
+      hatch.hatchSet(0.2);
+    } else if (driver.getYButton() && encoders.hatchHallEffectLeft.get()) {
+      hatch.hatchSet(-0.2);
+    } else {
+      hatch.hatchSet(0);
+    }
     
     if (driver.getBumper(Hand.kLeft)) {
+      if (arm.isEnabled()) {
+        arm.disable();
+      }
         arm.armRotate(1);
     } else if (driver.getBumper(Hand.kRight)) {
+      if (arm.isEnabled()) {
+        arm.disable();
+      }
       if (encoders.armInnerLimitSwitch.get()) {
         arm.armRotate(-1);
       }
@@ -213,8 +219,6 @@ public class Teleop {
     if(driver.getStartButtonPressed()){
       if(vision.ledRelay.get() == Relay.Value.kReverse){
         vision.ledRelay.set(Relay.Value.kForward);
-      } else if (vision.ledRelay.get() == Relay.Value.kForward){
-        vision.ledRelay.set(Relay.Value.kReverse);
       } else {
         vision.ledRelay.set(Relay.Value.kReverse);
       }

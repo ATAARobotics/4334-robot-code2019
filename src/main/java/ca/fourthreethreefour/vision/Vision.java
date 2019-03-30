@@ -32,7 +32,7 @@ public class Vision {
             .getEntry();
 
     // Creates object for LedRing Relay
-    public Relay ledRelay = new Relay(3);
+    public Relay ledRelay = new Relay(0);
 
     // Creates Teleop Object
     private Teleop teleop;

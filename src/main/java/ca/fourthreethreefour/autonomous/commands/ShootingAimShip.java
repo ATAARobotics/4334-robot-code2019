@@ -35,7 +35,7 @@ public class ShootingAimShip extends Command {
   protected void initialize() {
     double distance = (ultrasonics.getUltrasonicFrontLeftValue() + ultrasonics.getUltrasonicFrontRightValue())/2;
     if (distance < 3 && distance >= 0) {
-      arm.setSetpoint(180 - new Equations().shootShipFormula(distance) + Settings.SHIP_EQUATION_CORRECTION);
+      // arm.setSetpoint(180 - new Equations().shootShipFormula(distance) + Settings.SHIP_EQUATION_CORRECTION);
       // System.out.println(distance);
       // System.out.println(180 - new Equations().shootShipFormula(distance));
     } else {
