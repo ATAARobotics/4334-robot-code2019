@@ -27,6 +27,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 //import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.XboxController;
 
@@ -151,10 +152,8 @@ public class Teleop {
     }
     // Logging.put(Settings.DRIVE_DIRECTION_ENTRY, cargoOuttake);
 
-    if (driver.getAButton()) {
-      hatch.hatchSolenoidOut();
-    } else {
-      hatch.hatchSolenoidIn();
+    if (driver.getAButtonReleased()) {
+      hatch.hatchShift();
     }
 
     if (driver.getBButtonReleased()) {
@@ -170,12 +169,12 @@ public class Teleop {
     if ((encoders.armPotentiometerGet() < Settings.HATCH_ARM_PID_THRESHOLD) || (driver.getPOV() == 270)) {
       sideWinder.setSetpoint(middleSetpointHatch);
       sideWinder.enable();
-    } else if (driver.getXButton() && encoders.hatchHallEffectRight.get()) {
+    } else if (driver.getYButton() && encoders.hatchHallEffectRight.get()) {
       if (sideWinder.isEnabled()) {
         sideWinder.disable();
       }
       hatch.hatchSet(0.2);
-    } else if (driver.getYButton() && encoders.hatchHallEffectLeft.get()) {
+    } else if (driver.getXButton() && encoders.hatchHallEffectLeft.get()) {
       if (sideWinder.isEnabled()) {
         sideWinder.disable();
       }
@@ -321,6 +320,19 @@ public class Teleop {
     //   arm.enable();
     //   mechanum.mechanumRetract();
     } */
+    // if(encoders.hatchHallEffectRight.get()){
+      // Settings.HALL_EFFECT_RIGHT.setBoolean(true);
+  // } else {
+      // Settings.HALL_EFFECT_RIGHT.setBoolean(false);
+  // }
+  SmartDashboard.putBoolean("HALL_EFFECT_RIGHT", encoders.hatchHallEffectRight.get());
+  SmartDashboard.putBoolean("HALL_EFFECT_LEFT", encoders.hatchHallEffectLeft.get());
+
+    // if(encoders.hatchHallEffectLeft.get()){
+      // Settings.HALL_EFFECT_LEFT.setBoolean(true);
+  // } else {
+      // Settings.HALL_EFFECT_LEFT.setBoolean(false);
+  // }
 
     Scheduler.getInstance().run();
 
