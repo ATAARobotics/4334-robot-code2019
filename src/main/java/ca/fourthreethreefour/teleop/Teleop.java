@@ -140,8 +140,13 @@ public class Teleop {
       drive.setGearHigh();
     }
 
-    if (driver.getStickButtonReleased(Hand.kLeft) && Settings.REVERSABLE_CONTROLS) {
-      cargoOuttake =  !cargoOuttake;
+    if (driver.getStickButtonReleased(Hand.kLeft)) {
+      if (Settings.REVERSABLE_CONTROLS) {
+        cargoOuttake =  !cargoOuttake;
+      } else {
+        sideWinder.setSetpoint(middleSetpointHatch);
+        sideWinder.enable();
+      }
     }
     // Logging.put(Settings.DRIVE_DIRECTION_ENTRY, cargoOuttake);
 
@@ -156,7 +161,7 @@ public class Teleop {
     if (!encoders.hatchHallEffectRight.get()) {
       Settings.HATCH_POTENTIOMETER_OFFSET -= encoders.hatchPotentiometerGet();
       middleSetpointHatch = encoders.hatchPotentiometerGet() + Settings.HATCH_PID_MIDDLE_SETPOINT;
-
+      
     }
 
     if ((encoders.armPotentiometerGet() < Settings.HATCH_ARM_PID_THRESHOLD) || (driver.getPOV() == 270)) {
