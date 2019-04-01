@@ -37,7 +37,6 @@ public class SideWinder extends PIDSubsystem {
   @Override
   public void initDefaultCommand() {
     super.setAbsoluteTolerance(0.0);
-    // super.setOutputRange(-0.5, 0.5);
   }
 
   @Override

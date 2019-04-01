@@ -4,11 +4,8 @@ import java.io.File;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
-//import ca.fourthreethreefour.teleop.Teleop;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.Timer;
-//import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-//import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 /**
  * Settings class that contains all shuffleboard required code so it's all in a 
@@ -89,20 +86,9 @@ public class Settings {
 
     static public boolean CAM_TURN = settingsFile.getBooleanProperty("CAM", true);
 
-    //Example of ShuffleboardTab setup.
-    //private ShuffleboardTab dashboardTab = Shuffleboard.getTab("Dashboard");
-    //private ShuffleboardTab outputTab = Shuffleboard.getTab("Output");
-
-    //NetworkTableEntry LOW_GEAR_TURN_THRESHOLD_ENTRY;
-    //NetworkTableEntry LOW_GEAR_SPEED_THRESHOLD_ENTRY;
-    //static public double LOW_GEAR_TURN_THRESHOLD;
 
     static public NetworkTableEntry DRIVE_DIRECTION_ENTRY;
     
-    //static private ShuffleboardTab dynamicSettingsTab = Shuffleboard.getTab("Competition");
-    //static public NetworkTableEntry HALL_EFFECT_LEFT = dynamicSettingsTab.addPersistent("Hall Effect Left", false).getEntry();
-    //static public NetworkTableEntry HALL_EFFECT_RIGHT = dynamicSettingsTab.addPersistent("Hall Effect Right", false).getEntry();
-
     /**
      * Creates the specified objects for shuffleboard, and updates the variables that only
      * needs to be updated at initialization.
@@ -112,10 +98,6 @@ public class Settings {
 
         camera1.setResolution(320, 240);
         camera1.setFPS(30);
-            //dashboardTab.add(camera1);
-            //dashboardTab.add(teleop.drive.driveTrain);
-
-        //DRIVE_DIRECTION_ENTRY = dashboardTab.addPersistent("Drive Direction", true).getEntry();
 
     }
 
@@ -144,7 +126,6 @@ public class Settings {
         SHIP_EQUATION_CORRECTION = settingsFile.getDoubleProperty("SHIP_EQUATION_CORRECTION", 0);
 
         CAM_TURN = settingsFile.getBooleanProperty("CAM", true);
-        //LOW_GEAR_TURN_THRESHOLD = LOW_GEAR_SPEED_THRESHOLD_ENTRY.getDouble(0.25);
     }
 
     public void settingsPeriodic() {

@@ -15,24 +15,12 @@ import ca.fourthreethreefour.teleop.systems.Ultrasonics;
 import ca.fourthreethreefour.vision.Vision;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
-//import ca.fourthreethreefour.vision.exceptions.visionErrorException;
-//import ca.fourthreethreefour.vision.exceptions.visionTargetDetectionException;
 import edu.wpi.first.wpilibj.Relay;
-//import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.XboxController;
-//import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Teleop {
-
-  // Initialize miscellaneous configuration values
-  // private static int armPIDOffset = -328; // Todo: Tune offset at competition
-  // private static final int armPIDAcceptableError = 2;
-  // private static final int armPIDHatchIntakeOuttakeSetpoint = 90;
-  // private static final int armPIDCargoOuttakeSetpoint = 110;
-  // private static final int armPIDHatchIntakeSetpoint = 200;
-  // private static final int armPIDCargoIntakeSetpoint = 10;
 
   // Creates and initializes various objects needed in teleop
   private XboxController driver = new XboxController(Settings.DRIVER_CONTROLLER_PORT);
@@ -42,8 +30,6 @@ public class Teleop {
   private Mechanum mechanum = new Mechanum();
   public Arm arm = new Arm(encoders, cargo);
   public SideWinder sideWinder = new SideWinder(encoders, hatch);
-  // private Arm armPIDLeft;
-  // private Arm armPIDRight;
   public Drive drive = new Drive();
   public Ultrasonics ultrasonics = new Ultrasonics();
   public Vision vision = new Vision(this);
@@ -92,31 +78,15 @@ public class Teleop {
 
     drive.drive(driver, cargoOuttake);
 
-    // System.out.println(arm.returnPIDInput());
     encoders.printPotentiometer();
-    // Logging.log("PID: " + arm.returnPIDInput());
-    // double intakeSpeed = driver.getTriggerAxis(Hand.kRight) - driver.getTriggerAxis(Hand.kLeft);
-    // if (Math.abs(intakeSpeed) > 0.05) {
-    //   cargo.intakeRotate(intakeSpeed*Settings.INTAKE_ROTATE_SPEED);
-    // } else {
-    //   cargo.intakeRotate(0);
-    // };
 
     if (driver.getTriggerAxis(Hand.kLeft) > 0.05) {
       cargo.cargoOuttake(driver.getTriggerAxis(Hand.kLeft)*Settings.INTAKE_ROTATE_SPEED);
       mechanum.mechanumRoller(-driver.getTriggerAxis(Hand.kLeft));
-    } else if (driver.getTriggerAxis(Hand.kRight) > 0.05 /* && encoders.cargoButton.get() */) {
-      // if (encoders.cargoButton.get()) {
+    } else if (driver.getTriggerAxis(Hand.kRight) > 0.05) {
         cargo.cargoTransfer(driver.getTriggerAxis(Hand.kRight));
         mechanum.mechanumRoller(driver.getTriggerAxis(Hand.kRight));
-      // }
       if (!encoders.cargoButton.get()) {
-      //           armPIDSetpoint = armPIDCargoOuttakeSetpoint + 1;
-      //           armPIDLeft.setSetpoint(armPIDSetpoint);
-      //           armPIDRight.setSetpoint(armPIDSetpoint);
-      //           armPIDLeft.enable();
-      //           armPIDRight.enable();
-      //           mechanum.mechanumRetract();
               Logging.log("Auto shoot setpoint");
               if (shootingAlign.isRunning()) {
                 shootingAlign.cancel();
@@ -160,13 +130,10 @@ public class Teleop {
 
     if (!encoders.hatchHallEffectRight.get()) { // TODO ENSURE THAT THIS IS UPDATING SMOOTHLY
       Settings.HATCH_POTENTIOMETER_OFFSET -= encoders.hatchPotentiometerGet();
-      // middleSetpointHatch = encoders.hatchPotentiometerGet() + Settings.HATCH_PID_MIDDLE_SETPOINT;
     } else if (!encoders.hatchHallEffectLeft.get()) {
       Settings.HATCH_POTENTIOMETER_OFFSET -= (encoders.hatchPotentiometerGet() - Settings.HATCH_POTENTIOMETER_MAX_BASE);
-      // middleSetpointHatch = encoders.hatchPotentiometerGet() + Settings.HATCH_PID_MIDDLE_SETPOINT;
     } else if (!encoders.hatchHallEffectCenter.get()) {
       Settings.HATCH_POTENTIOMETER_OFFSET -= (encoders.hatchPotentiometerGet() - Settings.HATCH_POTENTIOMETER_MID_BASE);
-      // middleSetpointHatch = encoders.hatchPotentiometerGet();
     }
 
     if ((driver.getPOV() == 270)) {
@@ -214,8 +181,6 @@ public class Teleop {
         } else if (driver.getPOV() == 90) {  // Right D-Pad - Sets the PID setpoint to cargo outtake and retracts the mecanum intake
           Logging.log("Shooter set point right");
           shootingAlign.start();
-          // arm.setSetpoint(Settings.ARM_PID_SHOOTING_SETPOINT);
-          // arm.enable();
           mechanum.mechanumRetract();
         } else if (driver.getPOV() == 180) {  // Down D-Pad - Sets the PID setpoint to hatch ground and retracts the mecanum intake
           Logging.log("Shooter set point down");
@@ -246,7 +211,6 @@ public class Teleop {
       }
 
       if (!encoders.armInnerLimitSwitch.get()) {
-        // Settings.ARM_POTENTIOMETER_OFFSET -= (encoders.armPotentiometerGet() - Settings.ARM_POTENTIOMETER_BASE);
         System.out.println("BUTTON HIT");
       }
 
@@ -263,81 +227,10 @@ public class Teleop {
       // visionAllignment.start();
     }
     
-    //Vision Driver Assist
-
-    // //Vision Variables
-    // boolean visionAligned = false;
-    // double visionSpeed;
-    // // boolean visionActive = false;
-
-    // //Start Align DriverAssist
-    // if(driver.getBackButtonPressed()){
-    //   //Block Controller from Driving Robot
-    //   drive.ignoreController = true;
-    //   //Set Alignment Variables
-    //   visionAligned = false;
-
-    //   try {
-    //     //Start Vision Components, Get Alignment angle and start PID
-    //     vision.startVision();
-    //   } catch (visionErrorException e) {
-    //     System.out.println(e.getMessage());
-    //     //Shake Controller on Error
-    //     driver.setRumble(RumbleType.kLeftRumble, 1);
-    //     driver.setRumble(RumbleType.kRightRumble, 1);
-    //   }
-    // }
-
-    // //Continue Alignment
-    // if(vision.visionActive){
-    //   vision.startAlignPID();
-    //   try {
-    //     if(!visionAligned) {
-    //       //Check to see if aligned
-    //       visionAligned = vision.checkAlign();
-    //     } else {
-    //       driver.setRumble(RumbleType.kLeftRumble, 0.5);
-    //       driver.setRumble(RumbleType.kRightRumble, 0.5);
-    //     }
-    //   } catch (visionTargetDetectionException e) {
-    //     //Shake Controller on Error
-    //     System.out.println(e.getMessage());
-        
-    //     driver.setRumble(RumbleType.kLeftRumble, 1);
-    //     driver.setRumble(RumbleType.kRightRumble, 1);
-    //   }
-    // }
-
-    // //Stop Alignment and Vision
-
-    // ultrasonics.printValues();
-    // System.out.println("Is enabled? " + arm.isEnabled());
-    // System.out.println("Setpoint: " + arm.getSetpoint());
-    // System.out.println(encoders.armInnerLimitSwitch.get());
-
-    /*if (!encoders.armInnerLimitSwitch.get() && arm.getSetpoint() != 111) {
-      arm.disable();
-      armPIDOffset += encoders.armPotentiometer.get();
-    // } else if (!encoders.cargoButton.get()) {
-    //   arm.setSetpoint(111);
-    //   arm.enable();
-    //   mechanum.mechanumRetract();
-    } */
-    // if(encoders.hatchHallEffectRight.get()){
-      // Settings.HALL_EFFECT_RIGHT.setBoolean(true);
-  // } else {
-      // Settings.HALL_EFFECT_RIGHT.setBoolean(false);
-  // }
   SmartDashboard.putBoolean("HALL_EFFECT_RIGHT", encoders.hatchHallEffectRight.get());
   SmartDashboard.putBoolean("HALL_EFFECT_LEFT", encoders.hatchHallEffectLeft.get());
 
-    // if(encoders.hatchHallEffectLeft.get()){
-      // Settings.HALL_EFFECT_LEFT.setBoolean(true);
-  // } else {
-      // Settings.HALL_EFFECT_LEFT.setBoolean(false);
-  // }
-
-    Scheduler.getInstance().run();
+  Scheduler.getInstance().run();
 
   }
 

@@ -9,17 +9,11 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.DriverStation;
-//import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Servo;
-//import edu.wpi.first.wpilibj.Solenoid;
 
 
 
 public class Encoders {
-
-    //public static double potentiometerOffset = -1445;
-    //private double hatchPotentiometerOffset = -5.6;
-    //private int hatchPotentiometerScale = 6000; //Todo: Tune scale
 
     public DigitalInput cargoButton = new DigitalInput(Settings.CARGO_BUTTON_DIGITAL_PORT); // TODO Update ports
     public DigitalInput armInnerLimitSwitch = new DigitalInput(Settings.ARM_INNER_LIMITSWITCH_DIGITAL_PORT); // TODO Update ports
@@ -45,7 +39,6 @@ public class Encoders {
     }
 
     public void printPotentiometer() {
-        //Logging.log("Arm Potentiometer Value" + armPotentiometerGet() + "   Hatch Potentiometer Value" + hatchPotentiometerGet());
         Logging.logf("Arm Potentiometer Value: %4.2f Hatch Potentiometer Value: %.2f", armPotentiometerGet(), hatchPotentiometerGet());
     }
 
