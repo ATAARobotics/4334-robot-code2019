@@ -160,11 +160,16 @@ public class Teleop {
 
     if (!encoders.hatchHallEffectRight.get()) {
       Settings.HATCH_POTENTIOMETER_OFFSET -= encoders.hatchPotentiometerGet();
-      middleSetpointHatch = encoders.hatchPotentiometerGet() + Settings.HATCH_PID_MIDDLE_SETPOINT;
-      
+      // middleSetpointHatch = encoders.hatchPotentiometerGet() + Settings.HATCH_PID_MIDDLE_SETPOINT;
+    } else if (!encoders.hatchHallEffectLeft.get()) {
+      Settings.HATCH_POTENTIOMETER_OFFSET -= (encoders.hatchPotentiometerGet() - Settings.HATCH_POTENTIOMETER_MAX_BASE);
+      // middleSetpointHatch = encoders.hatchPotentiometerGet() + Settings.HATCH_PID_MIDDLE_SETPOINT;
+    } else if (!encoders.hatchHallEffectCenter.get()) {
+      Settings.HATCH_POTENTIOMETER_OFFSET -= (encoders.hatchPotentiometerGet() - Settings.HATCH_POTENTIOMETER_MID_BASE);
+      // middleSetpointHatch = encoders.hatchPotentiometerGet();
     }
 
-    if ((encoders.armPotentiometerGet() < Settings.HATCH_ARM_PID_THRESHOLD) || (driver.getPOV() == 270)) {
+    if ((driver.getPOV() == 270)) {
       sideWinder.setSetpoint(middleSetpointHatch);
       sideWinder.enable();
     } else if (driver.getYButton() && encoders.hatchHallEffectRight.get()) {
@@ -190,7 +195,7 @@ public class Teleop {
       if (arm.isEnabled()) {
         arm.disable();
       }
-      if (encoders.armInnerLimitSwitch.get()) {
+      if (encoders.armInnerLimitSwitch.get() || encoders.armPotentiometerGet() > 0) {
         arm.armRotate(-1);
       }
     } else if (!arm.isEnabled()) {
@@ -220,7 +225,7 @@ public class Teleop {
           arm.setSetpoint(Settings.ARM_PID_GROUND_SETPOINT);
           arm.enable();
           mechanum.mechanumRetract();
-        } else if (driver.getPOV() == 270 && encoders.armInnerLimitSwitch.get()) {  // Left D-Pad - Sets the PID setpoint to cargo intake from the mecanum intake
+        } else if (driver.getPOV() == 270 && (encoders.armInnerLimitSwitch.get() || encoders.armPotentiometerGet() > 0)) {  // Left D-Pad - Sets the PID setpoint to cargo intake from the mecanum intake
           Logging.log("Shooter set point left");
           if (shootingAlign.isRunning()) {
             shootingAlign.cancel();
@@ -233,7 +238,7 @@ public class Teleop {
             shootingAlign.cancel();
           }
           arm.disable();
-        } else if (!encoders.armInnerLimitSwitch.get() && arm.getSetpoint() != Settings.ARM_PID_SHOOTING_SETPOINT + 1 && arm.isEnabled()) {
+        } else if ((!encoders.armInnerLimitSwitch.get() || encoders.armPotentiometerGet() <= 0) && arm.getSetpoint() != Settings.ARM_PID_SHOOTING_SETPOINT + 1 && arm.isEnabled()) {
           if (shootingAlign.isRunning()) {
             shootingAlign.cancel();
           }
@@ -241,7 +246,7 @@ public class Teleop {
       }
 
       if (!encoders.armInnerLimitSwitch.get()) {
-        Settings.ARM_POTENTIOMETER_OFFSET -= (encoders.armPotentiometerGet() - Settings.ARM_POTENTIOMETER_BASE);
+        // Settings.ARM_POTENTIOMETER_OFFSET -= (encoders.armPotentiometerGet() - Settings.ARM_POTENTIOMETER_BASE);
         System.out.println("BUTTON HIT");
       }
 
@@ -255,7 +260,7 @@ public class Teleop {
     }
 
     if (driver.getBackButtonPressed()) {
-      visionAllignment.start();
+      // visionAllignment.start();
     }
     
     //Vision Driver Assist

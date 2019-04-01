@@ -42,6 +42,7 @@ public class Settings {
     static public int ARM_INNER_LIMITSWITCH_DIGITAL_PORT = settingsFile.getIntProperty("ARM_INNER_LIMITSWITCH_DIGITAL_PORT", 5);
     static public int HALL_EFFECT_LEFT_DIGITAL_PORT = settingsFile.getIntProperty("HALL_EFFECT_LEFT_DIGITAL_PORT", 0);
     static public int HALL_EFFECT_RIGHT_DIGITAL_PORT = settingsFile.getIntProperty("HALL_EFFECT_RIGHT_DIGITAL_PORT", 1);
+    static public int HALL_EFFECT_CENTER_DIGITAL_PORT = settingsFile.getIntProperty("HALL_EFFECT_CENTER_DIGITAL_PORT", 2);
 
     static public int ARM_POTENTIOMETER_ANALOG_PORT = settingsFile.getIntProperty("ARM_POTENTIOMETER_ANALOG_PORT", 1);
     static public int HATCH_POTENTIOMETER_ANALOG_PORT = settingsFile.getIntProperty("HATCH_POTENTIOMETER_ANALOG_PORT", 2);
@@ -70,7 +71,9 @@ public class Settings {
 
     static public int HATCH_POTENTIOMETER_RANGE = settingsFile.getIntProperty("HATCH_POTENTIOMETER_RANGE", 600);
     static public int HATCH_POTENTIOMETER_OFFSET = settingsFile.getIntProperty("HATCH_POTENTIOMETER_OFFSET", -544);
-    static public int HATCH_PID_MIDDLE_SETPOINT = settingsFile.getIntProperty("HATCH_PID_MIDDLE_SETPOINT", 29);
+    static public double HATCH_PID_MIDDLE_SETPOINT = settingsFile.getDoubleProperty("HATCH_PID_MIDDLE_SETPOINT", 29);
+    static public int HATCH_POTENTIOMETER_MAX_BASE = settingsFile.getIntProperty("HATCH_POTENTIOMETER_MAX_BASE", 63);
+    static public int HATCH_POTENTIOMETER_MID_BASE = settingsFile.getIntProperty("HATCH_POTENTIOMETER_MID_BASE", 29);
 
     static public double DRIVE_SPEED = settingsFile.getDoubleProperty("DRIVE_SPEED", 1);
     static public double CAM_SPEED = settingsFile.getDoubleProperty("TURN_SPEED", 0.8);
@@ -131,6 +134,9 @@ public class Settings {
         HATCH_POTENTIOMETER_OFFSET = settingsFile.getIntProperty("HATCH_POTENTIOMETER_OFFSET", -544);
 
         HATCH_ARM_PID_THRESHOLD = settingsFile.getIntProperty("HATCH_ARM_PID_THRESHOLD", 89);
+
+        HATCH_POTENTIOMETER_MAX_BASE = settingsFile.getIntProperty("HATCH_POTENTIOMETER_MAX_BASE", 63);
+        HATCH_POTENTIOMETER_MID_BASE = settingsFile.getIntProperty("HATCH_POTENTIOMETER_MID_BASE", 29);
 
         BALL_VELOCITY_METERS_PER_SECOND = settingsFile.getDoubleProperty("BALL_VELOCITY_METERS_PER_SECOND", 43.34);
         ROCKET_EQUATION_CORRECTION = settingsFile.getDoubleProperty("ROCKET_EQUATION_CORRECTION", 0);

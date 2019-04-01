@@ -10,7 +10,7 @@ public class Ultrasonics extends Subsystem {
 
     // Assigns all the DIO sensors to their respective objects (the number in brackets is the port # of what is connected where)
     Ultrasonic ultrasonicSensorFrontLeft = new Ultrasonic(30, 29);
-    Ultrasonic ultrasonicSensorFrontRight = new Ultrasonic(28, 27);
+    Ultrasonic ultrasonicSensorFrontRight = new Ultrasonic(7, 8);
     Ultrasonic ultrasonicSensorBack = new Ultrasonic(26, 25);
     // Ultrasonic ultrasonicSensorRight = new Ultrasonic(6, 7);
 

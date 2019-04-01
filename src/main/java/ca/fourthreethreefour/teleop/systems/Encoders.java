@@ -26,6 +26,7 @@ public class Encoders {
     public Servo test = new Servo(7);
     public DigitalInput hatchHallEffectLeft = new DigitalInput(Settings.HALL_EFFECT_LEFT_DIGITAL_PORT);
     public DigitalInput hatchHallEffectRight = new DigitalInput(Settings.HALL_EFFECT_RIGHT_DIGITAL_PORT);
+    public DigitalInput hatchHallEffectCenter = new DigitalInput(Settings.HALL_EFFECT_CENTER_DIGITAL_PORT);
 
     private Potentiometer armPotentiometer;
     private Potentiometer hatchPotentiometer;
