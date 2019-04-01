@@ -195,7 +195,7 @@ public class Teleop {
       if (arm.isEnabled()) {
         arm.disable();
       }
-      if (encoders.armInnerLimitSwitch.get() && encoders.armPotentiometerGet() > 0) {
+      if (encoders.armInnerLimitSwitch.get()) {
         arm.armRotate(-1);
       }
     } else if (!arm.isEnabled()) {
