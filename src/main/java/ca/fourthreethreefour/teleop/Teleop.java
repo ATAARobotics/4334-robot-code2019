@@ -238,7 +238,7 @@ public class Teleop {
             shootingAlign.cancel();
           }
           arm.disable();
-        } else if ((!encoders.armInnerLimitSwitch.get() || encoders.armPotentiometerGet() <= 0) && arm.getSetpoint() != Settings.ARM_PID_SHOOTING_SETPOINT + 1 && arm.isEnabled()) {
+        } else if (!encoders.armInnerLimitSwitch.get() && arm.getSetpoint() != Settings.ARM_PID_SHOOTING_SETPOINT + 1 && arm.isEnabled()) {
           if (shootingAlign.isRunning()) {
             shootingAlign.cancel();
           }
