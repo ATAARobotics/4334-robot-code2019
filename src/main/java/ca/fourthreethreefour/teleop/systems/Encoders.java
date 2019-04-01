@@ -21,15 +21,15 @@ public class Encoders {
     //private double hatchPotentiometerOffset = -5.6;
     //private int hatchPotentiometerScale = 6000; //Todo: Tune scale
 
-    public DigitalInput cargoButton = new DigitalInput(Settings.CARGO_BUTTON_DIGITAL_PORT);
-    public DigitalInput armInnerLimitSwitch = new DigitalInput(Settings.ARM_INNER_LIMITSWITCH_DIGITAL_PORT);
+    public DigitalInput cargoButton = new DigitalInput(Settings.CARGO_BUTTON_DIGITAL_PORT); // TODO Update ports
+    public DigitalInput armInnerLimitSwitch = new DigitalInput(Settings.ARM_INNER_LIMITSWITCH_DIGITAL_PORT); // TODO Update ports
     public Servo test = new Servo(7);
-    public DigitalInput hatchHallEffectLeft = new DigitalInput(Settings.HALL_EFFECT_LEFT_DIGITAL_PORT);
-    public DigitalInput hatchHallEffectRight = new DigitalInput(Settings.HALL_EFFECT_RIGHT_DIGITAL_PORT);
-    public DigitalInput hatchHallEffectCenter = new DigitalInput(Settings.HALL_EFFECT_CENTER_DIGITAL_PORT);
+    public DigitalInput hatchHallEffectLeft = new DigitalInput(Settings.HALL_EFFECT_LEFT_DIGITAL_PORT); // TODO Update ports
+    public DigitalInput hatchHallEffectRight = new DigitalInput(Settings.HALL_EFFECT_RIGHT_DIGITAL_PORT); // TODO Update ports
+    public DigitalInput hatchHallEffectCenter = new DigitalInput(Settings.HALL_EFFECT_CENTER_DIGITAL_PORT); // TODO Update ports
 
-    private Potentiometer armPotentiometer;
-    private Potentiometer hatchPotentiometer;
+    private Potentiometer armPotentiometer; // TODO Update ports
+    private Potentiometer hatchPotentiometer; // TODO Update ports
 
     public void potentiometerInit() {
         armPotentiometer = new AnalogPotentiometer(Settings.ARM_POTENTIOMETER_ANALOG_PORT, Settings.ARM_POTENTIOMETER_RANGE);

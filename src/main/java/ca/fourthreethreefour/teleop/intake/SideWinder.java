@@ -25,7 +25,7 @@ public class SideWinder extends PIDSubsystem {
 
   public SideWinder(Encoders encoders, Hatch hatch) {
     // Intert a subsystem name and PID values here
-    super("SideWinder", 0.017, 0, 0);
+    super("SideWinder", 0.017, 0, 0); // TODO Ensure PID is tuned properly
     this.encoders = encoders;
     this.hatch = hatch;
     // Use these to get going:

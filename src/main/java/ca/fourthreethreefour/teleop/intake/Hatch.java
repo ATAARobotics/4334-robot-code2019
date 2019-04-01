@@ -22,8 +22,8 @@ public class Hatch extends Subsystem {
 
   //Creates a double solenoid object and sets it
   //to its respective ports on the robot
-  public DoubleSolenoid hatchKnockoffSolenoid = new DoubleSolenoid(Settings.HATCH_SOLENOID_PORT_1, Settings.HATCH_SOLENOID_PORT_2);
-  public VictorSP hatchAlignMotor = new VictorSP(6);
+  public DoubleSolenoid hatchKnockoffSolenoid = new DoubleSolenoid(Settings.HATCH_SOLENOID_PORT_1, Settings.HATCH_SOLENOID_PORT_2); // TODO Update ports
+  public VictorSP hatchAlignMotor = new VictorSP(Settings.HATCH_SIDEWEAVER_PORT); // TODO Set these to TalonSRX and update ports
 
   @Override
   public void initDefaultCommand() {
@@ -36,11 +36,11 @@ public class Hatch extends Subsystem {
   }
   
   public void hatchSolenoidIn() {
-    new SetSolenoid(hatchKnockoffSolenoid, DoubleSolenoid.Value.kReverse).set();
+    new SetSolenoid(hatchKnockoffSolenoid, DoubleSolenoid.Value.kReverse).set();  // TODO Ensure directions are correct
   }
 
   public void hatchShift() {
-    new ReverseSolenoid(hatchKnockoffSolenoid, Value.kReverse).reverse();
+    new ReverseSolenoid(hatchKnockoffSolenoid, Value.kReverse).reverse(); // TODO Ensure directions are correct
   }
 
   public void hatchSet(double speed) {

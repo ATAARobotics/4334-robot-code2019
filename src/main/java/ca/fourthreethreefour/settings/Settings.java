@@ -37,6 +37,7 @@ public class Settings {
     static public int INTAKE_ROTATE_PORT_1 = settingsFile.getIntProperty("INTAKE_ROTATE_PORT_1", 2);
     static public int INTAKE_ROTATE_PORT_2 = settingsFile.getIntProperty("INTAKE_ROTATE_PORT_2", 3);
     static public int MECHANUM_MOTOR_PORT = settingsFile.getIntProperty("MECHANUM_MOTOR_PORT", 4);
+    static public int HATCH_SIDEWEAVER_PORT = settingsFile.getIntProperty("HATCH_SIDEWEAVER_PORT", 6);
 
     static public int CARGO_BUTTON_DIGITAL_PORT = settingsFile.getIntProperty("CARGO_BUTTON_DIGITAL_PORT", 3);
     static public int ARM_INNER_LIMITSWITCH_DIGITAL_PORT = settingsFile.getIntProperty("ARM_INNER_LIMITSWITCH_DIGITAL_PORT", 5);

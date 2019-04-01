@@ -22,8 +22,8 @@ public class Mechanum extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  public VictorSP mechanumMotor = new VictorSP(Settings.MECHANUM_MOTOR_PORT);
-  public DoubleSolenoid mechanumSolenoid = new DoubleSolenoid(Settings.MECHANUM_SOLENOID_PORT_1, Settings.MECHANUM_SOLENOID_PORT_2);
+  public VictorSP mechanumMotor = new VictorSP(Settings.MECHANUM_MOTOR_PORT); // TODO Set these to TalonSRX and update ports
+  public DoubleSolenoid mechanumSolenoid = new DoubleSolenoid(Settings.MECHANUM_SOLENOID_PORT_1, Settings.MECHANUM_SOLENOID_PORT_2); // TODO Update ports
 
   @Override
   public void initDefaultCommand() {
@@ -40,10 +40,10 @@ public class Mechanum extends Subsystem {
   }
 
   public void mechanumRetract() {
-    new SetSolenoid(mechanumSolenoid, Value.kReverse).set();
+    new SetSolenoid(mechanumSolenoid, Value.kReverse).set(); // TODO Ensure directions are correct
   }
 
   public void mechanumExtend() {
-    new SetSolenoid(mechanumSolenoid, Value.kForward).set();
+    new SetSolenoid(mechanumSolenoid, Value.kForward).set(); // TODO Ensure directions are correct
   }
 }

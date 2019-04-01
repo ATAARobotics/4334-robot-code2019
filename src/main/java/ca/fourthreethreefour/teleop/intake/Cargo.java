@@ -19,10 +19,10 @@ public class Cargo extends Subsystem {
 
   //Creates and initializes motor objects and assigns them
   //to their respective ports on the robot
-  public VictorSP cargoOuttakeLeftMotor = new VictorSP(Settings.CARGO_OUTTAKE_LEFT_PORT);
-  public VictorSP cargoOuttakeRightMotor = new VictorSP(Settings.CARGO_OUTTAKE_RIGHT_PORT);
-  public VictorSP intakeRotateMotor1 = new VictorSP(Settings.INTAKE_ROTATE_PORT_1);
-  public VictorSP intakeRotateMotor2 = new VictorSP(Settings.INTAKE_ROTATE_PORT_2);
+  public VictorSP cargoOuttakeLeftMotor = new VictorSP(Settings.CARGO_OUTTAKE_LEFT_PORT); // TODO Set these to TalonSRX and update ports
+  public VictorSP cargoOuttakeRightMotor = new VictorSP(Settings.CARGO_OUTTAKE_RIGHT_PORT); // TODO Set these to TalonSRX and update ports
+  public VictorSP intakeRotateMotor1 = new VictorSP(Settings.INTAKE_ROTATE_PORT_1); // TODO Set these to TalonSRX and update ports
+  public VictorSP intakeRotateMotor2 = new VictorSP(Settings.INTAKE_ROTATE_PORT_2); // TODO Set these to TalonSRX and update ports
 
   @Override
   //Initialize the default command for this subsystem
