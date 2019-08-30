@@ -7,6 +7,10 @@
 
 package ca.fourthreethreefour.teleop.intake;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
 import ca.fourthreethreefour.commands.ReverseSolenoid;
 import ca.fourthreethreefour.commands.SetSolenoid;
 import ca.fourthreethreefour.settings.Settings;
@@ -23,7 +27,7 @@ public class Hatch extends Subsystem {
   //Creates a double solenoid object and sets it
   //to its respective ports on the robot
   public DoubleSolenoid hatchKnockoffSolenoid = new DoubleSolenoid(Settings.HATCH_SOLENOID_PORT_1, Settings.HATCH_SOLENOID_PORT_2); // TODO Update ports
-  public VictorSP hatchAlignMotor = new VictorSP(Settings.HATCH_SIDEWEAVER_PORT); // TODO Set these to TalonSRX and update ports
+  public VictorSPX hatchAlignMotor = new VictorSPX(Settings.HATCH_SIDEWEAVER_PORT);
 
   @Override
   public void initDefaultCommand() {
@@ -44,7 +48,7 @@ public class Hatch extends Subsystem {
   }
 
   public void hatchSet(double speed) {
-    hatchAlignMotor.set(speed);
+    hatchAlignMotor.set(ControlMode.PercentOutput, speed);
   }
 
   public Value get() {

@@ -7,6 +7,10 @@
 
 package ca.fourthreethreefour.teleop.intake;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
 import ca.fourthreethreefour.settings.Settings;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -18,10 +22,10 @@ public class Cargo extends Subsystem {
 
   //Creates and initializes motor objects and assigns them
   //to their respective ports on the robot
-  public VictorSP cargoOuttakeLeftMotor = new VictorSP(Settings.CARGO_OUTTAKE_LEFT_PORT); // TODO Set these to TalonSRX and update ports
-  public VictorSP cargoOuttakeRightMotor = new VictorSP(Settings.CARGO_OUTTAKE_RIGHT_PORT); // TODO Set these to TalonSRX and update ports
-  public VictorSP intakeRotateMotor1 = new VictorSP(Settings.INTAKE_ROTATE_PORT_1); // TODO Set these to TalonSRX and update ports
-  public VictorSP intakeRotateMotor2 = new VictorSP(Settings.INTAKE_ROTATE_PORT_2); // TODO Set these to TalonSRX and update ports
+  public VictorSPX cargoOuttakeLeftMotor = new VictorSPX(Settings.CARGO_OUTTAKE_LEFT_PORT);
+  public VictorSPX cargoOuttakeRightMotor = new VictorSPX(Settings.CARGO_OUTTAKE_RIGHT_PORT);
+  public VictorSPX intakeRotateMotor1 = new VictorSPX(Settings.INTAKE_ROTATE_PORT_1);
+  public VictorSPX intakeRotateMotor2 = new VictorSPX(Settings.INTAKE_ROTATE_PORT_2);
 
   @Override
   //Initialize the default command for this subsystem
@@ -31,26 +35,26 @@ public class Cargo extends Subsystem {
   //Sets the left motor speed positive and right motor
   //speed negative for the cargo transfer method
   public void cargoTransfer(double speed) {
-    cargoOuttakeLeftMotor.set(speed);
-    cargoOuttakeRightMotor.set(-speed);
+    cargoOuttakeLeftMotor.set(ControlMode.PercentOutput, speed);
+    cargoOuttakeRightMotor.set(ControlMode.PercentOutput, -speed);
   }
 
   //Sets the left motor speed positive and right motor
   //speed negative for the cargo outtake method
   public void cargoOuttake(double speed) {
-    cargoOuttakeLeftMotor.set(-speed);
-    cargoOuttakeRightMotor.set(speed);
+    cargoOuttakeLeftMotor.set(ControlMode.PercentOutput, -speed);
+    cargoOuttakeRightMotor.set(ControlMode.PercentOutput, speed);
   }
 
   //Sets the intake motor speeds positive for the intake rotate method
   public void intakeRotate(double speed) {
-    intakeRotateMotor1.set(speed);
-    intakeRotateMotor2.set(speed);
+    intakeRotateMotor1.set(ControlMode.PercentOutput, speed);
+    intakeRotateMotor2.set(ControlMode.PercentOutput, speed);
   }
 
   //Stops the motors
   public void stop() {
-    cargoOuttakeLeftMotor.set(0);
-    cargoOuttakeRightMotor.set(-0);
+    cargoOuttakeLeftMotor.set(ControlMode.PercentOutput, 0);
+    cargoOuttakeRightMotor.set(ControlMode.PercentOutput, -0);
   }
 }

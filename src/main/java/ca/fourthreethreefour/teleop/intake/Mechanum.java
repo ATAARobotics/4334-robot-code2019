@@ -7,6 +7,10 @@
 
 package ca.fourthreethreefour.teleop.intake;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
 import ca.fourthreethreefour.commands.ReverseSolenoid;
 import ca.fourthreethreefour.commands.SetSolenoid;
 import ca.fourthreethreefour.settings.Settings;
@@ -22,7 +26,7 @@ public class Mechanum extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  public VictorSP mechanumMotor = new VictorSP(Settings.MECHANUM_MOTOR_PORT); // TODO Set these to TalonSRX and update ports
+  public VictorSPX mechanumMotor = new VictorSPX(Settings.MECHANUM_MOTOR_PORT); // TODO Set these to TalonSRX and update ports
   public DoubleSolenoid mechanumSolenoid = new DoubleSolenoid(Settings.MECHANUM_SOLENOID_PORT_1, Settings.MECHANUM_SOLENOID_PORT_2); // TODO Update ports
 
   @Override
@@ -32,7 +36,7 @@ public class Mechanum extends Subsystem {
   }
 
   public void mechanumRoller(double speed) {
-    mechanumMotor.set(speed);
+    mechanumMotor.set(ControlMode.PercentOutput, speed);
   }
 
   public void mechanumShift() {

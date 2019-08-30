@@ -51,12 +51,6 @@ public class Teleop {
    * @return void
    */
   public void TeleopInit() {
-    cargo.intakeRotateMotor1.setSafetyEnabled(true);
-    cargo.intakeRotateMotor2.setSafetyEnabled(true);
-    cargo.cargoOuttakeLeftMotor.setSafetyEnabled(true);
-    cargo.cargoOuttakeRightMotor.setSafetyEnabled(true);
-    mechanum.mechanumMotor.setSafetyEnabled(true);
-    drive.driveTrain.setSafetyEnabled(true);
     drive.gearShiftSolenoid.set(drive.gearHigh); // TODO Ensure correct directions
     mechanum.mechanumRetract();
     hatch.hatchSolenoidIn();
@@ -128,7 +122,7 @@ public class Teleop {
       mechanum.mechanumShift();
     }
 
-    if (!encoders.hatchHallEffectRight.get()) { // TODO ENSURE THAT THIS IS UPDATING SMOOTHLY
+    if (!encoders.hatchHallEffectRight.get()) {
       Settings.HATCH_POTENTIOMETER_OFFSET -= encoders.hatchPotentiometerGet();
     } else if (!encoders.hatchHallEffectLeft.get()) {
       Settings.HATCH_POTENTIOMETER_OFFSET -= (encoders.hatchPotentiometerGet() - Settings.HATCH_POTENTIOMETER_MAX_BASE);
