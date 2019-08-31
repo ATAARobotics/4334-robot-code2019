@@ -108,8 +108,8 @@ public class Teleop {
       if (Settings.REVERSABLE_CONTROLS) {
         cargoOuttake =  !cargoOuttake;
       } else {
-        sideWinder.setSetpoint(middleSetpointHatch);
-        sideWinder.enable();
+        // sideWinder.setSetpoint(middleSetpointHatch);
+        // sideWinder.enable();
       }
     }
     // Logging.put(Settings.DRIVE_DIRECTION_ENTRY, cargoOuttake);
@@ -130,22 +130,26 @@ public class Teleop {
       Settings.HATCH_POTENTIOMETER_OFFSET -= (encoders.hatchPotentiometerGet() - Settings.HATCH_POTENTIOMETER_MID_BASE);
     }
 
-    if ((driver.getPOV() == 270)) {
-      sideWinder.setSetpoint(middleSetpointHatch);
-      sideWinder.enable();
-    } else if (driver.getYButton() && encoders.hatchHallEffectRight.get()) {
-      if (sideWinder.isEnabled()) {
-        sideWinder.disable();
-      }
-      hatch.hatchSet(0.2);
-    } else if (driver.getXButton() && encoders.hatchHallEffectLeft.get()) {
-      if (sideWinder.isEnabled()) {
-        sideWinder.disable();
-      }
-      hatch.hatchSet(-0.2);
-    } else if (!sideWinder.isEnabled()) {
-      hatch.hatchSet(0);
-    }
+    /**
+     *  TODO DISABLED UNTIL POTENTIOMETER IS REPAIRED
+     */
+    // if ((driver.getPOV() == 270)) {
+      // sideWinder.setSetpoint(middleSetpointHatch);
+      // sideWinder.enable();
+    // } else if (driver.getYButton() && encoders.hatchHallEffectRight.get()) {
+      // if (sideWinder.isEnabled()) {
+        // sideWinder.disable();
+      // }
+      // hatch.hatchSet(-0.1);
+    // } else if (driver.getXButton() && encoders.hatchHallEffectLeft.get()) {
+      // if (sideWinder.isEnabled()) {
+        // sideWinder.disable();
+      // }
+      // hatch.hatchSet(0.1);
+    // } else if (!sideWinder.isEnabled()) {
+      // hatch.hatchSet(0);
+      // System.out.println("Stopped");
+    // }
     
     if (driver.getBumper(Hand.kLeft)) {
       if (arm.isEnabled()) {
@@ -202,10 +206,6 @@ public class Teleop {
             shootingAlign.cancel();
           }
           arm.disable();
-      }
-
-      if (!encoders.armInnerLimitSwitch.get()) {
-        System.out.println("BUTTON HIT");
       }
 
     //Toggle Green Vision LED
