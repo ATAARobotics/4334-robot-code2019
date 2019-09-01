@@ -85,6 +85,7 @@ public class Teleop {
               if (shootingAlign.isRunning()) {
                 shootingAlign.cancel();
               }
+              
               arm.setSetpoint(Settings.ARM_PID_SHOOTING_SETPOINT + 1);
               arm.enable();
               mechanum.mechanumRetract();
@@ -150,7 +151,7 @@ public class Teleop {
       // hatch.hatchSet(0);
       // System.out.println("Stopped");
     // }
-    
+
     if (driver.getBumper(Hand.kLeft)) {
       if (arm.isEnabled()) {
         arm.disable();
@@ -162,6 +163,8 @@ public class Teleop {
       }
       if (encoders.armInnerLimitSwitch.get()) {
         arm.armRotate(-1);
+      } else {
+        arm.armRotate(0);
       }
     } else if (!arm.isEnabled()) {
       arm.armRotate(0);
@@ -188,7 +191,7 @@ public class Teleop {
           arm.setSetpoint(Settings.ARM_PID_GROUND_SETPOINT);
           arm.enable();
           mechanum.mechanumRetract();
-        } else if (driver.getPOV() == 270 && (encoders.armInnerLimitSwitch.get() && encoders.armPotentiometerGet() > 0)) {  // Left D-Pad - Sets the PID setpoint to cargo intake from the mecanum intake
+        } else if (driver.getPOV() == 270 && (encoders.armInnerLimitSwitch.get() && encoders.armPotentiometerGet() > 4)) {  // Left D-Pad - Sets the PID setpoint to cargo intake from the mecanum intake
           Logging.log("Shooter set point left");
           if (shootingAlign.isRunning()) {
             shootingAlign.cancel();
